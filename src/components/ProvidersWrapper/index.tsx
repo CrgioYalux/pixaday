@@ -1,4 +1,5 @@
 import SystemOptionProvider from '../../providers/SystemOptions';
+import ColorMatrixProvider from '../../providers/ColorMatrix';
 
 interface ProvidersWrapperProps {
     children: React.ReactNode;
@@ -7,7 +8,9 @@ interface ProvidersWrapperProps {
 const ProvidersWrapper: React.FC<ProvidersWrapperProps> = ({ children }) => {
     return (
         <SystemOptionProvider>
-            {children}
+            <ColorMatrixProvider>
+                {children}
+            </ColorMatrixProvider>
         </SystemOptionProvider>
     );
 };
