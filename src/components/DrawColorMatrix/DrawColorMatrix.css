@@ -28,7 +28,7 @@
 }
 
 .DrawColorMatrix.--has-rounded-borders .DrawColorMatrixCell {
-    border-radius: 8px;
+    border-radius: 15%;
 }
 
 .DrawColorMatrix.--has-not-rounded-borders .DrawColorMatrixCell {
