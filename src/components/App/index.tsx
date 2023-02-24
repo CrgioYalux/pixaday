@@ -1,19 +1,20 @@
 import ProvidersWrapper from "../ProvidersWrapper";
-import SwitchThemeBT from "../SwitchThemeBT";
 import DrawColorMatrix from '../DrawColorMatrix';
+import ColorPalette from "../ColorPalette";
 
 import './App.css';
 
-const App: React.FC<{}> = () => {
+interface AppProps {}
+
+const App: React.FC<AppProps> = () => {
     return (
         <ProvidersWrapper>
             <div className='App'>
-                <h3>Hello</h3>
-                <SwitchThemeBT />
-            </div>
-            <DrawColorMatrix />
+                <DrawColorMatrix />
+                <ColorPalette />
+           </div>
         </ProvidersWrapper>
     );
-}
+};
 
 export default App;

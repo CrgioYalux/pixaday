@@ -1,13 +1,7 @@
 .App {
+    width: 95vw;
+    height: 95vh;
+
     display: grid;
     place-items: center;
-    gap: 10px;
-
-    color: var(--secondary-color-l-base);
-    border: 2px dashed currentColor;
-    border-radius: 99px;
-
-    font-size: 2rem;
-    font-weight: bold;
-    padding: .5em 1em;
 }
