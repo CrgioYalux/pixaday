@@ -1,8 +1,8 @@
 const Themes = ['dark', 'light'] as const;
 
-export type Theme = typeof Themes[number];
+type Theme = typeof Themes[number];
 
-export function getSystemTheme(): Theme {
+function getSystemTheme(): Theme {
     let out: Theme = 'light';
 
     if (
@@ -15,6 +15,15 @@ export function getSystemTheme(): Theme {
     return out;
 }
 
-export function applyTheme(theme: Theme): void {
+function applyTheme(theme: Theme): void {
     document.documentElement.className = theme;
+}
+
+export type {
+    Theme
+}
+
+export {
+    getSystemTheme,
+    applyTheme
 }
