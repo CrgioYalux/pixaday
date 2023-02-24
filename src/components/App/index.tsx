@@ -12,8 +12,10 @@ const App: React.FC<AppProps> = () => {
         <ProvidersWrapper>
             <div className='App'>
                 <DrawColorMatrix />
-                <ColorPalette />
-                <ColorMatrixTools />
+                <div className='App__tools'>
+                    <ColorPalette />
+                    <ColorMatrixTools className='App__ColorMatrixTools' />
+                </div>
            </div>
         </ProvidersWrapper>
     );

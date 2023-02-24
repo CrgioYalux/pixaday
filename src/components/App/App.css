@@ -2,6 +2,31 @@
     width: 95vw;
     height: 95vh;
 
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.App__tools {
+    max-width: 80vw;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    border: 2.5px dashed var(--brand-color-l-base);
+    background-color: var(--brand-color-l-lowest);
+}
+
+.App__ColorMatrixTools {
+    margin-bottom: auto;
+    margin-top: 0;
 }

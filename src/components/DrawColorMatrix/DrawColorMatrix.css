@@ -23,7 +23,22 @@
     flex: 1 1 auto;
     aspect-ratio: 1;
 
-    border-radius: 8px;
 
     cursor: pointer;
+}
+
+.DrawColorMatrix.--has-rounded-borders .DrawColorMatrixCell {
+    border-radius: 8px;
+}
+
+.DrawColorMatrix.--has-not-rounded-borders .DrawColorMatrixCell {
+    border-radius: 0;
+}
+
+.DrawColorMatrix.--has-gap { 
+    --DrawColorMatrix-gap: 2px;
+}
+
+.DrawColorMatrix.--has-not-gap {
+    --DrawColorMatrix-gap: 0;
 }

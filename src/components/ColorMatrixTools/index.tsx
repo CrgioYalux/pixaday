@@ -1,37 +1,36 @@
-import { useState } from "react";
+import MatrixSizeInput from './MatrixSizeInput';
+import CheckboxInput from '../Generics/CheckboxInput';
 
-import { useColorMatrixProvider } from "../../providers/ColorMatrix";
+import { useColorMatrixProvider } from '../../providers/ColorMatrix';
 
 import './ColorMatrixTools.css';
 
-interface ColorMatrixToolsProps {}
+interface ColorMatrixToolsProps {
+    className?: string;
+}
 
-const ColorMatrixTools: React.FC<ColorMatrixToolsProps> = () => {
-    const [matrixSize, setMatrixSize] = useState<number>(5);
-    const [_, actions] = useColorMatrixProvider();
+const ColorMatrixTools: React.FC<ColorMatrixToolsProps> = ({ className }) => {
+    const [state, actions] = useColorMatrixProvider();
 
     return (
-        <div className='ColorMatrixTools'>
-       	    <label
-                className='ColorMatrixTools__matrix_size'
-                htmlFor="matrix_size"
-            >
-                <span>
-                    {matrixSize}
-                </span>
-				<input
-					type="range"
-					id="matrix_size"
-					max={30}
-					min={5}
-					onMouseUp={() => actions.changeSize(matrixSize)}
-					onTouchEnd={() => actions.changeSize(matrixSize)}
-					onChange={(event) => {
-						setMatrixSize(Number(event.currentTarget.value));
-					}}
-					value={matrixSize}
-				/>
-			</label>
+	<div className={`ColorMatrixTools ${className}`}>
+	    <MatrixSizeInput />
+	    <div className='ColorMatrixTools__checkboxes'>
+		<CheckboxInput 
+		    label='rounded borders'
+		    htmlFor='cells_rounded_borders'
+		    className=''
+		    checked={state.style.cellsRoundedBorders}
+		    onChange={() => actions.style.switchCellsRoundedBorders()}
+		/>
+		<CheckboxInput 
+		    label='gaps'
+		    htmlFor='cells_gaps'
+		    className=''
+		    checked={state.style.cellsGap}
+		    onChange={() => actions.style.switchCellsGap()}
+		/>
+	    </div>
         </div>
     );
 };
