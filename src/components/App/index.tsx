@@ -1,6 +1,7 @@
 import ProvidersWrapper from "../ProvidersWrapper";
 import DrawColorMatrix from '../DrawColorMatrix';
 import ColorPalette from "../ColorPalette";
+import ColorMatrixTools from "../ColorMatrixTools";
 
 import './App.css';
 
@@ -12,6 +13,7 @@ const App: React.FC<AppProps> = () => {
             <div className='App'>
                 <DrawColorMatrix />
                 <ColorPalette />
+                <ColorMatrixTools />
            </div>
         </ProvidersWrapper>
     );
