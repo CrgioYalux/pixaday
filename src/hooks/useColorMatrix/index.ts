@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { paint, paintAll, createColorMatrix } from './utils';
+import { paint, paintAll, createColorMatrix, changeColorMatrixSize } from './utils';
 
 import type { Color, Point, ColorMatrix } from './utils';
 
@@ -32,7 +32,7 @@ export function useColorMatrix({ size, allColor }: useColorMatrixProps): useColo
             setState([...state]);
         },
         changeSize: (size: number) => {
-            setState(createColorMatrix(size, size, 'white'));
+            setState(() => changeColorMatrixSize(state, size, size, allColor));
         }
     };
 

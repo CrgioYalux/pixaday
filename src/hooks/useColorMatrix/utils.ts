@@ -30,6 +30,28 @@ function createColorMatrix(width: number, height: number, allColor?: Color): Col
     return out;
 }
 
+function changeColorMatrixSize(colorMatrix: ColorMatrix, width: number, height: number, allColor?: Color): ColorMatrix {
+    const out: ColorMatrix = [];
+
+    for (let i = 0; i < width; i++) {
+        out.push([]);
+        for (let j = 0; j < height; j++) {
+            if (colorMatrix[i] && colorMatrix[i][j]) {
+                out[i].push(colorMatrix[i][j]);
+            }
+            else {
+                out[i].push({
+                    id: i * width + j,
+                    value: allColor ?? 'white',
+                    position: { x: i, y: j },
+                });
+            }
+        }
+    }
+
+    return out;
+}
+
 function paintAll(colorMatrix: ColorMatrix, color: Color): void {
     for (let i = 0; i < colorMatrix.length; i++) {
         for (let j = 0; j < colorMatrix[i].length; j++) {
@@ -48,6 +70,5 @@ function paint(colorMatrix: ColorMatrix, position: Point, color: Color): void {
     }
 }
 
-
 export type { Color, Point, ColorMatrixCell, ColorMatrix };
-export { paint, paintAll, createColorMatrix };
+export { paint, paintAll, createColorMatrix, changeColorMatrixSize };
