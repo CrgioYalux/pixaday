@@ -3,5 +3,7 @@
     flex-direction: row;
     gap: 5px;
 
-    align-items: center;
+    font-size: 1em;
+
+    align-items: baseline;
 }

@@ -1,5 +1,6 @@
-import MatrixSizeInput from './MatrixSizeInput';
+import MatrixSizeRange from './MatrixSizeRange';
 import CheckboxInput from '../Generics/CheckboxInput';
+import PaintToolsRadio from './PaintToolsRadio';
 
 import { useColorMatrixProvider } from '../../providers/ColorMatrix';
 
@@ -14,23 +15,20 @@ const ColorMatrixTools: React.FC<ColorMatrixToolsProps> = ({ className }) => {
 
     return (
 	<div className={`ColorMatrixTools ${className}`}>
-	    <MatrixSizeInput />
-	    <div className='ColorMatrixTools__checkboxes'>
-		<CheckboxInput 
-		    label='rounded borders'
-		    htmlFor='cells_rounded_borders'
-		    className=''
-		    checked={state.style.cellsRoundedBorders}
-		    onChange={() => actions.style.switchCellsRoundedBorders()}
-		/>
-		<CheckboxInput 
-		    label='gaps'
-		    htmlFor='cells_gaps'
-		    className=''
-		    checked={state.style.cellsGap}
-		    onChange={() => actions.style.switchCellsGap()}
-		/>
-	    </div>
+	    <MatrixSizeRange />
+	    <CheckboxInput 
+		label='rounded borders'
+		htmlFor='cells_rounded_borders'
+		checked={state.style.cellsRoundedBorders}
+		onChange={() => actions.style.switchCellsRoundedBorders()}
+	    />
+	    <CheckboxInput 
+		label='gaps'
+		htmlFor='cells_gaps'
+		checked={state.style.cellsGap}
+		onChange={() => actions.style.switchCellsGap()}
+	    />
+	    <PaintToolsRadio />
         </div>
     );
 };

@@ -1,8 +1,10 @@
 .ColorMatrixTools {
-    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.MatrixSizeInput {
+.MatrixSizeRange {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -14,8 +16,7 @@
     padding: 5px 10px;
 }
 
-
-.MatrixSizeInput > span {
+.MatrixSizeRange > span {
     margin-top: 2.5px;
 
     font-size: 1.4em;
@@ -27,8 +28,20 @@
     place-items: center;
 }
 
-.ColorMatrixTools__checkboxes {
+.PaintToolsRadio {
+    width: 100%;
+
     display: flex;
-    flex-direction: column;
-    margin-top: 5px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.PaintToolsRadio > label { 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 5px;
 }
