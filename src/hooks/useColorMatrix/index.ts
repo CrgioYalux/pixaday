@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { paint, paintAll, createColorMatrix, changeColorMatrixSize } from './utils';
+import { paint, paintAll, fill, createColorMatrix, changeColorMatrixSize } from './utils';
 
 import type { Color, Point, ColorMatrix } from './utils';
 
 type ColorMatrixActions = {
     paint: (color: Color, position: Point) => void,
     paintAll: (color: Color) => void,
+    fill: (color: Color, position: Point) => void,
     changeSize: (size: number) => void,
 }
 
@@ -29,6 +30,10 @@ export function useColorMatrix({ size, allColor }: useColorMatrixProps): useColo
         },
         paintAll: (color: Color) => {
             paintAll(state, color);
+            setState([...state]);
+        },
+        fill: (color: Color, position: Point) => {
+            fill(state, position, color);
             setState([...state]);
         },
         changeSize: (size: number) => {
