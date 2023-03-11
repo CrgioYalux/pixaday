@@ -1,5 +1,4 @@
 import type { Color } from '../useColorPalette/utils';
-import { Colors } from '../useColorPalette/utils';
 
 type Point = {
     x: number,
@@ -37,16 +36,17 @@ function changeColorMatrixSize(colorMatrix: ColorMatrix, width: number, height: 
     for (let i = 0; i < width; i++) {
         out.push([]);
         for (let j = 0; j < height; j++) {
+            let color: Color | undefined;
+
             if (colorMatrix[i] && colorMatrix[i][j]) {
-                out[i].push(colorMatrix[i][j]);
+                color = colorMatrix[i][j].value;
             }
-            else {
-                out[i].push({
-                    id: i * width + j,
-                    value: allColor ?? 'white',
-                    position: { x: i, y: j },
-                });
-            }
+
+            out[i].push({
+                id: i * width + j,
+                value: color ?? allColor ?? 'white',
+                position: { x: i, y: j },
+            });
         }
     }
 
@@ -86,16 +86,13 @@ function walk(colorMatrix: ColorMatrix, position: Point, color: Color, visited: 
 
                     if (colorMatrix[i][j + 1]) {
                         walk(colorMatrix, colorMatrix[i][j + 1].position, color, visited, fill);
-                    }
-                    
+                    } 
                     if (colorMatrix[i][j - 1]) {
                         walk(colorMatrix, colorMatrix[i][j - 1].position, color, visited, fill);
                     }
-                    
                     if (colorMatrix[i - 1] && colorMatrix[i - 1][j]) {
                         walk(colorMatrix, colorMatrix[i - 1][j].position, color, visited, fill);
                     }
-                    
                     if (colorMatrix[i + 1] && colorMatrix[i + 1][j]) {
                         walk(colorMatrix, colorMatrix[i + 1][j].position, color, visited, fill);
                     }
