@@ -14,13 +14,13 @@ const CheckboxInput: React.FC<CheckboxInputProps> = (props) => {
 	    htmlFor={props.htmlFor}
 	    className={`CheckboxInput ${props.className}`}
 	>
-	    <span>{props.label}</span>
 	    <input
 		type='checkbox'
 		id={props.htmlFor}
 		checked={props.checked}
 		onChange={props.onChange}
 	    />
+	    <span>{props.label}</span>
 	</label>
     );
 };

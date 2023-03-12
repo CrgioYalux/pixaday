@@ -17,7 +17,6 @@ const PaintToolsRadio: React.FC<PaintToolsRadioProps> = ({ className }) => {
 		    key={`paint_tool_${tool}`}
 		    htmlFor={`paint_tool_${tool}`}
 		>
-		    <span>{tool}</span>
 		    <input
 			type='radio'
 			name='paint_tool'
@@ -26,6 +25,7 @@ const PaintToolsRadio: React.FC<PaintToolsRadioProps> = ({ className }) => {
 			checked={tool === state.tool}
 			onChange={() => actions.tool.selectTool(tool)}
 		    />
+		    <span>{tool}</span>
 		</label>
 	    ))}
 	</div>

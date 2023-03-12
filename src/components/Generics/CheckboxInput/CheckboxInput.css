@@ -1,9 +1,7 @@
 .CheckboxInput {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     gap: 5px;
-
-    font-size: 1em;
-
-    align-items: baseline;
 }

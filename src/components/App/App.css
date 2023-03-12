@@ -23,7 +23,7 @@
 
     gap: 10px;
 
-    border: 2.5px dashed var(--brand-color-l-base);
+    /* border: 2.5px dashed var(--brand-color-l-base); */
     background-color: var(--brand-color-l-lowest);
 }
 
