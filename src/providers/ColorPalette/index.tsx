@@ -17,7 +17,8 @@ const ColorPaletteContext = createContext<ColorPaletteContext>([
     'white',
     {
         selectColor: () => {},
-        createColorPalette: () => {},
+        createTodayColorPalette: () => {},
+        createRandomColorPalette: () => {},
     }
 ]);
 
