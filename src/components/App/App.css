@@ -12,6 +12,7 @@
 }
 
 .App__tools {
+    position: relative;
     max-width: 80vw;
     padding: 10px;
 
@@ -23,8 +24,28 @@
 
     gap: 10px;
 
-    /* border: 2.5px dashed var(--brand-color-l-base); */
     background-color: var(--brand-color-l-lowest);
+}
+
+.App__tools > button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0 .25em .2em .25em;
+
+    color: white;
+    background-color: transparent;
+    border: 2px solid currentColor;
+    outline: 0;
+}
+
+.App__tools > button:focus {
+    outline: 1px solid currentColor;
+    outline-offset: 2px;
 }
 
 .App__ColorMatrixTools {

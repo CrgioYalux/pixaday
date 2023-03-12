@@ -4,13 +4,16 @@ import { useColorMatrixProvider } from '../../providers/ColorMatrix';
 
 import './DrawColorMatrix.css';
 
-interface DrawColorMatrixProps {}
+interface DrawColorMatrixProps {
+    id?: string;
+}
 
-const DrawColorMatrix: React.FC<DrawColorMatrixProps> = ({}) => {
+const DrawColorMatrix: React.FC<DrawColorMatrixProps> = ({ id }) => {
     const [state] = useColorMatrixProvider();
 
     return (
         <div
+            id={id}
             className={
                 `DrawColorMatrix
                 ${state.style.cellsGap ? ' --has-gap' : ' --has-not-gap'}
