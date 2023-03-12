@@ -1,4 +1,4 @@
-.ColorPaletteModeSelect {
+.PaletteColorsSelectionSelect {
     margin-bottom: 5px;
 
     display: flex;
@@ -9,7 +9,7 @@
     font-size: 1em;
 }
 
-.ColorPaletteModeSelect > select {
+.PaletteColorsSelectionSelect > select {
     background: transparent;
     border: 0;
     color: var(--brand-color-l-highest);

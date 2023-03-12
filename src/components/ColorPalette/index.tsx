@@ -4,13 +4,13 @@ import './ColorPalette.css';
 
 interface ColorPaletteProps {}
 
-const ColorPaletteModeSelect: React.FC<{}> = () => {
-    const [,, actions, colorsOrigin] = useColorPaletteProvider();
+const PaletteColorsSelectionSelect: React.FC<{}> = () => {
+    const [,, actions, colorsSelection] = useColorPaletteProvider();
 
     return (
-        <label className='ColorPaletteModeSelect'>
+        <label className='PaletteColorsSelectionSelect'>
             <span>Colors:</span>
-            <select onChange={() => actions.switchColorsOrigin()} defaultValue={colorsOrigin}>
+            <select onChange={() => actions.switchColorsSelection()} defaultValue={colorsSelection}>
                 <option value='today'>Today's selection</option>
                 <option value='random'>Random selection</option>
             </select>
@@ -23,7 +23,7 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({}) => {
 
     return (
         <div className='ColorPalette'>
-            <ColorPaletteModeSelect />
+            <PaletteColorsSelectionSelect />
             <div className='ColorPalette__list'>
             {colorPalette.map((c) => (
                 <div

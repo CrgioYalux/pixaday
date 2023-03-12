@@ -2,34 +2,34 @@ import { useEffect, useState, useMemo } from 'react';
 import { ColorPalette, createTodayColorPalette, createRandomColorPalette } from './utils';
 import type { Color } from './utils';
 
-type ColorsOrigin = 'today' | 'random';
+type ColorsSelection = 'today' | 'random';
 
 type ColorPaletteActions = {
     selectColor: (color: Color) => void,
     createTodayColorPalette: () => void,
     createRandomColorPalette: () => void,
-    switchColorsOrigin: () => void,
+    switchColorsSelection: () => void,
 };
 
 export type useColorPaletteState = [
      ColorPalette,
      Color,
      ColorPaletteActions,
-     ColorsOrigin,
+     ColorsSelection,
 ];
 
 const COLOR_PALETTE_LENGTH = 25;
 
 export function useColorPalette(): useColorPaletteState {
     const todayColorPalette = useMemo<ColorPalette>(() => createTodayColorPalette(COLOR_PALETTE_LENGTH), []);
-    const [colorsOrigin, setColorsOrigin] = useState<ColorsOrigin>('today');
+    const [colorsSelection, setColorsSelection] = useState<ColorsSelection>('today');
     const [colorPalette, setColorPalette] = useState<ColorPalette>(todayColorPalette);
     const [color, setColor] = useState<Color>(colorPalette[0]);
 
     useEffect(() => {
-        if (colorsOrigin === 'today') actions.createTodayColorPalette()
+        if (colorsSelection === 'today') actions.createTodayColorPalette()
         else actions.createRandomColorPalette();
-    }, [colorsOrigin]);
+    }, [colorsSelection]);
 
     useEffect(() => {
         setColor(colorPalette[0]);
@@ -45,10 +45,10 @@ export function useColorPalette(): useColorPaletteState {
         createRandomColorPalette: () => {
             setColorPalette(createRandomColorPalette(COLOR_PALETTE_LENGTH));
         },
-        switchColorsOrigin: () => {
-            setColorsOrigin((prev) => prev === 'today' ? 'random' : 'today');
+        switchColorsSelection: () => {
+            setColorsSelection((prev) => prev === 'today' ? 'random' : 'today');
         },
     };
 
-    return [colorPalette, color, actions, colorsOrigin];
+    return [colorPalette, color, actions, colorsSelection];
 }

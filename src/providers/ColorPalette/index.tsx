@@ -10,7 +10,7 @@ type ColorPaletteContext = readonly [
     colorPalette: useColorPaletteState[0],
     color: useColorPaletteState[1],
     actions: useColorPaletteState[2],
-    colorsOrigin: useColorPaletteState[3],
+    colorsSelection: useColorPaletteState[3],
 ];
 
 const ColorPaletteContext = createContext<ColorPaletteContext>([
@@ -20,7 +20,7 @@ const ColorPaletteContext = createContext<ColorPaletteContext>([
         selectColor: () => {},
         createTodayColorPalette: () => {},
         createRandomColorPalette: () => {},
-        switchColorsOrigin: () => {},
+        switchColorsSelection: () => {},
     },
     'today'
 ]);
