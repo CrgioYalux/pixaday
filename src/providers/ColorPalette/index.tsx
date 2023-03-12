@@ -10,6 +10,7 @@ type ColorPaletteContext = readonly [
     colorPalette: useColorPaletteState[0],
     color: useColorPaletteState[1],
     actions: useColorPaletteState[2],
+    colorsOrigin: useColorPaletteState[3],
 ];
 
 const ColorPaletteContext = createContext<ColorPaletteContext>([
@@ -19,15 +20,15 @@ const ColorPaletteContext = createContext<ColorPaletteContext>([
         selectColor: () => {},
         createTodayColorPalette: () => {},
         createRandomColorPalette: () => {},
-    }
+        switchColorsOrigin: () => {},
+    },
+    'today'
 ]);
 
 export const useColorPaletteProvider = () => useContext<ColorPaletteContext>(ColorPaletteContext);
 
 const ColorPaletteProvider: React.FC<ColorPaletteProviderProps> = ({ children }) => {
-    const [colorPalette, color, actions] = useColorPalette();
-
-    const value = [colorPalette, color, actions] as const;
+    const value = useColorPalette();
 
     return (
         <ColorPaletteContext.Provider value={value}>

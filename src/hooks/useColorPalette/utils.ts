@@ -191,6 +191,8 @@ function createRandomColorPalette(nColors: number): ColorPalette {
         do {
             colorIdx = Math.floor(Math.random() * Colors.length);
         } while (out.find((c) => c === Colors[colorIdx]));
+
+        out.push(Colors[colorIdx]);
     }
     
     return out;
