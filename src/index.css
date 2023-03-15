@@ -7,6 +7,14 @@
   box-sizing: border-box;
 }
 
+html.WhileTouchMovingEvent,
+body.WhileTouchMovingEvent,
+#root.WhilteTouchMovingEvent {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+}
+
 /* Base sets */
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import DrawColorMatrixRow from "./DrawColorMatrixRow";
 
 import { useColorMatrixProvider } from '../../providers/ColorMatrix';
@@ -10,9 +11,12 @@ interface DrawColorMatrixProps {
 
 const DrawColorMatrix: React.FC<DrawColorMatrixProps> = ({ id }) => {
     const [state] = useColorMatrixProvider();
+    const [usingPencil, setUsingPencil] = useState<boolean>(false);
 
     return (
         <div
+            draggable={false}
+            onMouseLeave={() => setUsingPencil(false)}
             id={id}
             className={
                 `DrawColorMatrix
@@ -21,7 +25,14 @@ const DrawColorMatrix: React.FC<DrawColorMatrixProps> = ({ id }) => {
                 `
             }
         >
-        {state.colorMatrix.map((row, i) => <DrawColorMatrixRow key={i} row={row} />)}
+        {state.colorMatrix.map((row, i) => (
+            <DrawColorMatrixRow 
+                key={i}
+                row={row}
+                usingPencil={usingPencil}
+                setUsingPencil={setUsingPencil}
+            />
+        ))}
         </div>
     );
 };

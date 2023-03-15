@@ -16,7 +16,7 @@ interface AppProps {}
 const App: React.FC<AppProps> = () => {
     return (
         <ProvidersWrapper>
-            <div className='App'>
+            <div draggable={false} className='App'>
                 <DrawColorMatrix id={COLOR_MATRIX_ID} />
                 <div className='App__tools'>
                     <ColorPalette />

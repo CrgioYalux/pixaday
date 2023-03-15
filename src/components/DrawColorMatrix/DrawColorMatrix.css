@@ -11,6 +11,13 @@
     gap: var(--DrawColorMatrix-gap);
 }
 
+.DrawColorMatrix,
+.DrawColorMatrix * {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
 .DrawColorMatrixRow {
     flex: 1 1 auto;
 
