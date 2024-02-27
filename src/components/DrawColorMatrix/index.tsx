@@ -16,6 +16,16 @@ const DrawColorMatrix: React.FC<DrawColorMatrixProps> = ({ id }) => {
     return (
         <div
             draggable={false}
+            onTouchStart={() => {
+                document.body.style.backgroundColor = 'var(--brand-color-l-lowest)';
+                window.onscroll = function () {
+                    window.scrollTo(0, 0);
+                };
+            }}
+            onTouchEnd={() => {
+                document.body.style.backgroundColor = 'var(--primary-color-l-high)';
+                window.onscroll = function () {};
+            }}
             onMouseLeave={() => setUsingPencil(false)}
             id={id}
             className={
