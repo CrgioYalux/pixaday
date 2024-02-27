@@ -4,6 +4,14 @@
     gap: 10px;
 }
 
+.ColorMatrixTools > button {
+    border: 0;
+    border-radius: 99px;
+    background-color: var(--brand-color-l-lower);
+    font-size: 1em;
+    padding: .25em 0;
+}
+
 .MatrixSizeRange {
     display: flex;
     gap: 5px;

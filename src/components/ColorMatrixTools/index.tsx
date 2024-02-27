@@ -29,6 +29,7 @@ const ColorMatrixTools: React.FC<ColorMatrixToolsProps> = ({ className }) => {
 		onChange={() => actions.style.switchCellsGap()}
 	    />
 	    <PaintToolsRadio />
+	    <button onClick={() => actions.colorMatrix.resetCanvas()}>reset canvas</button>
         </div>
     );
 };

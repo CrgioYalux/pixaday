@@ -27,6 +27,7 @@ type ColorMatrixContext = readonly [
         colorMatrix: {
             paint: (color: Color, position: Point) => void,
             changeSize: (size: number) => void,
+            resetCanvas: () => void,
         },
         style: ColorMatrixStyleActions,
         tool: {
@@ -35,29 +36,7 @@ type ColorMatrixContext = readonly [
     }
 ];
 
-const ColorMatrixContext = createContext<ColorMatrixContext>([
-    {
-        colorMatrix: [],
-        style: {
-            cellsGap: true,
-            cellsRoundedBorders: true,
-        },
-        tool: 'pincel'
-    },
-    {
-        colorMatrix: {
-            paint: () => {},
-            changeSize: () => {},
-        },
-        style: {
-            switchCellsRoundedBorders: () => {},
-            switchCellsGap: () => {},
-        },
-        tool: {
-            selectTool: () => {}
-        }
-    }
-]);
+const ColorMatrixContext = createContext<ColorMatrixContext>({} as ColorMatrixContext);
 
 export const useColorMatrixProvider = () => useContext<ColorMatrixContext>(ColorMatrixContext);
 
@@ -120,6 +99,10 @@ const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) =
         setTool(tool);
     };
 
+    const resetCanvas = (): void => {
+        colorMatrixActions.resetCanvas();
+    };
+
     const value: ColorMatrixContext = [
         {
             colorMatrix,
@@ -129,7 +112,8 @@ const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) =
         {
             colorMatrix: {
                 paint,
-                changeSize
+                changeSize,
+                resetCanvas,
             },
             style: {
                 switchCellsRoundedBorders,

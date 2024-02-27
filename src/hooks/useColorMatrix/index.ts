@@ -8,6 +8,7 @@ type ColorMatrixActions = {
     paintAll: (color: Color) => void,
     fill: (color: Color, position: Point) => void,
     changeSize: (size: number) => void,
+    resetCanvas: () => void,
 }
 
 export type useColorMatrixState = [
@@ -20,7 +21,7 @@ type useColorMatrixProps = {
     size: number,
 }
 
-export function useColorMatrix({ size, allColor }: useColorMatrixProps): useColorMatrixState {
+export function useColorMatrix({ size, allColor = 'white' }: useColorMatrixProps): useColorMatrixState {
     const [state, setState] = useState<ColorMatrix>(() => createColorMatrix(size, size, allColor));
 
     const actions: ColorMatrixActions = {
@@ -38,7 +39,11 @@ export function useColorMatrix({ size, allColor }: useColorMatrixProps): useColo
         },
         changeSize: (size: number) => {
             setState(() => changeColorMatrixSize(state, size, size, allColor));
-        }
+        },
+        resetCanvas: () => {
+            paintAll(state, allColor);
+            setState([...state]);
+        },
     };
 
     return [state, actions];
