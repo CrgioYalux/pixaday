@@ -15,9 +15,9 @@ const MatrixSizeRange: React.FC<MatrixSizeRangeProps> = () => {
 	    className='MatrixSizeRange'
 	    htmlFor="matrix_size"
 	>
-	    <span>
+	    <div>
 		{matrixSize}
-	    </span>
+	    </div>
 	    <input
 		type="range"
 		id="matrix_size"

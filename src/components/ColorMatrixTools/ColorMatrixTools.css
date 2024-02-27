@@ -6,26 +6,26 @@
 
 .MatrixSizeRange {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
+    gap: 5px;
 
     background-color: var(--brand-color-l-high);
     border-radius: 99px;
-    
     padding: 5px 10px;
 }
 
-.MatrixSizeRange > span {
-    margin-top: 2.5px;
-
-    font-size: 1.4em;
-    font-weight: 600;
-
+.MatrixSizeRange > div {
+    flex: 0 0 auto;
     width: 2ch;
+
+    font-size: 1.25em;
+    font-weight: 600;
 
     display: grid;
     place-items: center;
+}
+
+.MatrixSizeRange > input {
+    width: 100%;
 }
 
 .PaintToolsRadio {
@@ -34,7 +34,6 @@
     width: 100%;
 
     display: flex;
-    flex-direction: row;
 }
 
 .PaintToolsRadio > label > input {
@@ -63,9 +62,7 @@
     flex: 1 1 auto;
 
     font-size: 1em;
-    padding: .2em 0 0 0;
-    line-height: 1.4;
-    letter-spacing: 1px;
+    padding: .25em;
     text-align: center;
     
     background-color: var(--brand-color-l-lower);

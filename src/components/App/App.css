@@ -3,26 +3,22 @@
     height: 95vh;
 
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 
-    gap: 5px;
+    gap: 10px;
 }
 
 .App__tools {
     position: relative;
-    max-width: 80vw;
     padding: 10px;
 
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
     flex-wrap: wrap;
 
-    gap: 10px;
+    column-gap: 10px;
+    border-radius: 1em;
 
     background-color: var(--brand-color-l-lowest);
 }
