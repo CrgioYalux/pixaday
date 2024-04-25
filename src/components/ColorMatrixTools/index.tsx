@@ -10,26 +10,34 @@ interface ColorMatrixToolsProps {
     className?: string;
 }
 
-const ColorMatrixTools: React.FC<ColorMatrixToolsProps> = ({ className }) => {
+const ColorMatrixTools: React.FC<ColorMatrixToolsProps> = ({
+    className = ''
+}) => {
     const [state, actions] = useColorMatrixProvider();
 
     return (
-	<div className={`ColorMatrixTools ${className}`}>
-	    <MatrixSizeRange />
-	    <CheckboxInput 
-		label='rounded borders'
-		htmlFor='cells_rounded_borders'
-		checked={state.style.cellsRoundedBorders}
-		onChange={() => actions.style.switchCellsRoundedBorders()}
-	    />
-	    <CheckboxInput 
-		label='gaps'
-		htmlFor='cells_gaps'
-		checked={state.style.cellsGap}
-		onChange={() => actions.style.switchCellsGap()}
-	    />
-	    <PaintToolsRadio />
-	    <button onClick={() => actions.colorMatrix.resetCanvas()}>reset canvas</button>
+        <div 
+        className={`ColorMatrixTools ${className}`}
+        >
+            <MatrixSizeRange />
+            <CheckboxInput 
+            label='rounded borders'
+            htmlFor='cells_rounded_borders'
+            checked={state.style.cellsRoundedBorders}
+            onChange={() => actions.style.switchCellsRoundedBorders()}
+            />
+            <CheckboxInput 
+            label='gaps'
+            htmlFor='cells_gaps'
+            checked={state.style.cellsGap}
+            onChange={() => actions.style.switchCellsGap()}
+            />
+            <PaintToolsRadio />
+            <button 
+            onClick={() => actions.colorMatrix.resetCanvas()}
+            >
+                reset canvas
+            </button>
         </div>
     );
 };

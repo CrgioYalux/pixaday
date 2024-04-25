@@ -8,20 +8,24 @@ interface CheckboxInputProps {
     className?: string;
 }
 
-const CheckboxInput: React.FC<CheckboxInputProps> = (props) => {
+const CheckboxInput: React.FC<CheckboxInputProps> = ({
+    className = '',
+    htmlFor,
+    label,
+    ...inputProps
+}) => {
     return (
-	<label
-	    htmlFor={props.htmlFor}
-	    className={`CheckboxInput ${props.className}`}
-	>
-	    <input
-		type='checkbox'
-		id={props.htmlFor}
-		checked={props.checked}
-		onChange={props.onChange}
-	    />
-	    <span>{props.label}</span>
-	</label>
+        <label
+        htmlFor={htmlFor}
+        className={`CheckboxInput ${className}`}
+        >
+            <input
+            type='checkbox'
+            {...inputProps}
+            id={htmlFor}
+            />
+            <span>{label}</span>
+        </label>
     );
 };
 

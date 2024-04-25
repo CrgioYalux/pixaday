@@ -1,6 +1,9 @@
 import type { ColorPalette } from "../../hooks/useColorPalette/types";
 
-import { createContext, useContext } from "react";
+import {
+    createContext,
+    useContext 
+} from "react";
 import { useColorPalette } from "../../hooks/useColorPalette";
 
 type ColorPaletteContext = readonly [...ColorPalette.Hook.Use];

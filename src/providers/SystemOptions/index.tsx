@@ -1,7 +1,15 @@
 import type { Theme } from './types';
 
-import { useState, useEffect, createContext, useContext } from 'react';
-import { applyTheme, getSystemTheme } from './utils';
+import {
+    useState,
+    useEffect,
+    createContext,
+    useContext
+} from 'react';
+import {
+    applyTheme,
+    getSystemTheme
+} from './utils';
 
 interface SystemOptionsProviderProps {
     children: React.ReactNode;

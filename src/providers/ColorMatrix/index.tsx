@@ -1,8 +1,15 @@
 import type { Color } from "../../hooks/useColorPalette/types";
-import type { Point, ColorMatrix } from "../../hooks/useColorMatrix/types";
+import type {
+    Point,
+    ColorMatrix 
+} from "../../hooks/useColorMatrix/types";
 import type { Tool } from './types';
 
-import { createContext, useContext, useState } from "react";
+import {
+    createContext,
+    useContext,
+    useState 
+} from "react";
 import { useColorMatrix } from "../../hooks/useColorMatrix";
 import { COLOR_MATRIX_MIN_SIZE } from './consts';
 

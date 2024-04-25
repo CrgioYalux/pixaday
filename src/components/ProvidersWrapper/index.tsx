@@ -6,7 +6,9 @@ interface ProvidersWrapperProps {
     children: React.ReactNode;
 }
 
-const ProvidersWrapper: React.FC<ProvidersWrapperProps> = ({ children }) => {
+const ProvidersWrapper: React.FC<ProvidersWrapperProps> = ({
+    children
+}) => {
     return (
         <SystemOptionProvider>
             <ColorMatrixProvider>

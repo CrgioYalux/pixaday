@@ -46,7 +46,12 @@ function useColorPalette(): ColorPalette.Hook.Use {
         },
     };
 
-    return [colorPalette, color, actions, colorsSelection];
+    return [
+        colorPalette,
+        color,
+        actions,
+        colorsSelection
+    ];
 }
 
 export { useColorPalette };

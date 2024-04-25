@@ -48,4 +48,7 @@ function createRandomColorPalette(nColors: number): ColorPalette.State {
     return out;
 }
 
-export { createTodayColorPalette, createRandomColorPalette };
+export {
+    createTodayColorPalette,
+    createRandomColorPalette 
+};

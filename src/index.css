@@ -2,244 +2,183 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html.WhileTouchMovingEvent,
 body.WhileTouchMovingEvent,
 #root.WhilteTouchMovingEvent {
-  overflow: hidden;
-  position: fixed;
-  height: 100%;
+    overflow: hidden;
+    position: fixed;
+    height: 100%;
 }
 
 /* Base sets */
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
 
-  color-scheme: light dark;
-  background-color: #242424;
+    color-scheme: light dark;
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 /* Vars  */
 :root {
-  /* Colors */
-  /* Brand color */
-  --brand-color-hue: 280;
-  --brand-color-saturation: 50;
-  --brand-color-lightness: 50;
+    /* Colors */
+    /* Brand color */
+    --brand-color-hue: 280;
+    --brand-color-saturation: 50;
+    --brand-color-lightness: 50;
 
-  --brand-color-l-base: hsl(
+    --brand-color-l-base: hsl(
     var(--brand-color-hue),
     calc(var(--brand-color-saturation) * 1% + 0%),
     calc(var(--brand-color-lightness) * 1% + 0%)
-  );
+    );
 
-  --brand-color-l-low: hsl(
+    --brand-color-l-low: hsl(
     var(--brand-color-hue),
     calc(var(--brand-color-saturation) * 1% + 0%),
     calc(var(--brand-color-lightness) * 1% + -10%)
-  );
+    );
 
-  --brand-color-l-lower: hsl(
+    --brand-color-l-lower: hsl(
     var(--brand-color-hue),
     calc(var(--brand-color-saturation) * 1% + 0%),
     calc(var(--brand-color-lightness) * 1% + -20%)
-  );
+    );
 
-  --brand-color-l-lowest: hsl(
+    --brand-color-l-lowest: hsl(
     var(--brand-color-hue),
     calc(var(--brand-color-saturation) * 1% + 0%),
     calc(var(--brand-color-lightness) * 1% + -30%)
-  );
+    );
 
-  --brand-color-l-high: hsl(
+    --brand-color-l-high: hsl(
     var(--brand-color-hue),
     calc(var(--brand-color-saturation) * 1% + 0%),
     calc(var(--brand-color-lightness) * 1% + 10%)
-  );
+    );
 
-  --brand-color-l-higher: hsl(
+    --brand-color-l-higher: hsl(
     var(--brand-color-hue),
     calc(var(--brand-color-saturation) * 1% + 0%),
     calc(var(--brand-color-lightness) * 1% + 20%)
-  );
+    );
 
-  --brand-color-l-highest: hsl(
+    --brand-color-l-highest: hsl(
     var(--brand-color-hue),
     calc(var(--brand-color-saturation) * 1% + 0%),
     calc(var(--brand-color-lightness) * 1% + 30%)
-  );
+    );
 
-  /* Global values */
-  --brand-border-radius: 16px;
+    /* Global values */
+    --brand-border-radius: 16px;
 
-  /* States */
-  --success-color: hsl(90, 50%, 50%);
-  --unsuccess-color: hsl(0, 50%, 50%);
+    /* States */
+    --success-color: hsl(90, 50%, 50%);
+    --unsuccess-color: hsl(0, 50%, 50%);
 }
 
 
 :root, :root.light {
-  /* Primary color */
-  --primary-color-hue: 0;
-  --primary-color-saturation: 0;
-  --primary-color-lightness: 100;
+    /* Primary color */
+    --primary-color-hue: 0;
+    --primary-color-saturation: 0;
+    --primary-color-lightness: 100;
 
-  --primary-color-l-base: hsl(
+    --primary-color-l-base: hsl(
     var(--primary-color-hue),
     calc(var(--primary-color-saturation) * 1% + 0%),
     calc(var(--primary-color-lightness) * 1% - 0%)
-  );
+    );
 
-  --primary-color-l-high: hsl(
+    --primary-color-l-high: hsl(
     var(--primary-color-hue),
     calc(var(--primary-color-saturation) * 1% + 0%),
     calc(var(--primary-color-lightness) * 1% - 15%)
-  );
+    );
 
-  --primary-color-l-higher: hsl(
+    --primary-color-l-higher: hsl(
     var(--primary-color-hue),
     calc(var(--primary-color-saturation) * 1% + 0%),
     calc(var(--primary-color-lightness) * 1% - 30%)
-  );
+    );
 
-  --primary-color-l-highest: hsl(
+    --primary-color-l-highest: hsl(
     var(--primary-color-hue),
     calc(var(--primary-color-saturation) * 1% + 0%),
     calc(var(--primary-color-lightness) * 1% - 45%)
-  );
+    );
 
-  /* Secondary color */
-  --secondary-color-hue: 0;
-  --secondary-color-saturation: 0;
-  --secondary-color-lightness: 0;
+    /* Secondary color */
+    --secondary-color-hue: 0;
+    --secondary-color-saturation: 0;
+    --secondary-color-lightness: 0;
 
-  --secondary-color-l-base: hsl(
+    --secondary-color-l-base: hsl(
     var(--secondary-color-hue),
     calc(var(--secondary-color-saturation) * 1% + 0%),
     calc(var(--secondary-color-lightness) * 1% + 0%)
-  );
+    );
 
-  --secondary-color-l-low: hsl(
+    --secondary-color-l-low: hsl(
     var(--secondary-color-hue),
     calc(var(--secondary-color-saturation) * 1% + 0%),
     calc(var(--secondary-color-lightness) * 1% + 15%)
-  );
+    );
 
-  --secondary-color-l-lower: hsl(
+    --secondary-color-l-lower: hsl(
     var(--secondary-color-hue),
     calc(var(--secondary-color-saturation) * 1% + 0%),
     calc(var(--secondary-color-lightness) * 1% + 30%)
-  );
+    );
 
-  --secondary-color-l-lowest: hsl(
+    --secondary-color-l-lowest: hsl(
     var(--secondary-color-hue),
     calc(var(--secondary-color-saturation) * 1% + 0%),
     calc(var(--secondary-color-lightness) * 1% + 45%)
-  );
+    );
 }
 
 :root.dark {
-  /* Primary color */
-  --primary-color-hue: 0;
-  --primary-color-saturation: 0;
-  --primary-color-lightness: 0;
-
-  --primary-color-l-base: hsl(
-    var(--primary-color-hue),
-    calc(var(--primary-color-saturation) * 1% + 0%),
-    calc(var(--primary-color-lightness) * 1% + 0%)
-  );
-
-  --primary-color-l-high: hsl(
-    var(--primary-color-hue),
-    calc(var(--primary-color-saturation) * 1% + 0%),
-    calc(var(--primary-color-lightness) * 1% + 15%)
-  );
-
-  --primary-color-l-higher: hsl(
-    var(--primary-color-hue),
-    calc(var(--primary-color-saturation) * 1% + 0%),
-    calc(var(--primary-color-lightness) * 1% + 30%)
-  );
-
-  --primary-color-l-highest: hsl(
-    var(--primary-color-hue),
-    calc(var(--primary-color-saturation) * 1% + 0%),
-    calc(var(--primary-color-lightness) * 1% + 45%)
-  );
-
-  /* Secondary color */
-  --secondary-color-hue: 0;
-  --secondary-color-saturation: 0;
-  --secondary-color-lightness: 100;
-
-  --secondary-color-l-base: hsl(
-    var(--secondary-color-hue),
-    calc(var(--secondary-color-saturation) * 1% + 0%),
-    calc(var(--secondary-color-lightness) * 1% + 0%)
-  );
-
-  --secondary-color-l-low: hsl(
-    var(--secondary-color-hue),
-    calc(var(--secondary-color-saturation) * 1% + 0%),
-    calc(var(--secondary-color-lightness) * 1% + -15%)
-  );
-
-  --secondary-color-l-lower: hsl(
-    var(--secondary-color-hue),
-    calc(var(--secondary-color-saturation) * 1% + 0%),
-    calc(var(--secondary-color-lightness) * 1% + -30%)
-  );
-
-  --secondary-color-l-lowest: hsl(
-    var(--secondary-color-hue),
-    calc(var(--secondary-color-saturation) * 1% + 0%),
-    calc(var(--secondary-color-lightness) * 1% + -45%)
-  );
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
     /* Primary color */
     --primary-color-hue: 0;
     --primary-color-saturation: 0;
     --primary-color-lightness: 0;
 
     --primary-color-l-base: hsl(
-      var(--primary-color-hue),
-      calc(var(--primary-color-saturation) * 1% + 0%),
-      calc(var(--primary-color-lightness) * 1% + 0%)
+    var(--primary-color-hue),
+    calc(var(--primary-color-saturation) * 1% + 0%),
+    calc(var(--primary-color-lightness) * 1% + 0%)
     );
 
     --primary-color-l-high: hsl(
-      var(--primary-color-hue),
-      calc(var(--primary-color-saturation) * 1% + 0%),
-      calc(var(--primary-color-lightness) * 1% + 15%)
+    var(--primary-color-hue),
+    calc(var(--primary-color-saturation) * 1% + 0%),
+    calc(var(--primary-color-lightness) * 1% + 15%)
     );
 
     --primary-color-l-higher: hsl(
-      var(--primary-color-hue),
-      calc(var(--primary-color-saturation) * 1% + 0%),
-      calc(var(--primary-color-lightness) * 1% + 30%)
+    var(--primary-color-hue),
+    calc(var(--primary-color-saturation) * 1% + 0%),
+    calc(var(--primary-color-lightness) * 1% + 30%)
     );
 
     --primary-color-l-highest: hsl(
-      var(--primary-color-hue),
-      calc(var(--primary-color-saturation) * 1% + 0%),
-      calc(var(--primary-color-lightness) * 1% + 45%)
+    var(--primary-color-hue),
+    calc(var(--primary-color-saturation) * 1% + 0%),
+    calc(var(--primary-color-lightness) * 1% + 45%)
     );
 
     /* Secondary color */
@@ -248,37 +187,98 @@ body.WhileTouchMovingEvent,
     --secondary-color-lightness: 100;
 
     --secondary-color-l-base: hsl(
-      var(--secondary-color-hue),
-      calc(var(--secondary-color-saturation) * 1% + 0%),
-      calc(var(--secondary-color-lightness) * 1% + 0%)
+    var(--secondary-color-hue),
+    calc(var(--secondary-color-saturation) * 1% + 0%),
+    calc(var(--secondary-color-lightness) * 1% + 0%)
     );
 
     --secondary-color-l-low: hsl(
-      var(--secondary-color-hue),
-      calc(var(--secondary-color-saturation) * 1% + 0%),
-      calc(var(--secondary-color-lightness) * 1% + -15%)
+    var(--secondary-color-hue),
+    calc(var(--secondary-color-saturation) * 1% + 0%),
+    calc(var(--secondary-color-lightness) * 1% + -15%)
     );
 
     --secondary-color-l-lower: hsl(
-      var(--secondary-color-hue),
-      calc(var(--secondary-color-saturation) * 1% + 0%),
-      calc(var(--secondary-color-lightness) * 1% + -30%)
+    var(--secondary-color-hue),
+    calc(var(--secondary-color-saturation) * 1% + 0%),
+    calc(var(--secondary-color-lightness) * 1% + -30%)
     );
 
     --secondary-color-l-lowest: hsl(
-      var(--secondary-color-hue),
-      calc(var(--secondary-color-saturation) * 1% + 0%),
-      calc(var(--secondary-color-lightness) * 1% + -45%)
+    var(--secondary-color-hue),
+    calc(var(--secondary-color-saturation) * 1% + 0%),
+    calc(var(--secondary-color-lightness) * 1% + -45%)
     );
-  }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        /* Primary color */
+        --primary-color-hue: 0;
+        --primary-color-saturation: 0;
+        --primary-color-lightness: 0;
+
+        --primary-color-l-base: hsl(
+        var(--primary-color-hue),
+        calc(var(--primary-color-saturation) * 1% + 0%),
+        calc(var(--primary-color-lightness) * 1% + 0%)
+        );
+
+        --primary-color-l-high: hsl(
+        var(--primary-color-hue),
+        calc(var(--primary-color-saturation) * 1% + 0%),
+        calc(var(--primary-color-lightness) * 1% + 15%)
+        );
+
+        --primary-color-l-higher: hsl(
+        var(--primary-color-hue),
+        calc(var(--primary-color-saturation) * 1% + 0%),
+        calc(var(--primary-color-lightness) * 1% + 30%)
+        );
+
+        --primary-color-l-highest: hsl(
+        var(--primary-color-hue),
+        calc(var(--primary-color-saturation) * 1% + 0%),
+        calc(var(--primary-color-lightness) * 1% + 45%)
+        );
+
+        /* Secondary color */
+        --secondary-color-hue: 0;
+        --secondary-color-saturation: 0;
+        --secondary-color-lightness: 100;
+
+        --secondary-color-l-base: hsl(
+        var(--secondary-color-hue),
+        calc(var(--secondary-color-saturation) * 1% + 0%),
+        calc(var(--secondary-color-lightness) * 1% + 0%)
+        );
+
+        --secondary-color-l-low: hsl(
+        var(--secondary-color-hue),
+        calc(var(--secondary-color-saturation) * 1% + 0%),
+        calc(var(--secondary-color-lightness) * 1% + -15%)
+        );
+
+        --secondary-color-l-lower: hsl(
+        var(--secondary-color-hue),
+        calc(var(--secondary-color-saturation) * 1% + 0%),
+        calc(var(--secondary-color-lightness) * 1% + -30%)
+        );
+
+        --secondary-color-l-lowest: hsl(
+        var(--secondary-color-hue),
+        calc(var(--secondary-color-saturation) * 1% + 0%),
+        calc(var(--secondary-color-lightness) * 1% + -45%)
+        );
+    }
 }
 
 body {
-  min-height: 100vh;
-  width: 100%;
+    min-height: 100vh;
+    width: 100%;
 
-  display: grid;
-  place-items: center;
+    display: grid;
+    place-items: center;
 
-  background-color: var(--primary-color-l-high);
+    background-color: var(--primary-color-l-high);
 }

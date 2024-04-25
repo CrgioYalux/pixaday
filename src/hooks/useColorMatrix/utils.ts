@@ -35,6 +35,7 @@ function changeColorMatrixSize(
 
     for (let i = 0; i < width; i++) {
         out.push([]);
+
         for (let j = 0; j < height; j++) {
             let color: Color | undefined;
 
@@ -89,9 +90,9 @@ function walk(
         for (let j = 0; j < colorMatrix[i].length; j++) {
             if (i === position.x && j === position.y) {
                 if (colorMatrix[i][j].value === color) {
-                    if (visited.find((v) => v.id === colorMatrix[i][j].id)) {
-                        return;
-                    }
+                    if (
+                        visited.find((v) => v.id === colorMatrix[i][j].id)
+                    ) return;
 
                     visited.push(colorMatrix[i][j]);
                     colorMatrix[i][j].value = fill;
@@ -119,7 +120,19 @@ function fill(
     position: Point,
     color: Color
 ): void {
-    walk(colorMatrix, position, colorMatrix[position.x][position.y].value, [], color);
+    walk(
+        colorMatrix,
+        position,
+        colorMatrix[position.x][position.y].value,
+        [],
+        color
+    );
 }
 
-export { createColorMatrix, changeColorMatrixSize, paint, paintAll, fill };
+export {
+    createColorMatrix,
+    changeColorMatrixSize,
+    paint,
+    paintAll,
+    fill
+};

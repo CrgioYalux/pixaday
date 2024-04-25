@@ -16,4 +16,7 @@ function applyTheme(theme: Theme): void {
     document.documentElement.className = theme;
 }
 
-export { getSystemTheme, applyTheme };
+export {
+    getSystemTheme,
+    applyTheme 
+};
