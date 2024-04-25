@@ -1,44 +1,43 @@
+import type { Color } from "../../hooks/useColorPalette/types";
+import type { Point, ColorMatrix } from "../../hooks/useColorMatrix/types";
+import type { Tool } from './types';
+
 import { createContext, useContext, useState } from "react";
 import { useColorMatrix } from "../../hooks/useColorMatrix";
-import { COLOR_MATRIX_MIN_SIZE } from './utils';
-
-import type { useColorMatrixState } from "../../hooks/useColorMatrix";
-import type { Color } from "../../hooks/useColorPalette/utils";
-import type { Point } from "../../hooks/useColorMatrix/utils";
-import type { Tool } from './utils';
+import { COLOR_MATRIX_MIN_SIZE } from './consts';
 
 type ColorMatrixStyleState = {
-    cellsRoundedBorders: boolean,
-    cellsGap: boolean,
-}
+    cellsRoundedBorders: boolean;
+    cellsGap: boolean;
+};
 
 type ColorMatrixStyleActions = {
-    switchCellsRoundedBorders: () => void,
-    switchCellsGap: () => void,
-}
+    switchCellsRoundedBorders: () => void;
+    switchCellsGap: () => void;
+};
 
 type ColorMatrixContext = readonly [
     state: {
-        colorMatrix: useColorMatrixState[0],
-        style: ColorMatrixStyleState,
-        tool: Tool,
+        colorMatrix: ColorMatrix.State;
+        style: ColorMatrixStyleState;
+        tool: Tool;
     },
     actions: {
         colorMatrix: {
-            paint: (color: Color, position: Point) => void,
-            changeSize: (size: number) => void,
-            resetCanvas: () => void,
-        },
-        style: ColorMatrixStyleActions,
+            paint: (color: Color, position: Point) => void;
+            changeSize: (size: number) => void;
+            resetCanvas: () => void;
+        };
+        style: ColorMatrixStyleActions;
         tool: {
-            selectTool: (tool: Tool) => void,
-        }
+            selectTool: (tool: Tool) => void;
+        };
     }
 ];
 
 const ColorMatrixContext = createContext<ColorMatrixContext>({} as ColorMatrixContext);
 
-export const useColorMatrixProvider = () => useContext<ColorMatrixContext>(ColorMatrixContext);
+const useColorMatrixProvider = () => useContext<ColorMatrixContext>(ColorMatrixContext);
 
 interface ColorMatrixProviderProps {
     children: React.ReactNode;
@@ -132,4 +131,5 @@ const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) =
     );
 };
 
+export { useColorMatrixProvider };
 export default ColorMatrixProvider;

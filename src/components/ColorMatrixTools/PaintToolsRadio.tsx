@@ -1,5 +1,6 @@
 import { useColorMatrixProvider } from '../../providers/ColorMatrix';
-import { Tools } from '../../providers/ColorMatrix/utils';
+
+import { TOOLS } from '../../providers/ColorMatrix/consts';
 
 import './ColorMatrixTools.css';
 
@@ -12,7 +13,7 @@ const PaintToolsRadio: React.FC<PaintToolsRadioProps> = ({ className }) => {
 
     return (
 	<div className={`PaintToolsRadio ${className}`}>
-	    {Tools.map((tool) => (
+	    {TOOLS.map((tool) => (
 		<label
 		    key={`paint_tool_${tool}`}
 		    htmlFor={`paint_tool_${tool}`}

@@ -1,30 +1,26 @@
+import type { Color } from '../useColorPalette/types';
+import type {
+    Point,
+    ColorMatrix
+} from './types';
+
 import { useState } from 'react';
-import { paint, paintAll, fill, createColorMatrix, changeColorMatrixSize } from './utils';
+import { paint,
+    paintAll,
+    fill,
+    createColorMatrix,
+    changeColorMatrixSize 
+} from './utils';
 
-import type { Color, Point, ColorMatrix } from './utils';
+function useColorMatrix({
+    size,
+    allColor = 'white',
+}: ColorMatrix.Hook.Props): ColorMatrix.Hook.Use {
+    const [state, setState] = useState<ColorMatrix.State>(
+        () => createColorMatrix(size, size, allColor)
+    );
 
-type ColorMatrixActions = {
-    paint: (color: Color, position: Point) => void,
-    paintAll: (color: Color) => void,
-    fill: (color: Color, position: Point) => void,
-    changeSize: (size: number) => void,
-    resetCanvas: () => void,
-}
-
-export type useColorMatrixState = [
-    ColorMatrix,
-    ColorMatrixActions
-]
-
-type useColorMatrixProps = {
-    allColor?: Color,
-    size: number,
-}
-
-export function useColorMatrix({ size, allColor = 'white' }: useColorMatrixProps): useColorMatrixState {
-    const [state, setState] = useState<ColorMatrix>(() => createColorMatrix(size, size, allColor));
-
-    const actions: ColorMatrixActions = {
+    const actions: ColorMatrix.Actions = {
         paint: (color: Color, position: Point) => {
             paint(state, position, color);
             setState([...state]);
@@ -49,3 +45,4 @@ export function useColorMatrix({ size, allColor = 'white' }: useColorMatrixProps
     return [state, actions];
 }
 
+export { useColorMatrix };

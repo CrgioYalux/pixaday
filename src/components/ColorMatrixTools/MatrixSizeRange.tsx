@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useColorMatrixProvider } from "../../providers/ColorMatrix";
-import { COLOR_MATRIX_MIN_SIZE, COLOR_MATRIX_MAX_SIZE } from '../../providers/ColorMatrix/utils';
+import {
+    COLOR_MATRIX_MIN_SIZE,
+    COLOR_MATRIX_MAX_SIZE 
+} from '../../providers/ColorMatrix/consts';
 
 import './ColorMatrixTools.css';
 

@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import DrawColorMatrixRow from "./DrawColorMatrixRow";
 
+import { useState } from 'react';
 import { useColorMatrixProvider } from '../../providers/ColorMatrix';
 
 import './DrawColorMatrix.css';

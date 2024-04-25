@@ -1,7 +1,7 @@
-import { useState, useEffect, createContext, useContext } from "react";
-import { applyTheme, getSystemTheme } from "./theme";
+import type { Theme } from './types';
 
-import type { Theme } from './theme';
+import { useState, useEffect, createContext, useContext } from 'react';
+import { applyTheme, getSystemTheme } from './utils';
 
 interface SystemOptionsProviderProps {
     children: React.ReactNode;
@@ -30,7 +30,7 @@ const SystemOptionsProvider: React.FC<SystemOptionsProviderProps> = ({ children 
         theme,
         switchTheme: () => {
             setTheme((prev) => prev === 'dark' ? 'light' : 'dark');
-        },
+        }
     };
 
     return (
@@ -38,6 +38,6 @@ const SystemOptionsProvider: React.FC<SystemOptionsProviderProps> = ({ children 
             {children}
         </SystemOptionsContext.Provider>
     );
-}
+};
 
 export default SystemOptionsProvider;

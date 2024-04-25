@@ -1,20 +1,15 @@
-import type { Color } from '../useColorPalette/utils';
+import type { Color } from '../useColorPalette/types';
+import type {
+    Point,
+    ColorMatrix 
+} from './types';
 
-type Point = {
-    x: number,
-    y: number,
-}
-
-type ColorMatrixCell = {
-    id: number,
-    value: Color,
-    position: Point,
-}
-
-type ColorMatrix = ColorMatrixCell[][];
-
-function createColorMatrix(width: number, height: number, allColor?: Color): ColorMatrix {
-    const out: ColorMatrix = [];
+function createColorMatrix(
+    width: number,
+    height: number,
+    allColor?: Color
+): ColorMatrix.State {
+    const out: ColorMatrix.State = [];
 
     for (let i = 0; i < width; i++) {
         out.push([]);
@@ -30,8 +25,13 @@ function createColorMatrix(width: number, height: number, allColor?: Color): Col
     return out;
 }
 
-function changeColorMatrixSize(colorMatrix: ColorMatrix, width: number, height: number, allColor?: Color): ColorMatrix {
-    const out: ColorMatrix = [];
+function changeColorMatrixSize(
+    colorMatrix: ColorMatrix.State,
+    width: number,
+    height: number,
+    allColor?: Color
+): ColorMatrix.State {
+    const out: ColorMatrix.State = [];
 
     for (let i = 0; i < width; i++) {
         out.push([]);
@@ -53,8 +53,11 @@ function changeColorMatrixSize(colorMatrix: ColorMatrix, width: number, height: 
     return out;
 }
 
-
-function paint(colorMatrix: ColorMatrix, position: Point, color: Color): void {
+function paint(
+    colorMatrix: ColorMatrix.State,
+    position: Point,
+    color: Color
+): void {
     for (let i = 0; i < colorMatrix.length; i++) {
         for (let j = 0; j < colorMatrix[i].length; j++) {
             if (i === position.x && j === position.y) {
@@ -64,7 +67,10 @@ function paint(colorMatrix: ColorMatrix, position: Point, color: Color): void {
     }
 }
 
-function paintAll(colorMatrix: ColorMatrix, color: Color): void {
+function paintAll(
+    colorMatrix: ColorMatrix.State,
+    color: Color
+): void {
     for (let i = 0; i < colorMatrix.length; i++) {
         for (let j = 0; j < colorMatrix[i].length; j++) {
             colorMatrix[i][j].value = color;
@@ -72,7 +78,13 @@ function paintAll(colorMatrix: ColorMatrix, color: Color): void {
     }
 }
 
-function walk(colorMatrix: ColorMatrix, position: Point, color: Color, visited: ColorMatrixCell[], fill: Color) {
+function walk(
+    colorMatrix: ColorMatrix.State,
+    position: Point,
+    color: Color,
+    visited: ColorMatrix.Cell[],
+    fill: Color
+) {
     for (let i = 0; i < colorMatrix.length; i++) {
         for (let j = 0; j < colorMatrix[i].length; j++) {
             if (i === position.x && j === position.y) {
@@ -102,9 +114,12 @@ function walk(colorMatrix: ColorMatrix, position: Point, color: Color, visited: 
     }
 }
 
-function fill(colorMatrix: ColorMatrix, position: Point, color: Color): void {
+function fill(
+    colorMatrix: ColorMatrix.State,
+    position: Point,
+    color: Color
+): void {
     walk(colorMatrix, position, colorMatrix[position.x][position.y].value, [], color);
 }
 
-export type { Color, Point, ColorMatrixCell, ColorMatrix };
 export { createColorMatrix, changeColorMatrixSize, paint, paintAll, fill };

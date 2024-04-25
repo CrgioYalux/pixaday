@@ -1,11 +1,11 @@
-import DrawColorMatrixCell from './DrawColorMatrixCell';
+import type { ColorMatrix } from '../../hooks/useColorMatrix/types';
 
-import type { ColorMatrixCell } from '../../hooks/useColorMatrix/utils';
+import DrawColorMatrixCell from './DrawColorMatrixCell';
 
 import './DrawColorMatrix.css';
 
 interface DrawColorMatrixRowProps {
-    row: ColorMatrixCell[];
+    row: ColorMatrix.Cell[];
     usingPencil: boolean;
     setUsingPencil: React.Dispatch<React.SetStateAction<boolean>>
 }

@@ -1,29 +1,25 @@
-import { useEffect, useState, useMemo } from 'react';
-import { ColorPalette, createTodayColorPalette, createRandomColorPalette } from './utils';
-import type { Color } from './utils';
+import type {
+    Color,
+    ColorPalette,
+    ColorsSelection,
+} from './types';
 
-type ColorsSelection = 'today' | 'random';
+import {
+    useEffect,
+    useState,
+    useMemo 
+} from 'react';
+import {
+    createTodayColorPalette,
+    createRandomColorPalette 
+} from './utils';
 
-type ColorPaletteActions = {
-    selectColor: (color: Color) => void,
-    createTodayColorPalette: () => void,
-    createRandomColorPalette: () => void,
-    switchColorsSelection: () => void,
-};
+import { COLOR_PALETTE_LENGTH } from './consts';
 
-export type useColorPaletteState = [
-     ColorPalette,
-     Color,
-     ColorPaletteActions,
-     ColorsSelection,
-];
-
-const COLOR_PALETTE_LENGTH = 25;
-
-export function useColorPalette(): useColorPaletteState {
-    const todayColorPalette = useMemo<ColorPalette>(() => createTodayColorPalette(COLOR_PALETTE_LENGTH), []);
+function useColorPalette(): ColorPalette.Hook.Use {
+    const todayColorPalette = useMemo<ColorPalette.State>(() => createTodayColorPalette(COLOR_PALETTE_LENGTH), []);
     const [colorsSelection, setColorsSelection] = useState<ColorsSelection>('today');
-    const [colorPalette, setColorPalette] = useState<ColorPalette>(todayColorPalette);
+    const [colorPalette, setColorPalette] = useState<ColorPalette.State>(todayColorPalette);
     const [color, setColor] = useState<Color>(colorPalette[0]);
 
     useEffect(() => {
@@ -35,7 +31,7 @@ export function useColorPalette(): useColorPaletteState {
         setColor(colorPalette[0]);
     }, [colorPalette]);
 
-    const actions: ColorPaletteActions = {
+    const actions: ColorPalette.Actions = {
         selectColor: (color: Color) => {
             setColor(color);
         },
@@ -52,3 +48,5 @@ export function useColorPalette(): useColorPaletteState {
 
     return [colorPalette, color, actions, colorsSelection];
 }
+
+export { useColorPalette };

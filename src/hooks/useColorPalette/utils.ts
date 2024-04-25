@@ -1,155 +1,6 @@
-const Colors = [
-  "aliceblue",
-  "antiquewhite",
-  "aqua",
-  "aquamarine",
-  "azure",
-  "beige",
-  "bisque",
-  "black",
-  "blanchedalmond",
-  "blue",
-  "blueviolet",
-  "brown",
-  "burlywood",
-  "cadetblue",
-  "chartreuse",
-  "chocolate",
-  "coral",
-  "cornflowerblue",
-  "cornsilk",
-  "crimson",
-  "cyan",
-  "darkblue",
-  "darkcyan",
-  "darkgoldenrod",
-  "darkgray",
-  "darkgreen",
-  "darkgrey",
-  "darkkhaki",
-  "darkmagenta",
-  "darkolivegreen",
-  "darkorange",
-  "darkorchid",
-  "darkred",
-  "darksalmon",
-  "darkseagreen",
-  "darkslateblue",
-  "darkslategray",
-  "darkslategrey",
-  "darkturquoise",
-  "darkviolet",
-  "deeppink",
-  "deepskyblue",
-  "dimgray",
-  "dimgrey",
-  "dodgerblue",
-  "firebrick",
-  "floralwhite",
-  "forestgreen",
-  "fuchsia",
-  "gainsboro",
-  "ghostwhite",
-  "gold",
-  "goldenrod",
-  "gray",
-  "green",
-  "greenyellow",
-  "grey",
-  "honeydew",
-  "hotpink",
-  "indianred",
-  "indigo",
-  "ivory",
-  "khaki",
-  "lavender",
-  "lavenderblush",
-  "lawngreen",
-  "lemonchiffon",
-  "lightblue",
-  "lightcoral",
-  "lightcyan",
-  "lightgoldenrodyellow",
-  "lightgray",
-  "lightgreen",
-  "lightgrey",
-  "lightpink",
-  "lightsalmon",
-  "lightseagreen",
-  "lightskyblue",
-  "lightslategray",
-  "lightslategrey",
-  "lightsteelblue",
-  "lightyellow",
-  "lime",
-  "limegreen",
-  "linen",
-  "magenta",
-  "maroon",
-  "mediumaquamarine",
-  "mediumblue",
-  "mediumorchid",
-  "mediumpurple",
-  "mediumseagreen",
-  "mediumslateblue",
-  "mediumspringgreen",
-  "mediumturquoise",
-  "mediumvioletred",
-  "midnightblue",
-  "mintcream",
-  "mistyrose",
-  "moccasin",
-  "navajowhite",
-  "navy",
-  "oldlace",
-  "olive",
-  "olivedrab",
-  "orange",
-  "orangered",
-  "orchid",
-  "palegoldenrod",
-  "palegreen",
-  "paleturquoise",
-  "palevioletred",
-  "papayawhip",
-  "peachpuff",
-  "peru",
-  "pink",
-  "plum",
-  "powderblue",
-  "purple",
-  "red",
-  "rosybrown",
-  "royalblue",
-  "saddlebrown",
-  "salmon",
-  "sandybrown",
-  "seagreen",
-  "seashell",
-  "sienna",
-  "silver",
-  "skyblue",
-  "slateblue",
-  "slategray",
-  "slategrey",
-  "snow",
-  "springgreen",
-  "steelblue",
-  "tan",
-  "teal",
-  "thistle",
-  "tomato",
-  "turquoise",
-  "violet",
-  "wheat",
-  "white",
-  "whitesmoke",
-  "yellow",
-  "yellowgreen"
-] as const;
+import type { ColorPalette } from './types';
 
-type Color = typeof Colors[number];
-type ColorPalette = Color[];
+import { COLORS } from "./consts";
 
 function sumDaysToMonth(month: number): number {
     const DaysByMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] as const;
@@ -160,10 +11,10 @@ function sumDaysToMonth(month: number): number {
     return sum;
 }
 
-function createTodayColorPalette(nColors: number): ColorPalette {
-    const out: Color[] = [];
+function createTodayColorPalette(nColors: number): ColorPalette.State {
+    const out: ColorPalette.State = [];
 
-    let colors: Color[] = [...Colors];
+    let colors = [...COLORS];
 
     const today = new Date();
     const year: number = today.getFullYear();
@@ -182,22 +33,19 @@ function createTodayColorPalette(nColors: number): ColorPalette {
     return out;
 }
 
-function createRandomColorPalette(nColors: number): ColorPalette {
-    const out: Color[] = [];
+function createRandomColorPalette(nColors: number): ColorPalette.State {
+    const out: ColorPalette.State = [];
 
     for (let i = 0; i < nColors; i++) {
         let colorIdx: number = -1;
 
-        do {
-            colorIdx = Math.floor(Math.random() * Colors.length);
-        } while (out.find((c) => c === Colors[colorIdx]));
+        do colorIdx = Math.floor(Math.random() * COLORS.length);
+        while (out.find((c) => c === COLORS[colorIdx]));
 
-        out.push(Colors[colorIdx]);
+        out.push(COLORS[colorIdx]);
     }
     
     return out;
 }
 
-export type { Color, ColorPalette };
-
-export { Colors, createTodayColorPalette, createRandomColorPalette };
+export { createTodayColorPalette, createRandomColorPalette };
