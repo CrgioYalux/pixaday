@@ -12,4 +12,4 @@ A canvas for PixelArt
 
 ### Development  
 
-- [Todo](/todo,md)
+- [Todo](/todo.md)
