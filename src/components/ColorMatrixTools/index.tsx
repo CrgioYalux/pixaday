@@ -1,6 +1,7 @@
 import MatrixSizeRange from './MatrixSizeRange';
 import CheckboxInput from '../Generics/CheckboxInput';
 import PaintToolsRadio from './PaintToolsRadio';
+import SymmetryPicker from './SymmetryPicker';
 
 import { useColorMatrixProvider } from '../../providers/ColorMatrix';
 
@@ -33,6 +34,7 @@ const ColorMatrixTools: React.FC<ColorMatrixToolsProps> = ({
             onChange={() => actions.style.switchCellsGap()}
             />
             <PaintToolsRadio />
+            <SymmetryPicker />
             <button 
             onClick={() => actions.colorMatrix.resetCanvas()}
             >

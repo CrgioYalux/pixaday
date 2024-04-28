@@ -111,7 +111,7 @@
 }
 
 .SymmetryPicker__option:first-child {
-    flex-basis: 20px;
+    flex-basis: 15px;
 }
 
 .SymmetryPicker__option > input {
