@@ -3,7 +3,7 @@ import type {
     Point,
     ColorMatrix 
 } from "../../hooks/useColorMatrix/types";
-import type { Tool } from './types';
+import type { Tool, SymmetryOption } from './types';
 
 import {
     createContext,
@@ -13,14 +13,17 @@ import {
 import { useColorMatrix } from "../../hooks/useColorMatrix";
 import { COLOR_MATRIX_MIN_SIZE } from './consts';
 
+
 type ColorMatrixStyleState = {
     cellsRoundedBorders: boolean;
     cellsGap: boolean;
+    symmetryOption: SymmetryOption;
 };
 
 type ColorMatrixStyleActions = {
     switchCellsRoundedBorders: () => void;
     switchCellsGap: () => void;
+    chooseSymmetry: (symmetryOption: SymmetryOption) => void;
 };
 
 type ColorMatrixContext = readonly [
@@ -52,12 +55,12 @@ interface ColorMatrixProviderProps {
 
 const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) => {
     const [colorMatrix, colorMatrixActions] = useColorMatrix({ size: COLOR_MATRIX_MIN_SIZE });
-    const [style, setStyle] = useState<ColorMatrixStyleState>({ cellsRoundedBorders: true, cellsGap: true });
+    const [style, setStyle] = useState<ColorMatrixStyleState>({ cellsRoundedBorders: true, cellsGap: true, symmetryOption: 'none' });
     const [tool, setTool] = useState<Tool>('pincel');
 
     const paint = (color: Color, position: Point): void => {
         if (tool === 'pincel') {
-            colorMatrixActions.paint(color, position);
+            colorMatrixActions.paint(color, position, style.symmetryOption);
         }
         else if (tool === 'bucket') {
             colorMatrixActions.paintAll(color);
@@ -72,33 +75,15 @@ const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) =
     };
 
     const switchCellsRoundedBorders = (): void => {
-        setStyle((prev) => {
-            if (prev.cellsRoundedBorders) {
-                return {
-                    cellsGap: prev.cellsGap,
-                    cellsRoundedBorders: false,
-                };
-            }
-            return {
-                cellsGap: prev.cellsGap,
-                cellsRoundedBorders: true,
-            };
-        });
+        setStyle((prev) => ({ ...prev, cellsRoundedBorders: !prev.cellsRoundedBorders }));
     };
 
     const switchCellsGap = (): void => {
-        setStyle((prev) => {
-            if (prev.cellsGap) {
-                return {
-                    cellsGap: false,
-                    cellsRoundedBorders: prev.cellsRoundedBorders,
-                };
-            }
-            return {
-                cellsGap: true,
-                cellsRoundedBorders: prev.cellsRoundedBorders,
-            };
-        });
+        setStyle((prev) => ({ ...prev, cellsGap: !prev.cellsGap }));
+    };
+
+    const chooseSymmetry = (symmetryOption: SymmetryOption): void => {
+        setStyle((prev) => ({ ...prev, symmetryOption }));
     };
 
     const selectTool = (tool: Tool): void => {
@@ -124,6 +109,7 @@ const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) =
             style: {
                 switchCellsRoundedBorders,
                 switchCellsGap,
+                chooseSymmetry,
             },
             tool: {
                 selectTool,

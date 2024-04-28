@@ -1,4 +1,5 @@
 import type { Color } from '../useColorPalette/types';
+import type { SymmetryOption } from '../../providers/ColorMatrix/types';
 
 type Point = {
     x: number,
@@ -15,7 +16,7 @@ namespace ColorMatrix {
     export type State = ColorMatrix.Cell[][];
 
     export type Actions = {
-        paint: (color: Color, position: Point) => void,
+        paint: (color: Color, position: Point, symmetryOption: SymmetryOption) => void;
         paintAll: (color: Color) => void,
         fill: (color: Color, position: Point) => void,
         changeSize: (size: number) => void,

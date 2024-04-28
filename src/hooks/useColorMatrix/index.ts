@@ -3,9 +3,11 @@ import type {
     Point,
     ColorMatrix
 } from './types';
+import type { SymmetryOption } from '../../providers/ColorMatrix/types';
 
 import { useState } from 'react';
-import { paint,
+import {
+    paint,
     paintAll,
     fill,
     createColorMatrix,
@@ -21,8 +23,8 @@ function useColorMatrix({
     );
 
     const actions: ColorMatrix.Actions = {
-        paint: (color: Color, position: Point) => {
-            paint(state, position, color);
+        paint: (color: Color, position: Point, symmetryOption: SymmetryOption) => {
+            paint(state, position, color, symmetryOption);
             setState([...state]);
         },
         paintAll: (color: Color) => {
