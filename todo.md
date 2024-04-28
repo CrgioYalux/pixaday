@@ -1,5 +1,7 @@
 ### TODO
 - Allow to mirror drawing
-    - Three presets: middle-vertical, middle-horizontal and middle-diagonal
+    - [x] vertical
+    - [x] horizontal
+    - [ ] diagonal
     - Custom could be nice too
 - Allow to empty the background
