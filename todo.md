@@ -2,6 +2,6 @@
 - Allow to mirror drawing
     - [x] vertical
     - [x] horizontal
-    - [ ] diagonal
-    - Custom could be nice too
+    - [x] diagonal (increasing \/ and decreasing \\)
+    - [ ] custom ?
 - Allow to empty the background
