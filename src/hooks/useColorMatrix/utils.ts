@@ -66,9 +66,27 @@ function paint(
             if (i === position.x && j === position.y) {
                 colorMatrix[i][j].value = color;
 
-                if (symmetryOption === 'none' || symmetryOption === 'custom') continue;
+                if (symmetryOption === 'none' || symmetryOption === 'custom')
+                    continue;
+
+                if (symmetryOption === 'diagonal-decreasing') {
+                    const newI = position.y;
+                    const newJ = position.x;
+                    
+                    colorMatrix[newI][newJ].value = color;
+                    continue;
+                }
 
                 const size = colorMatrix.length;
+
+                if (symmetryOption === 'diagonal-increasing') {
+                    const newI = size - 1 - position.y;
+                    const newJ = size - 1 - position.x;
+                    
+                    colorMatrix[newI][newJ].value = color;
+                    continue;
+                }
+
                 const halfSize = Math.floor(size / 2);
                 const middle: [number, number] = size % 2 === 0
                     ? [halfSize - 1, halfSize]
@@ -78,7 +96,7 @@ function paint(
                     if (middle.includes(position.y)) {
                         colorMatrix[i][middle[0]].value = color;
                         colorMatrix[i][middle[1]].value = color;
-                        break;
+                        continue;
                     };
                     
                     const distance = middle[0] > position.y 
@@ -98,7 +116,7 @@ function paint(
                     if (middle.includes(position.x)) {
                         colorMatrix[middle[0]][j].value = color;
                         colorMatrix[middle[1]][j].value = color;
-                        break;
+                        continue;
                     };
                     
                     const distance = middle[0] > position.x 
@@ -112,10 +130,6 @@ function paint(
                     colorMatrix[newI][j].value = color;
 
                     continue;
-                }
-
-                if (symmetryOption === 'diagonal') {
-                    // TODO
                 }
             }
         }

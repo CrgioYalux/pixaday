@@ -48,14 +48,13 @@ type ColorMatrixContext = readonly [
 const ColorMatrixContext = createContext<ColorMatrixContext>({} as ColorMatrixContext);
 
 const useColorMatrixProvider = () => useContext<ColorMatrixContext>(ColorMatrixContext);
-
 interface ColorMatrixProviderProps {
     children: React.ReactNode;
 }
 
 const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) => {
     const [colorMatrix, colorMatrixActions] = useColorMatrix({ size: COLOR_MATRIX_MIN_SIZE });
-    const [style, setStyle] = useState<ColorMatrixStyleState>({ cellsRoundedBorders: true, cellsGap: true, symmetryOption: 'none' });
+    const [style, setStyle] = useState<ColorMatrixStyleState>({ cellsRoundedBorders: true, cellsGap: true, symmetryOption: 'diagonal-decreasing' });
     const [tool, setTool] = useState<Tool>('pincel');
 
     const paint = (color: Color, position: Point): void => {
