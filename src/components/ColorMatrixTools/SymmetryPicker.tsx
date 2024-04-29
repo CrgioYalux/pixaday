@@ -1,6 +1,4 @@
-import HorizontalLines from '../Icons/HorizontalLines';
-import VerticalLines from '../Icons/VerticalLines';
-
+import type { SymmetryOption } from '../../providers/ColorMatrix/types';
 import { useColorMatrixProvider } from '../../providers/ColorMatrix';
 
 type InputElementProps = React.DetailedHTMLProps<
@@ -19,13 +17,13 @@ const SymmetryOption: React.FC<SymmetryOptionProps> = ({
 }) => {
     return (
         <label
-        className='h-full p-0.5 aspect-square rounded has-[:checked]:bg-gray-100 has-[:checked]:text-gray-900 cursor-pointer border-2 grid place-items-center select-none'
+        className='grid border-2 p-0.5 place-items-center rounded cursor-pointer select-none has-[:checked]:bg-gray-100 has-[:checked]:text-gray-900'
         htmlFor={htmlFor}
         >
             <input
             {...inputProps}
             className='hidden'
-            type='radio'
+            type='checkbox'
             id={htmlFor}
             name='symmetry'
             />
@@ -37,53 +35,79 @@ const SymmetryOption: React.FC<SymmetryOptionProps> = ({
 const SymmetryPicker: React.FC<{}> = () => {
     const [state, actions] = useColorMatrixProvider();
 
+    const switchOption = (symmetryOption: SymmetryOption): void => {
+        actions.style.chooseSymmetry(
+            state.style.symmetryOption === symmetryOption
+                ? 'none' 
+                : symmetryOption
+        );
+    };
+
     return (
         <div 
-        className='flex'
+        className='flex gap-2 mx-auto'
         >
             <span 
-            className='flex-none basis-[12ch] my-auto text-center'
+            className='flex-none font-semibold'
             >
                 symmetry
             </span>
-            <div className='flex-1 flex gap-2 justify-center rounded'>
+            <div className='flex-auto flex gap-1 flex-wrap'>
                 <SymmetryOption 
                 htmlFor='horizontal'
                 checked={state.style.symmetryOption === 'horizontal'}
-                onChange={(event) => {
-                    if (event.target.checked)
-                        actions.style.chooseSymmetry('horizontal');
+                onChange={() => {
+                    switchOption('horizontal');
                 }}
                 >
-                    <HorizontalLines
-                    className='w-4 fill-current'
-                    />
+                    <div 
+                    className='w-4 h-4 flex gap-0.5 flex-col items-center'
+                    >
+                        <div className='w-1 h-1 bg-current' />
+                        <div className='w-full h-1 bg-current' />
+                        <div className='w-1 h-1 bg-transparent border border-current' />
+                    </div>
                 </SymmetryOption>
                 <SymmetryOption 
                 htmlFor='vertical'
                 checked={state.style.symmetryOption === 'vertical'}
-                onChange={(event) => {
-                    if (event.target.checked)
-                        actions.style.chooseSymmetry('vertical');
+                onChange={() => {
+                    switchOption('vertical');
                 }}
                 >
-                    <VerticalLines
-                    className='h-6 fill-current'
-                    />
+                    <div className='w-4 h-4 flex gap-0.5 flex-row items-center'>
+                        <div className='w-1 h-1 bg-current' />
+                        <div className='h-full w-1 bg-current' />
+                        <div className='w-1 h-1 bg-transparent border border-current' />
+                    </div>
                 </SymmetryOption>
-                <SymmetryOption
-                htmlFor='none'
-                checked={state.style.symmetryOption === 'none'}
-                onChange={(event) => {
-                    if (event.target.checked)
-                        actions.style.chooseSymmetry('none');
+                <SymmetryOption 
+                htmlFor='diagonal-increasing'
+                checked={state.style.symmetryOption === 'diagonal-increasing'}
+                onChange={() => {
+                    switchOption('diagonal-increasing');
                 }}
                 >
-                    <span 
-                    className='font-semibold'
+                    <div className='rotate-45 w-4 h-4 flex gap-0.5 flex-row items-center'>
+                        <div className='w-1 h-1 bg-current' />
+                        <div className='h-full w-1 bg-current' />
+                        <div className='w-1 h-1 bg-transparent border border-current' />
+                    </div>
+                </SymmetryOption>
+                <SymmetryOption 
+                htmlFor='diagonal-decreasing'
+                checked={state.style.symmetryOption === 'diagonal-decreasing'}
+                onChange={() => {
+                    switchOption('diagonal-decreasing');
+                }}
+                >
+                    <div 
+                    className='rotate-45 w-4 h-4 flex gap-0.5 flex-col items-center'
                     >
-                        no
-                    </span>
+                        <div className='w-1 h-1 bg-current' />
+                        <div className='w-full h-1 bg-current' />
+                        <div className='w-1 h-1 bg-transparent border border-current' />
+                    </div>
                 </SymmetryOption>
             </div>
         </div>
