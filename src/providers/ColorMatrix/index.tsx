@@ -12,6 +12,7 @@ import {
 } from "react";
 import { useColorMatrix } from "../../hooks/useColorMatrix";
 import { COLOR_MATRIX_MIN_SIZE } from './consts';
+import { persistState, recoverPersistedState } from "./utils";
 
 
 type ColorMatrixStyleState = {
@@ -29,6 +30,7 @@ type ColorMatrixStyleActions = {
 type ColorMatrixContext = readonly [
     state: {
         colorMatrix: ColorMatrix.State;
+        colorMatrixSize: { width: number; heigth: number };
         style: ColorMatrixStyleState;
         tool: Tool;
     },
@@ -53,10 +55,16 @@ interface ColorMatrixProviderProps {
 }
 
 const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) => {
-    const [colorMatrix, colorMatrixActions] = useColorMatrix({ size: COLOR_MATRIX_MIN_SIZE });
-    const [style, setStyle] = useState<ColorMatrixStyleState>({ cellsRoundedBorders: true, cellsGap: true, symmetryOption: 'diagonal-decreasing' });
+    const [colorMatrix, colorMatrixActions] = useColorMatrix({
+        size: recoverPersistedState() ?? COLOR_MATRIX_MIN_SIZE 
+    });
+    const [style, setStyle] = useState<ColorMatrixStyleState>({
+        cellsRoundedBorders: true,
+        cellsGap: true,
+        symmetryOption: 'diagonal-decreasing' 
+    });
     const [tool, setTool] = useState<Tool>('pincel');
-
+    
     const paint = (color: Color, position: Point): void => {
         if (tool === 'pincel') {
             colorMatrixActions.paint(color, position, style.symmetryOption);
@@ -71,6 +79,7 @@ const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) =
 
     const changeSize = (size: number): void => {
         colorMatrixActions.changeSize(size);
+        persistState(size);
     };
 
     const switchCellsRoundedBorders = (): void => {
@@ -96,6 +105,7 @@ const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) =
     const value: ColorMatrixContext = [
         {
             colorMatrix,
+            colorMatrixSize: { width: colorMatrix.length, heigth: colorMatrix[0].length },
             style,
             tool
         },

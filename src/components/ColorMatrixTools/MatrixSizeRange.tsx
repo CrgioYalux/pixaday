@@ -10,14 +10,14 @@ import './ColorMatrixTools.css';
 
 const MatrixSizeRange: React.FC<{}> = () => {
     const [matrixSize, setMatrixSize] = useState<number>(COLOR_MATRIX_MIN_SIZE);
-    const [_, actions] = useColorMatrixProvider();
+    const [state, actions] = useColorMatrixProvider();
 
     return (
         <label
         className='MatrixSizeRange'
         htmlFor="matrix_size"
         >
-            <div>{matrixSize}</div>
+            <div>{state.colorMatrixSize.width}</div>
             <input
             type="range"
             id="matrix_size"
@@ -28,7 +28,7 @@ const MatrixSizeRange: React.FC<{}> = () => {
             onChange={(event) => {
                 setMatrixSize(Number(event.currentTarget.value));
             }}
-            value={matrixSize}
+            defaultValue={state.colorMatrixSize.width}
             />
         </label>
     );
