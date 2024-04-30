@@ -5,13 +5,17 @@ import type {
 } from './types';
 import type { SymmetryOption } from '../../providers/ColorMatrix/types';
 
-import { useState } from 'react';
+import {
+    useState,
+    useEffect
+} from 'react';
 import {
     paint,
     paintAll,
     fill,
-    createColorMatrix,
-    changeColorMatrixSize 
+    changeColorMatrixSize,
+    persistState,
+    recoverPersitedState
 } from './utils';
 
 function useColorMatrix({
@@ -19,8 +23,12 @@ function useColorMatrix({
     allColor = 'white',
 }: ColorMatrix.Hook.Props): ColorMatrix.Hook.Use {
     const [state, setState] = useState<ColorMatrix.State>(
-        () => createColorMatrix(size, size, allColor)
+        () => recoverPersitedState(size, size, allColor)
     );
+
+    useEffect(() => {
+        persistState(state);
+    }, [state]);
 
     const actions: ColorMatrix.Actions = {
         paint: (color: Color, position: Point, symmetryOption: SymmetryOption) => {

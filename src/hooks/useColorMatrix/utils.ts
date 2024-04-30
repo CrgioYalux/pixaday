@@ -197,10 +197,29 @@ function fill(
     );
 }
 
+const LOCAL_STORAGE_KEY = 'PIXADAY';
+
+function persistState(colorMatrix: ColorMatrix.State): void {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(colorMatrix));
+}
+
+function recoverPersitedState(
+    width: number,
+    height: number,
+    allColor?: Color
+): ColorMatrix.State {
+    const persistedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return !persistedState 
+        ? createColorMatrix(width, height, allColor) 
+        : JSON.parse(persistedState) as ColorMatrix.State;
+}
+
 export {
     createColorMatrix,
     changeColorMatrixSize,
     paint,
     paintAll,
-    fill
+    fill,
+    persistState,
+    recoverPersitedState,
 };
