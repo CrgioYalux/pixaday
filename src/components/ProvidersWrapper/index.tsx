@@ -1,4 +1,3 @@
-import SystemOptionProvider from '../../providers/SystemOptions';
 import ColorMatrixProvider from '../../providers/ColorMatrix';
 import ColorPaletteProvider from '../../providers/ColorPalette';
 
@@ -8,11 +7,9 @@ interface ProvidersWrapperProps {
 
 const ProvidersWrapper: React.FC<ProvidersWrapperProps> = ({ children }) => {
 	return (
-		<SystemOptionProvider>
-			<ColorMatrixProvider>
-				<ColorPaletteProvider>{children}</ColorPaletteProvider>
-			</ColorMatrixProvider>
-		</SystemOptionProvider>
+		<ColorMatrixProvider>
+			<ColorPaletteProvider>{children}</ColorPaletteProvider>
+		</ColorMatrixProvider>
 	);
 };
 
