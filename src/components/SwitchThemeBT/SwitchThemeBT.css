@@ -1,16 +1,16 @@
 .SwitchThemeBT {
-    font-size: 1em;
-    font-weight: 600;
+	font-size: 1em;
+	font-weight: 600;
 
-    padding: .5em 1em;
+	padding: 0.5em 1em;
 
-    color: var(--secondary-color-l-base);
-    border: 0;
-    outline: 0;
+	color: var(--secondary-color-l-base);
+	border: 0;
+	outline: 0;
 
-    border-radius: 99px;
+	border-radius: 99px;
 
-    background-color: var(--brand-color-l-highest);
+	background-color: var(--brand-color-l-highest);
 
-    cursor: pointer;
+	cursor: pointer;
 }

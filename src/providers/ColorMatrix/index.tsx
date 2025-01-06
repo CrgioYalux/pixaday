@@ -1,136 +1,137 @@
-import type { Color } from "../../hooks/useColorPalette/types";
-import type {
-    Point,
-    ColorMatrix 
-} from "../../hooks/useColorMatrix/types";
+import type { Color } from '../../hooks/useColorPalette/types';
+import type { Point, ColorMatrix } from '../../hooks/useColorMatrix/types';
 import type { Tool, SymmetryOption } from './types';
 
-import {
-    createContext,
-    useContext,
-    useState 
-} from "react";
-import { useColorMatrix } from "../../hooks/useColorMatrix";
+import { createContext, useContext, useState } from 'react';
+import { useColorMatrix } from '../../hooks/useColorMatrix';
 import { COLOR_MATRIX_MIN_SIZE } from './consts';
-import { persistState, recoverPersistedState } from "./utils";
-
+import { persistState, recoverPersistedState } from './utils';
 
 type ColorMatrixStyleState = {
-    cellsRoundedBorders: boolean;
-    cellsGap: boolean;
-    symmetryOption: SymmetryOption;
+	cellsRoundedBorders: boolean;
+	cellsGap: boolean;
+	symmetryOption: SymmetryOption;
 };
 
 type ColorMatrixStyleActions = {
-    switchCellsRoundedBorders: () => void;
-    switchCellsGap: () => void;
-    chooseSymmetry: (symmetryOption: SymmetryOption) => void;
+	switchCellsRoundedBorders: () => void;
+	switchCellsGap: () => void;
+	chooseSymmetry: (symmetryOption: SymmetryOption) => void;
 };
 
 type ColorMatrixContext = readonly [
-    state: {
-        colorMatrix: ColorMatrix.State;
-        colorMatrixSize: { width: number; heigth: number };
-        style: ColorMatrixStyleState;
-        tool: Tool;
-    },
-    actions: {
-        colorMatrix: {
-            paint: (color: Color, position: Point) => void;
-            changeSize: (size: number) => void;
-            resetCanvas: () => void;
-        };
-        style: ColorMatrixStyleActions;
-        tool: {
-            selectTool: (tool: Tool) => void;
-        };
-    }
+	state: {
+		colorMatrix: ColorMatrix.State;
+		colorMatrixSize: { width: number; heigth: number };
+		style: ColorMatrixStyleState;
+		tool: Tool;
+	},
+	actions: {
+		colorMatrix: {
+			paint: (color: Color, position: Point) => void;
+			changeSize: (size: number) => void;
+			resetCanvas: () => void;
+		};
+		style: ColorMatrixStyleActions;
+		tool: {
+			selectTool: (tool: Tool) => void;
+		};
+	},
 ];
 
-const ColorMatrixContext = createContext<ColorMatrixContext>({} as ColorMatrixContext);
+const ColorMatrixContext = createContext<ColorMatrixContext>(
+	{} as ColorMatrixContext
+);
 
-const useColorMatrixProvider = () => useContext<ColorMatrixContext>(ColorMatrixContext);
+const useColorMatrixProvider = () =>
+	useContext<ColorMatrixContext>(ColorMatrixContext);
 interface ColorMatrixProviderProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
-const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({ children }) => {
-    const [colorMatrix, colorMatrixActions] = useColorMatrix({
-        size: recoverPersistedState() ?? COLOR_MATRIX_MIN_SIZE 
-    });
-    const [style, setStyle] = useState<ColorMatrixStyleState>({
-        cellsRoundedBorders: true,
-        cellsGap: true,
-        symmetryOption: 'diagonal-decreasing' 
-    });
-    const [tool, setTool] = useState<Tool>('pincel');
-    
-    const paint = (color: Color, position: Point): void => {
-        if (tool === 'pincel') {
-            colorMatrixActions.paint(color, position, style.symmetryOption);
-        }
-        else if (tool === 'bucket') {
-            colorMatrixActions.paintAll(color);
-        }
-        else {
-            colorMatrixActions.fill(color, position);
-        }
-    };
+const ColorMatrixProvider: React.FC<ColorMatrixProviderProps> = ({
+	children,
+}) => {
+	const [colorMatrix, colorMatrixActions] = useColorMatrix({
+		size: recoverPersistedState() ?? COLOR_MATRIX_MIN_SIZE,
+	});
+	const [style, setStyle] = useState<ColorMatrixStyleState>({
+		cellsRoundedBorders: true,
+		cellsGap: true,
+		symmetryOption: 'diagonal-decreasing',
+	});
+	const [tool, setTool] = useState<Tool>('pincel');
 
-    const changeSize = (size: number): void => {
-        colorMatrixActions.changeSize(size);
-        persistState(size);
-    };
+	const paint = (color: Color, position: Point): void => {
+		if (tool === 'pincel') {
+			colorMatrixActions.paint(color, position, style.symmetryOption);
+		} else if (tool === 'bucket') {
+			colorMatrixActions.paintAll(color);
+		} else {
+			colorMatrixActions.fill(color, position);
+		}
+	};
 
-    const switchCellsRoundedBorders = (): void => {
-        setStyle((prev) => ({ ...prev, cellsRoundedBorders: !prev.cellsRoundedBorders }));
-    };
+	const changeSize = (size: number): void => {
+		colorMatrixActions.changeSize(size);
+		persistState(size);
+	};
 
-    const switchCellsGap = (): void => {
-        setStyle((prev) => ({ ...prev, cellsGap: !prev.cellsGap }));
-    };
+	const switchCellsRoundedBorders = (): void => {
+		setStyle((prev) => ({
+			...prev,
+			cellsRoundedBorders: !prev.cellsRoundedBorders,
+		}));
+	};
 
-    const chooseSymmetry = (symmetryOption: SymmetryOption): void => {
-        setStyle((prev) => ({ ...prev, symmetryOption }));
-    };
+	const switchCellsGap = (): void => {
+		setStyle((prev) => ({ ...prev, cellsGap: !prev.cellsGap }));
+	};
 
-    const selectTool = (tool: Tool): void => {
-        setTool(tool);
-    };
+	const chooseSymmetry = (symmetryOption: SymmetryOption): void => {
+		setStyle((prev) => ({ ...prev, symmetryOption }));
+	};
 
-    const resetCanvas = (): void => {
-        colorMatrixActions.resetCanvas();
-    };
+	const selectTool = (tool: Tool): void => {
+		setTool(tool);
+	};
 
-    const value: ColorMatrixContext = [
-        {
-            colorMatrix,
-            colorMatrixSize: { width: colorMatrix.length, heigth: colorMatrix[0].length },
-            style,
-            tool
-        },
-        {
-            colorMatrix: {
-                paint,
-                changeSize,
-                resetCanvas,
-            },
-            style: {
-                switchCellsRoundedBorders,
-                switchCellsGap,
-                chooseSymmetry,
-            },
-            tool: {
-                selectTool,
-            }
-        }
-    ] as const;
+	const resetCanvas = (): void => {
+		colorMatrixActions.resetCanvas();
+	};
 
-    return (
-        <ColorMatrixContext.Provider value={value}>
-            {children}
-        </ColorMatrixContext.Provider>
-    );
+	const value: ColorMatrixContext = [
+		{
+			colorMatrix,
+			colorMatrixSize: {
+				width: colorMatrix.length,
+				heigth: colorMatrix[0].length,
+			},
+			style,
+			tool,
+		},
+		{
+			colorMatrix: {
+				paint,
+				changeSize,
+				resetCanvas,
+			},
+			style: {
+				switchCellsRoundedBorders,
+				switchCellsGap,
+				chooseSymmetry,
+			},
+			tool: {
+				selectTool,
+			},
+		},
+	] as const;
+
+	return (
+		<ColorMatrixContext.Provider value={value}>
+			{children}
+		</ColorMatrixContext.Provider>
+	);
 };
 
 export { useColorMatrixProvider };
