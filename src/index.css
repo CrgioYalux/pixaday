@@ -36,10 +36,10 @@ body.WhileTouchMovingEvent,
 	-webkit-text-size-adjust: 100%;
 }
 
-/* Vars  */
+/* Vars 
+ * - Brand and other colors 
+ * - Independant of theme */
 :root {
-	/* Colors */
-	/* Brand color */
 	--brand-color-hue: 280;
 	--brand-color-saturation: 50;
 	--brand-color-lightness: 50;
@@ -94,67 +94,9 @@ body.WhileTouchMovingEvent,
 	--unsuccess-color: hsl(0, 50%, 50%);
 }
 
-:root,
-:root.light {
-	/* Primary color */
-	--primary-color-hue: 0;
-	--primary-color-saturation: 0;
-	--primary-color-lightness: 100;
-
-	--primary-color-l-base: hsl(
-		var(--primary-color-hue),
-		calc(var(--primary-color-saturation) * 1% + 0%),
-		calc(var(--primary-color-lightness) * 1% - 0%)
-	);
-
-	--primary-color-l-high: hsl(
-		var(--primary-color-hue),
-		calc(var(--primary-color-saturation) * 1% + 0%),
-		calc(var(--primary-color-lightness) * 1% - 15%)
-	);
-
-	--primary-color-l-higher: hsl(
-		var(--primary-color-hue),
-		calc(var(--primary-color-saturation) * 1% + 0%),
-		calc(var(--primary-color-lightness) * 1% - 30%)
-	);
-
-	--primary-color-l-highest: hsl(
-		var(--primary-color-hue),
-		calc(var(--primary-color-saturation) * 1% + 0%),
-		calc(var(--primary-color-lightness) * 1% - 45%)
-	);
-
-	/* Secondary color */
-	--secondary-color-hue: 0;
-	--secondary-color-saturation: 0;
-	--secondary-color-lightness: 0;
-
-	--secondary-color-l-base: hsl(
-		var(--secondary-color-hue),
-		calc(var(--secondary-color-saturation) * 1% + 0%),
-		calc(var(--secondary-color-lightness) * 1% + 0%)
-	);
-
-	--secondary-color-l-low: hsl(
-		var(--secondary-color-hue),
-		calc(var(--secondary-color-saturation) * 1% + 0%),
-		calc(var(--secondary-color-lightness) * 1% + 15%)
-	);
-
-	--secondary-color-l-lower: hsl(
-		var(--secondary-color-hue),
-		calc(var(--secondary-color-saturation) * 1% + 0%),
-		calc(var(--secondary-color-lightness) * 1% + 30%)
-	);
-
-	--secondary-color-l-lowest: hsl(
-		var(--secondary-color-hue),
-		calc(var(--secondary-color-saturation) * 1% + 0%),
-		calc(var(--secondary-color-lightness) * 1% + 45%)
-	);
-}
-
+/* Vars 
+ * - Primary and secondary colors 
+ * - Inherent of dark theme */
 :root.dark {
 	/* Primary color */
 	--primary-color-hue: 0;
@@ -213,68 +155,6 @@ body.WhileTouchMovingEvent,
 		calc(var(--secondary-color-saturation) * 1% + 0%),
 		calc(var(--secondary-color-lightness) * 1% + -45%)
 	);
-}
-
-@media (prefers-color-scheme: light) {
-	:root {
-		/* Primary color */
-		--primary-color-hue: 0;
-		--primary-color-saturation: 0;
-		--primary-color-lightness: 0;
-
-		--primary-color-l-base: hsl(
-			var(--primary-color-hue),
-			calc(var(--primary-color-saturation) * 1% + 0%),
-			calc(var(--primary-color-lightness) * 1% + 0%)
-		);
-
-		--primary-color-l-high: hsl(
-			var(--primary-color-hue),
-			calc(var(--primary-color-saturation) * 1% + 0%),
-			calc(var(--primary-color-lightness) * 1% + 15%)
-		);
-
-		--primary-color-l-higher: hsl(
-			var(--primary-color-hue),
-			calc(var(--primary-color-saturation) * 1% + 0%),
-			calc(var(--primary-color-lightness) * 1% + 30%)
-		);
-
-		--primary-color-l-highest: hsl(
-			var(--primary-color-hue),
-			calc(var(--primary-color-saturation) * 1% + 0%),
-			calc(var(--primary-color-lightness) * 1% + 45%)
-		);
-
-		/* Secondary color */
-		--secondary-color-hue: 0;
-		--secondary-color-saturation: 0;
-		--secondary-color-lightness: 100;
-
-		--secondary-color-l-base: hsl(
-			var(--secondary-color-hue),
-			calc(var(--secondary-color-saturation) * 1% + 0%),
-			calc(var(--secondary-color-lightness) * 1% + 0%)
-		);
-
-		--secondary-color-l-low: hsl(
-			var(--secondary-color-hue),
-			calc(var(--secondary-color-saturation) * 1% + 0%),
-			calc(var(--secondary-color-lightness) * 1% + -15%)
-		);
-
-		--secondary-color-l-lower: hsl(
-			var(--secondary-color-hue),
-			calc(var(--secondary-color-saturation) * 1% + 0%),
-			calc(var(--secondary-color-lightness) * 1% + -30%)
-		);
-
-		--secondary-color-l-lowest: hsl(
-			var(--secondary-color-hue),
-			calc(var(--secondary-color-saturation) * 1% + 0%),
-			calc(var(--secondary-color-lightness) * 1% + -45%)
-		);
-	}
 }
 
 body {
