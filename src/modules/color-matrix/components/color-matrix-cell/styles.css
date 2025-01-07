@@ -1,0 +1,6 @@
+.ColorMatrixCell {
+	flex: 1 1 auto;
+	aspect-ratio: 1;
+
+	cursor: pointer;
+}
