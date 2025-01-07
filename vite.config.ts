@@ -9,6 +9,10 @@ export default defineConfig({
 		extensions: ['.ts', '.tsx'],
 		alias: [
 			{
+				find: '@/utils',
+				replacement: path.resolve(__dirname, 'src/utils'),
+			},
+			{
 				find: '@/components',
 				replacement: path.resolve(__dirname, 'src/components'),
 			},
@@ -17,6 +21,13 @@ export default defineConfig({
 				replacement: path.resolve(
 					__dirname,
 					'src/modules/color-palette'
+				),
+			},
+			{
+				find: '@/color-matrix',
+				replacement: path.resolve(
+					__dirname,
+					'src/modules/color-matrix'
 				),
 			},
 		],

@@ -19,9 +19,10 @@
 
 		"baseUrl": "./",
 		"paths": {
-			"@/components/*": ["*", "src/components/*"],
-			"@/utils/*": ["*", "src/utils/*"],
-			"@/color-palette/*": ["*", "src/modules/color-palette/*"]
+			"@/utils/*": ["src/utils/*"],
+			"@/components/*": ["src/components/*"],
+			"@/color-palette/*": ["src/modules/color-palette/*"],
+			"@/color-matrix/*": ["src/modules/color-matrix/*"]
 		}
 	},
 	"include": ["src"],
