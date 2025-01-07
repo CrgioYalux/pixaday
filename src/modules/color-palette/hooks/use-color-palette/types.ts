@@ -1,6 +1,6 @@
-import { COLORS } from './consts';
+import COLOR_PALETTE_COLORS from '@/color-palette/consts/color-palette-colors';
 
-type Color = (typeof COLORS)[number];
+type Color = (typeof COLOR_PALETTE_COLORS)[number];
 type ColorsSelection = 'today' | 'random';
 
 namespace IColorPalette {

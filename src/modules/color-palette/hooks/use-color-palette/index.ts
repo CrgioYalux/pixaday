@@ -1,13 +1,15 @@
 import type { Color, ColorsSelection, IColorPalette } from './types';
 
 import { useEffect, useState, useMemo } from 'react';
-import { createTodayColorPalette, createRandomColorPalette } from './utils';
 
-import { COLOR_PALETTE_LENGTH } from './consts';
+import createTodaysColorPalette from '@/color-palette/utils/create-todays-color-palette';
+import createRandomColorPalette from '@/color-palette/utils/create-random-color-palette';
+
+import COLOR_PALETTE_AMOUNT_COLORS from '@/color-palette/consts/color-palette-amount-colors';
 
 export default function (): IColorPalette.Hook.Use {
 	const todayColorPalette = useMemo<IColorPalette.State>(
-		() => createTodayColorPalette(COLOR_PALETTE_LENGTH),
+		() => createTodaysColorPalette(COLOR_PALETTE_AMOUNT_COLORS),
 		[]
 	);
 	const [colorsSelection, setColorsSelection] =
@@ -33,7 +35,9 @@ export default function (): IColorPalette.Hook.Use {
 			setColorPalette(todayColorPalette);
 		},
 		createRandomColorPalette: () => {
-			setColorPalette(createRandomColorPalette(COLOR_PALETTE_LENGTH));
+			setColorPalette(
+				createRandomColorPalette(COLOR_PALETTE_AMOUNT_COLORS)
+			);
 		},
 		switchColorsSelection: () => {
 			setColorsSelection((prev) =>

@@ -1,4 +1,4 @@
-const COLORS = [
+export default [
 	'aliceblue',
 	'antiquewhite',
 	'aqua',
@@ -147,7 +147,3 @@ const COLORS = [
 	'yellow',
 	'yellowgreen',
 ] as const;
-
-const COLOR_PALETTE_LENGTH = 25 as const;
-
-export { COLORS, COLOR_PALETTE_LENGTH };
