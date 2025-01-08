@@ -1,5 +1,6 @@
 import ColorMatrix from '@/color-matrix/components/color-matrix';
 import ColorPalette from '@/color-palette/components/color-palette';
+import ColorMatrixTools from '@/color-matrix-tools/components/color-matrix-tools';
 import ColorMatrixProvider from '@/color-matrix/components/color-matrix-provider';
 import ColorPaletteProvider from '@/color-palette/components/color-palette-provider';
 
@@ -17,7 +18,7 @@ export default function () {
 					<ColorMatrix id={COLOR_MATRIX_ID} />
 					<div className="App__tools">
 						<ColorPalette />
-						{/*<ColorMatrixTools className="App__ColorMatrixTools" />*/}
+						<ColorMatrixTools />
 						<button
 							onClick={() => {
 								screenshotHTMLElement(COLOR_MATRIX_ID);

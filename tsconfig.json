@@ -22,7 +22,8 @@
 			"@/utils/*": ["src/utils/*"],
 			"@/components/*": ["src/components/*"],
 			"@/color-palette/*": ["src/modules/color-palette/*"],
-			"@/color-matrix/*": ["src/modules/color-matrix/*"]
+			"@/color-matrix/*": ["src/modules/color-matrix/*"],
+			"@/color-matrix-tools/*": ["src/modules/color-matrix-tools/*"]
 		}
 	},
 	"include": ["src"],

@@ -30,6 +30,13 @@ export default defineConfig({
 					'src/modules/color-matrix'
 				),
 			},
+			{
+				find: '@/color-matrix-tools',
+				replacement: path.resolve(
+					__dirname,
+					'src/modules/color-matrix-tools'
+				),
+			},
 		],
 	},
 });

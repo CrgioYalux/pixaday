@@ -1,0 +1,43 @@
+.ColorMatrixPaintModes {
+	--ColorMatrixPaintModes-border-radius: 6px;
+
+	width: 100%;
+
+	display: flex;
+}
+
+.ColorMatrixPaintModes > label > input {
+	display: none;
+}
+
+.ColorMatrixPaintModes > label {
+	flex: 1 1 33%;
+	display: flex;
+	flex-direction: row;
+
+	cursor: pointer;
+}
+
+.ColorMatrixPaintModes > label:first-child > span {
+	border-top-left-radius: var(--ColorMatrixPaintModes-border-radius);
+	border-bottom-left-radius: var(--ColorMatrixPaintModes-border-radius);
+}
+
+.ColorMatrixPaintModes > label:last-child > span {
+	border-top-right-radius: var(--ColorMatrixPaintModes-border-radius);
+	border-bottom-right-radius: var(--ColorMatrixPaintModes-border-radius);
+}
+
+.ColorMatrixPaintModes > label > span {
+	flex: 1 1 auto;
+
+	font-size: 1em;
+	padding: 0.25em;
+	text-align: center;
+
+	background-color: var(--brand-color-l-lower);
+}
+
+.ColorMatrixPaintModes > label > input:checked + span {
+	background-color: var(--brand-color-l-base);
+}

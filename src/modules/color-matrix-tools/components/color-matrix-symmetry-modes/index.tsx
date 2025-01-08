@@ -1,40 +1,11 @@
-import type { SymmetryOption } from '../../providers/ColorMatrix/types';
-import { useColorMatrixProvider } from '../../providers/ColorMatrix';
+import type { SymmetryOption } from '@/color-matrix/hooks/use-color-matrix/types';
 
-type InputElementProps = React.DetailedHTMLProps<
-	React.InputHTMLAttributes<HTMLInputElement>,
-	HTMLInputElement
->;
+import ColorMatrixSymmetryOption from '@/color-matrix-tools/components/color-matrix-symmetry-option';
 
-type SymmetryOptionProps = InputElementProps & {
-	children: React.ReactNode;
-	htmlFor: string;
-};
+import useColorMatrixContext from '@/color-matrix/hooks/use-color-matrix-context';
 
-const SymmetryOption: React.FC<SymmetryOptionProps> = ({
-	children,
-	htmlFor,
-	...inputProps
-}) => {
-	return (
-		<label
-			className="grid border-2 p-0.5 place-items-center rounded cursor-pointer select-none has-[:checked]:bg-gray-100 has-[:checked]:text-gray-900"
-			htmlFor={htmlFor}
-		>
-			<input
-				{...inputProps}
-				className="hidden"
-				type="checkbox"
-				id={htmlFor}
-				name="symmetry"
-			/>
-			{children}
-		</label>
-	);
-};
-
-const SymmetryPicker: React.FC<{}> = () => {
-	const [state, actions] = useColorMatrixProvider();
+export default function () {
+	const [state, actions] = useColorMatrixContext();
 
 	const switchOption = (symmetryOption: SymmetryOption): void => {
 		actions.style.chooseSymmetry(
@@ -48,7 +19,7 @@ const SymmetryPicker: React.FC<{}> = () => {
 		<div className="flex gap-2 mx-auto">
 			<span className="flex-none font-semibold">symmetry</span>
 			<div className="flex-auto flex gap-1 flex-wrap">
-				<SymmetryOption
+				<ColorMatrixSymmetryOption
 					htmlFor="horizontal"
 					checked={state.style.symmetryOption === 'horizontal'}
 					onChange={() => {
@@ -60,8 +31,8 @@ const SymmetryPicker: React.FC<{}> = () => {
 						<div className="w-full h-1 bg-current" />
 						<div className="w-1 h-1 bg-transparent border border-current" />
 					</div>
-				</SymmetryOption>
-				<SymmetryOption
+				</ColorMatrixSymmetryOption>
+				<ColorMatrixSymmetryOption
 					htmlFor="vertical"
 					checked={state.style.symmetryOption === 'vertical'}
 					onChange={() => {
@@ -73,8 +44,8 @@ const SymmetryPicker: React.FC<{}> = () => {
 						<div className="h-full w-1 bg-current" />
 						<div className="w-1 h-1 bg-transparent border border-current" />
 					</div>
-				</SymmetryOption>
-				<SymmetryOption
+				</ColorMatrixSymmetryOption>
+				<ColorMatrixSymmetryOption
 					htmlFor="diagonal-increasing"
 					checked={
 						state.style.symmetryOption === 'diagonal-increasing'
@@ -88,8 +59,8 @@ const SymmetryPicker: React.FC<{}> = () => {
 						<div className="h-full w-1 bg-current" />
 						<div className="w-1 h-1 bg-transparent border border-current" />
 					</div>
-				</SymmetryOption>
-				<SymmetryOption
+				</ColorMatrixSymmetryOption>
+				<ColorMatrixSymmetryOption
 					htmlFor="diagonal-decreasing"
 					checked={
 						state.style.symmetryOption === 'diagonal-decreasing'
@@ -103,10 +74,8 @@ const SymmetryPicker: React.FC<{}> = () => {
 						<div className="w-full h-1 bg-current" />
 						<div className="w-1 h-1 bg-transparent border border-current" />
 					</div>
-				</SymmetryOption>
+				</ColorMatrixSymmetryOption>
 			</div>
 		</div>
 	);
-};
-
-export default SymmetryPicker;
+}
