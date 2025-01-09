@@ -7,14 +7,10 @@ import type {
 import type { Color } from '@/color-palette/hooks/use-color-palette/types';
 
 type ColorMatrixStyleState = {
-	cellsRoundedBorders: boolean;
-	cellsGap: boolean;
 	symmetryOption: SymmetryOption;
 };
 
 type ColorMatrixStyleActions = {
-	switchCellsRoundedBorders: () => void;
-	switchCellsGap: () => void;
 	chooseSymmetry: (symmetryOption: SymmetryOption) => void;
 };
 

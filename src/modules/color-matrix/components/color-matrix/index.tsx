@@ -29,11 +29,7 @@ export default function ({ id }: ColorMatrixProps) {
 			}}
 			onMouseLeave={() => setUsingPencil(false)}
 			id={id}
-			className={`
-            ColorMatrix
-            ${state.style.cellsGap ? ' --has-gap' : ' --has-not-gap'}
-            ${state.style.cellsRoundedBorders ? ' --has-rounded-borders' : ' --has-not-rounded-borders'}
-        `}
+			className="ColorMatrix"
 		>
 			{state.colorMatrix.map((row, i) => (
 				<ColorMatrixRow

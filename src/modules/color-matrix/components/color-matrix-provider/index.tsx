@@ -25,8 +25,6 @@ export default function ({ children }: ColorMatrixProviderProps) {
 		size: recoverColorMatrixSizeState() ?? COLOR_MATRIX_SIZE.MIN,
 	});
 	const [style, setStyle] = useState<ColorMatrixStyleState>({
-		cellsRoundedBorders: true,
-		cellsGap: true,
 		symmetryOption: 'diagonal-decreasing',
 	});
 	const [tool, setTool] = useState<Tool>('pincel');
@@ -44,17 +42,6 @@ export default function ({ children }: ColorMatrixProviderProps) {
 	const changeSize = (size: number): void => {
 		colorMatrixActions.changeSize(size);
 		persistColorMatrixSizeState(size);
-	};
-
-	const switchCellsRoundedBorders = (): void => {
-		setStyle((prev) => ({
-			...prev,
-			cellsRoundedBorders: !prev.cellsRoundedBorders,
-		}));
-	};
-
-	const switchCellsGap = (): void => {
-		setStyle((prev) => ({ ...prev, cellsGap: !prev.cellsGap }));
 	};
 
 	const chooseSymmetry = (symmetryOption: SymmetryOption): void => {
@@ -86,8 +73,6 @@ export default function ({ children }: ColorMatrixProviderProps) {
 				resetCanvas,
 			},
 			style: {
-				switchCellsRoundedBorders,
-				switchCellsGap,
 				chooseSymmetry,
 			},
 			tool: {

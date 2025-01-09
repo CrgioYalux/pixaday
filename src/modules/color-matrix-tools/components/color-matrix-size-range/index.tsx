@@ -4,16 +4,20 @@ import useColorMatrixContext from '@/color-matrix/hooks/use-color-matrix-context
 
 import COLOR_MATRIX_SIZE from '@/color-matrix/consts/color-matrix-size';
 
-import './styles.css';
-
 export default function () {
 	const [matrixSize, setMatrixSize] = useState<number>(COLOR_MATRIX_SIZE.MIN);
 	const [state, actions] = useColorMatrixContext();
 
 	return (
-		<label className="ColorMatrixSizeRange" htmlFor="matrix_size">
-			<div>{state.colorMatrixSize.width}</div>
+		<label
+			className="flex bg-[var(--brand-color-l-base)] rounded-full p-2 items-center justify-center"
+			htmlFor="matrix_size"
+		>
+			<small className="font-black w-[3ch]">
+				{state.colorMatrixSize.width}
+			</small>
 			<input
+				className="ml-2 mr-1 w-full grow-0 shrink"
 				type="range"
 				id="matrix_size"
 				min={COLOR_MATRIX_SIZE.MIN}
