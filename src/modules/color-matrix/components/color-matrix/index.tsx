@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 
 import useColorMatrixContext from '@/color-matrix/hooks/use-color-matrix-context';
 import useColorPaletteContext from '@/color-palette/hooks/use-color-palette-context';
@@ -9,12 +9,12 @@ import ColorMatrixAsCanvas from '@/color-matrix/utils/color-matrix-as-canvas';
 
 import CANVAS_SIZE from '@/color-matrix/consts/canvas-size';
 
-export default function () {
+export default forwardRef<HTMLCanvasElement>(function ({}, ref) {
 	const [state, actions] = useColorMatrixContext();
 	const [_, color] = useColorPaletteContext();
 	const [painting, setPaiting] = useState<boolean>(false);
 
-	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const canvasRef = ref as React.RefObject<HTMLCanvasElement>;
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -80,4 +80,4 @@ export default function () {
 			className="block w-[550px] h-[550px] cursor-pointer"
 		/>
 	);
-}
+});

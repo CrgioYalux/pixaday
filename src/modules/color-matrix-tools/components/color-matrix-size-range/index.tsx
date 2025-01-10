@@ -17,7 +17,7 @@ export default function () {
 				{state.colorMatrixSize.width}
 			</small>
 			<input
-				className="ml-2 mr-1 w-full grow-0 shrink"
+				className="cursor-pointer ml-2 mr-1 w-full grow-0 shrink"
 				type="range"
 				id="matrix_size"
 				min={COLOR_MATRIX_SIZE.MIN}

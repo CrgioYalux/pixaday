@@ -75,10 +75,10 @@ export default class {
 	}
 
 	public static exportAsPng(
-		canvas: ICanvas,
+		{ element: canvasElement }: Pick<ICanvas, 'element'>,
 		filename: string = 'screenshot'
 	): void {
-		const dataURL = canvas.element.toDataURL('image/png');
+		const dataURL = canvasElement.toDataURL('image/png');
 		const link = document.createElement('a');
 		link.href = dataURL;
 		link.download = `${filename}.png`;

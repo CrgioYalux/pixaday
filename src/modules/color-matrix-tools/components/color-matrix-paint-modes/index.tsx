@@ -11,7 +11,7 @@ export default function () {
 				<label
 					key={`paint_tool_${tool}`}
 					htmlFor={`paint_tool_${tool}`}
-					className="grow-0 shrink-0 basis-[33%] bg-[var(--brand-color-l-lower)] has-[:checked]:bg-[var(--brand-color-l-base)] grid place-items-center text-center py-1 first:rounded-l-full last:rounded-r-full"
+					className="grow-0 shrink-0 basis-[33%] bg-[var(--brand-color-l-lower)] has-[:checked]:bg-[var(--brand-color-l-base)] grid place-items-center text-center py-1 first:rounded-l-full last:rounded-r-full cursor-pointer"
 				>
 					<input
 						className="hidden"
