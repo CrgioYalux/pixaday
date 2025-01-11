@@ -34,7 +34,7 @@ export default forwardRef<HTMLCanvasElement>(function ({}, ref) {
 			);
 		};
 
-		const draw = (event: MouseEvent): void => {
+		const mouseDraw = (event: MouseEvent): void => {
 			const position =
 				ColorMatrixAsCanvas.getColorMatrixCellPositionFromMouseEvent(
 					event,
@@ -45,32 +45,79 @@ export default forwardRef<HTMLCanvasElement>(function ({}, ref) {
 			actions.colorMatrix.paint(color, position);
 		};
 
-		const startDrawing = (event: MouseEvent): void => {
+		const touchDraw = (event: TouchEvent): void => {
+			const position =
+				ColorMatrixAsCanvas.getColorMatrixCellPositionFromTouchEvent(
+					event,
+					{ element: canvas, size: canvasSize },
+					state.colorMatrix
+				);
+
+			actions.colorMatrix.paint(color, position);
+
+			const html = document.getElementsByTagName('html');
+			const body = document.getElementsByTagName('body');
+			const root = document.getElementById('root') as HTMLDivElement;
+
+			html[0].classList.add('WhileTouchMovingEvent');
+			body[0].classList.add('WhileTouchMovingEvent');
+			root.classList.add('WhileTouchMovingEvent');
+		};
+
+		const onMouseDown = (event: MouseEvent): void => {
 			setPaiting(true);
-			draw(event);
+			mouseDraw(event);
 		};
 
-		const continueDrawing = (event: MouseEvent): void => {
+		const onMouseMove = (event: MouseEvent): void => {
 			if (!painting) return;
-			draw(event);
+			mouseDraw(event);
 		};
 
-		const stopDrawing = (): void => {
+		const onMouseUp = (): void => {
 			setPaiting(false);
+		};
+
+		const onTouchStart = (event: TouchEvent): void => {
+			setPaiting(true);
+			touchDraw(event);
+		};
+
+		const onTouchMove = (event: TouchEvent): void => {
+			if (!painting) return;
+			touchDraw(event);
+		};
+
+		const onTouchDown = (): void => {
+			setPaiting(false);
+
+			const html = document.getElementsByTagName('html');
+			const body = document.getElementsByTagName('body');
+			const root = document.getElementById('root') as HTMLDivElement;
+
+			html[0].classList.remove('WhileTouchMovingEvent');
+			body[0].classList.remove('WhileTouchMovingEvent');
+			root.classList.remove('WhileTouchMovingEvent');
 		};
 
 		resize();
 
 		window.addEventListener('resize', resize);
-		canvas.addEventListener('mousedown', startDrawing);
-		canvas.addEventListener('mousemove', continueDrawing);
-		canvas.addEventListener('mouseup', stopDrawing);
+		canvas.addEventListener('mousedown', onMouseDown);
+		canvas.addEventListener('mousemove', onMouseMove);
+		canvas.addEventListener('mouseup', onMouseUp);
+		canvas.addEventListener('touchstart', onTouchStart);
+		canvas.addEventListener('touchmove', onTouchMove);
+		canvas.addEventListener('touchend', onTouchDown);
 
 		return () => {
 			window.removeEventListener('resize', resize);
-			canvas.removeEventListener('mousedown', startDrawing);
-			canvas.removeEventListener('mousemove', continueDrawing);
-			canvas.removeEventListener('mouseup', stopDrawing);
+			canvas.removeEventListener('mousedown', onMouseDown);
+			canvas.removeEventListener('mousemove', onMouseMove);
+			canvas.removeEventListener('mouseup', onMouseUp);
+			canvas.removeEventListener('touchstart', onTouchStart);
+			canvas.removeEventListener('touchmove', onTouchMove);
+			canvas.removeEventListener('touchend', onTouchDown);
 		};
 	}, [state, color, painting]);
 

@@ -74,6 +74,25 @@ export default class {
 		return { x: col, y: row };
 	}
 
+	public static getColorMatrixCellPositionFromTouchEvent(
+		event: TouchEvent,
+		canvas: ICanvas,
+		colorMatrix: IColorMatrix.State
+	): Point {
+		const target = event.target as HTMLCanvasElement;
+
+		const cellSize = Math.floor(canvas.size / colorMatrix.length);
+
+		const col = Math.floor(
+			(event.changedTouches[0].clientX - target.offsetLeft) / cellSize
+		);
+		const row = Math.floor(
+			(event.changedTouches[0].clientY - target.offsetTop) / cellSize
+		);
+
+		return { x: col, y: row };
+	}
+
 	public static exportAsPng(
 		{ element: canvasElement }: Pick<ICanvas, 'element'>,
 		filename: string = 'screenshot'
