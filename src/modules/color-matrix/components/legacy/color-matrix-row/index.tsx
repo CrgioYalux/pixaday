@@ -1,6 +1,6 @@
 import type { ColorMatrixRowProps } from './types';
 
-import ColorMatrixCell from '@/color-matrix/components/color-matrix-cell';
+import ColorMatrixCell from '@/color-matrix/components/legacy/color-matrix-cell';
 
 import './styles.css';
 

@@ -2,7 +2,7 @@ import type { ColorMatrixProps } from './types';
 
 import { useState } from 'react';
 
-import ColorMatrixRow from '@/color-matrix/components/color-matrix-row';
+import ColorMatrixRow from '@/color-matrix/components/legacy/color-matrix-row';
 
 import useColorMatrixContext from '@/color-matrix/hooks/use-color-matrix-context';
 
