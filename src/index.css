@@ -97,6 +97,7 @@ body.WhileTouchMovingEvent,
 /* Vars 
  * - Primary and secondary colors 
  * - Inherent of dark theme */
+:root,
 :root.dark {
 	/* Primary color */
 	--primary-color-hue: 0;
@@ -165,4 +166,5 @@ body {
 	place-items: center;
 
 	background-color: var(--primary-color-l-high);
+	color: var(--secondary-color-l-base);
 }
