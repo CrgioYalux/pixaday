@@ -24,6 +24,8 @@ namespace IColorMatrix {
 		position: Point;
 	};
 
+	// [202501014125452] TODO:
+	// Extend this to keep track of the matrix size
 	export type State = IColorMatrix.Cell[][];
 
 	export type Actions = {

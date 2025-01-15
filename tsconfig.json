@@ -23,7 +23,8 @@
 			"@/components/*": ["src/components/*"],
 			"@/color-palette/*": ["src/modules/color-palette/*"],
 			"@/color-matrix/*": ["src/modules/color-matrix/*"],
-			"@/color-matrix-tools/*": ["src/modules/color-matrix-tools/*"]
+			"@/color-matrix-tools/*": ["src/modules/color-matrix-tools/*"],
+			"@/framing/*": ["src/modules/framing/*"]
 		}
 	},
 	"include": ["src"],

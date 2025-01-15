@@ -37,6 +37,10 @@ export default defineConfig({
 					'src/modules/color-matrix-tools'
 				),
 			},
+			{
+				find: '@/framing',
+				replacement: path.resolve(__dirname, 'src/modules/framing'),
+			},
 		],
 	},
 });
