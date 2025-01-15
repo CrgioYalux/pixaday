@@ -20,3 +20,7 @@
 - Rethink:
     - Switch rounded borders
     - How the selected color is shown
+
+Allow to create different matrix sizes and not just simmetrical x=y
+
+Implement create frames and make animations
