@@ -1,7 +1,4 @@
-import type {
-	IColorMatrix,
-	Point,
-} from '@/color-matrix/hooks/use-color-matrix/types';
+import type { IColorMatrix } from '@/color-matrix/hooks/use-color-matrix/types';
 
 // [202501014140501] TODO:
 // Needs to *inherit* all(?) color matrix properties

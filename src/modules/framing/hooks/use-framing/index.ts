@@ -10,16 +10,27 @@ export default function ({}: IFraming.Hook.Props): IFraming.Hook.Use {
 
 	const convertColorMatrixToFrame = (
 		colorMatrix: IColorMatrix.State
-	): void => {
+	): void => {};
+
+	const addFrame = (frame: Omit<Frame, 'id'>): void => {
 		// [202501014140543] SPIKE:
 		// not sure if it would be beneficial in any sense to find some sort of
 		// notation to represent colorMatrix
 		// something like FEN in chess
+
+		setFrames((prev) => [
+			...prev,
+			{ ...frame, id: (prev.length + 1).toString() },
+		]);
 	};
 
-	const addFrame = (): void => {};
+	const removeFrame = (frame: Pick<Frame, 'id'>): void => {
+		setFrames((prev) => prev.filter((arr) => arr.id !== frame.id));
 
-	const removeFrame = (): void => {};
+		if (currentFrame?.id === frame.id) {
+			setCurrentFrame(null);
+		}
+	};
 
 	const actions: IFraming.Actions = {
 		addFrame,

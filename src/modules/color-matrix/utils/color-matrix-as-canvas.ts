@@ -3,10 +3,11 @@ import type {
 	Point,
 } from '@/color-matrix/hooks/use-color-matrix/types';
 import type { Color } from '@/color-palette/hooks/use-color-palette/types';
+import type { TwoDimensionalSize } from '@/color-matrix/types';
 
 type ICanvas = {
 	element: HTMLCanvasElement;
-	size: number;
+	size: TwoDimensionalSize;
 };
 
 export default class {
@@ -16,8 +17,8 @@ export default class {
 
 		const scale = window.devicePixelRatio || 1;
 
-		canvas.element.width = canvas.size * scale;
-		canvas.element.height = canvas.size * scale;
+		canvas.element.width = canvas.size.width * scale;
+		canvas.element.height = canvas.size.height * scale;
 		canvas.element.style.width = `${canvas.size}px`;
 		canvas.element.style.height = `${canvas.size}px`;
 
@@ -39,6 +40,8 @@ export default class {
 		canvas: ICanvas,
 		colorMatrix: IColorMatrix.State
 	): void {
+		// TODO:
+		// Waiting on [202501015020414]
 		const cellSize = Math.floor(canvas.size / colorMatrix.length);
 
 		colorMatrix.forEach((row) => {

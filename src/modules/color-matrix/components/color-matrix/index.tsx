@@ -1,3 +1,6 @@
+import type { ColorMatrixProps } from './types';
+import type { TwoDimensionalSize } from '@/color-matrix/types';
+
 import { useEffect, useState, forwardRef } from 'react';
 
 import useColorMatrixContext from '@/color-matrix/hooks/use-color-matrix-context';
@@ -7,9 +10,12 @@ import isMobile from '@/utils/is-mobile';
 
 import ColorMatrixAsCanvas from '@/color-matrix/utils/color-matrix-as-canvas';
 
-import CANVAS_SIZE from '@/color-matrix/consts/canvas-size';
+import BASE_CANVAS_SIZES from '@/color-matrix/consts/base-canvas-sizes';
 
-export default forwardRef<HTMLCanvasElement>(function ({}, ref) {
+export default forwardRef<HTMLCanvasElement, ColorMatrixProps>(function (
+	{ size },
+	ref
+) {
 	const [state, actions] = useColorMatrixContext();
 	const [_, color] = useColorPaletteContext();
 	const [painting, setPaiting] = useState<boolean>(false);
@@ -20,10 +26,18 @@ export default forwardRef<HTMLCanvasElement>(function ({}, ref) {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
 
-		let canvasSize = 0;
+		// let canvasSize = 0;
+		let canvasSize: TwoDimensionalSize = BASE_CANVAS_SIZES.mobile;
 
 		const resize = (): void => {
-			canvasSize = isMobile() ? CANVAS_SIZE.MOBILE : CANVAS_SIZE.DESKTOP;
+			canvasSize = isMobile()
+				? !size || !size.mobile
+					? BASE_CANVAS_SIZES.mobile
+					: size.mobile
+				: !size || !size.desktop
+					? BASE_CANVAS_SIZES.desktop
+					: size.desktop;
+
 			ColorMatrixAsCanvas.setupScaling({
 				element: canvas,
 				size: canvasSize,
@@ -124,6 +138,7 @@ export default forwardRef<HTMLCanvasElement>(function ({}, ref) {
 	return (
 		<canvas
 			ref={canvasRef}
+			style={{}}
 			className="block w-[550px] h-[550px] cursor-pointer"
 		/>
 	);
