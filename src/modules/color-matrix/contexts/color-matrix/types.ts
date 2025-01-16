@@ -4,6 +4,7 @@ import type {
 	Tool,
 	SymmetryOption,
 } from '@/color-matrix/hooks/use-color-matrix/types';
+import type { TwoDimensionalMatrix } from '@/color-matrix/types';
 import type { Color } from '@/color-palette/hooks/use-color-palette/types';
 
 type ColorMatrixStyleState = {
@@ -17,14 +18,14 @@ type ColorMatrixStyleActions = {
 type IColorMatrixContext = readonly [
 	state: {
 		colorMatrix: IColorMatrix.State;
-		colorMatrixSize: { width: number; heigth: number };
+		colorMatrixSize: TwoDimensionalMatrix;
 		style: ColorMatrixStyleState;
 		tool: Tool;
 	},
 	actions: {
 		colorMatrix: {
 			paint: (color: Color, position: Point) => void;
-			changeSize: (size: number) => void;
+			changeDimensions: (dimensions: TwoDimensionalMatrix) => void;
 			resetCanvas: () => void;
 		};
 		style: ColorMatrixStyleActions;

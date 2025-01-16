@@ -1,5 +1,6 @@
 import type { Color } from '@/color-palette/hooks/use-color-palette/types';
 import type { Point, SymmetryOption, IColorMatrix } from './types';
+import type { TwoDimensionalMatrix } from '@/color-matrix/types';
 
 import { useState, useEffect } from 'react';
 
@@ -11,11 +12,11 @@ import persistColorMatixState from '@/color-matrix/utils/persist-color-matix-sta
 import recoverColorMatrixState from '@/color-matrix/utils/recover-color-matrix-state';
 
 export default function ({
-	size,
+	dimensions,
 	allColor = 'white',
 }: IColorMatrix.Hook.Props): IColorMatrix.Hook.Use {
 	const [state, setState] = useState<IColorMatrix.State>(() =>
-		recoverColorMatrixState(size, size, allColor)
+		recoverColorMatrixState(dimensions, allColor)
 	);
 
 	useEffect(() => {
@@ -39,8 +40,8 @@ export default function ({
 			fillColorMatrixIsle(state, position, color);
 			setState([...state]);
 		},
-		changeSize: (size: number) => {
-			setState(() => resizeColorMatrix(state, size, size, allColor));
+		changeDimensions: (dimensions: TwoDimensionalMatrix) => {
+			setState(() => resizeColorMatrix(state, dimensions, allColor));
 		},
 		resetCanvas: () => {
 			paintColorMatrixFull(state, allColor);

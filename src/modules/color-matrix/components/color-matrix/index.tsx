@@ -21,13 +21,11 @@ export default forwardRef<HTMLCanvasElement, ColorMatrixProps>(function (
 	const [painting, setPaiting] = useState<boolean>(false);
 
 	const canvasRef = ref as React.RefObject<HTMLCanvasElement>;
+	let canvasSize: TwoDimensionalSize = BASE_CANVAS_SIZES.mobile;
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
-
-		// let canvasSize = 0;
-		let canvasSize: TwoDimensionalSize = BASE_CANVAS_SIZES.mobile;
 
 		const resize = (): void => {
 			canvasSize = isMobile()
@@ -138,8 +136,8 @@ export default forwardRef<HTMLCanvasElement, ColorMatrixProps>(function (
 	return (
 		<canvas
 			ref={canvasRef}
-			style={{}}
-			className="block w-[550px] h-[550px] cursor-pointer"
+			style={{ ...canvasSize }}
+			className="block cursor-pointer"
 		/>
 	);
 });

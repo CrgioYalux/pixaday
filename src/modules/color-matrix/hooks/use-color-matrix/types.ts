@@ -1,4 +1,5 @@
 import type { Color } from '@/color-palette/hooks/use-color-palette/types';
+import type { TwoDimensionalMatrix } from '@/color-matrix/types';
 
 import COLOR_MATRIX_TOOLS from '@/color-matrix/consts/color-matrix-tools';
 
@@ -38,6 +39,11 @@ namespace IColorMatrix {
 	// Given that the canvas size will be customazible, the whole UI should adapt
 	// to give more space to it and a *move* feature should be introduced.
 	// I'd love the idea of cursor tools too.
+	// [202501015123715] SPIKE:
+	// now that I think about it, a zoom and move features have more to do
+	// with the canvas than with the color matrix so I might have to invest in
+	// a proper ICanvas interface as it would probably grow in complexity and
+	// that way I can keep it organized. Same happens with the cellSize.
 	export type State = IColorMatrix.Cell[][];
 
 	export type Actions = {
@@ -48,7 +54,7 @@ namespace IColorMatrix {
 		) => void;
 		paintAll: (color: Color) => void;
 		fill: (color: Color, position: Point) => void;
-		changeSize: (size: number) => void;
+		changeDimensions: (dimensions: TwoDimensionalMatrix) => void;
 		resetCanvas: () => void;
 	};
 
@@ -56,7 +62,7 @@ namespace IColorMatrix {
 		export type Use = [IColorMatrix.State, IColorMatrix.Actions];
 		export type Props = {
 			allColor?: Color;
-			size: number;
+			dimensions: TwoDimensionalMatrix;
 		};
 	}
 }

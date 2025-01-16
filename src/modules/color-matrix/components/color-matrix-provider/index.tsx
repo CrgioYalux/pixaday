@@ -1,5 +1,6 @@
 import type { ColorMatrixProviderProps } from './types';
 import type { Color } from '@/color-palette/hooks/use-color-palette/types';
+import type { TwoDimensionalMatrix } from '@/color-matrix/types';
 import type {
 	IColorMatrixContext,
 	ColorMatrixStyleState,
@@ -39,9 +40,9 @@ export default function ({ children }: ColorMatrixProviderProps) {
 		}
 	};
 
-	const changeSize = (size: number): void => {
-		colorMatrixActions.changeSize(size);
-		persistColorMatrixSizeState(size);
+	const changeDimensions = (dimensions: TwoDimensionalMatrix): void => {
+		colorMatrixActions.changeDimensions(dimensions);
+		persistColorMatrixSizeState(dimensions);
 	};
 
 	const chooseSymmetry = (symmetryOption: SymmetryOption): void => {
@@ -60,8 +61,8 @@ export default function ({ children }: ColorMatrixProviderProps) {
 		{
 			colorMatrix,
 			colorMatrixSize: {
-				width: colorMatrix.length,
-				heigth: colorMatrix[0].length,
+				columns: colorMatrix.length,
+				rows: colorMatrix[0].length,
 			},
 			style,
 			tool,
@@ -69,7 +70,7 @@ export default function ({ children }: ColorMatrixProviderProps) {
 		{
 			colorMatrix: {
 				paint,
-				changeSize,
+				changeDimensions,
 				resetCanvas,
 			},
 			style: {
