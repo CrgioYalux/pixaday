@@ -5,6 +5,7 @@ import type {
 	Color,
 	SymmetryOption,
 	ColorMatrix,
+	ColorMatrixTool,
 } from './types';
 
 import { COLOR_MATRIX_TOOLS } from './consts';
@@ -107,7 +108,7 @@ class IColorMatrix {
 		return this.id;
 	}
 
-	public getAvailableTools() {
+	static getAvailableTools() {
 		return COLOR_MATRIX_TOOLS;
 	}
 }
@@ -164,15 +165,19 @@ class IFramer {
 }
 
 class ICanvas {
-	private framer: IFramer;
+	public readonly framer: IFramer;
 
 	private frameBackgroundColor: Color = 'white';
 	private frameSize: TwoDimensionalSize = isMobile()
 		? { width: 300, height: 300 } // 300 cells
 		: { width: 500, height: 500 }; // 500 cells
+	private tool: ColorMatrixTool = 'pincel';
 
 	// TODO
-	private zoomScale: number = 1;
+	public readonly zoomScale: number = 25;
+	// this represents the size of each cell
+	// i will use a scale like zoom scale 1 = 25px cell size
+
 	private zoomCenter: TwoDimensionalPoint = {
 		x: Math.floor(this.frameSize.width / 2),
 		y: Math.floor(this.frameSize.height / 2),
@@ -197,13 +202,17 @@ class ICanvas {
 			frameSize: this.frameSize,
 			zoomScale: this.zoomScale,
 			zoomCenter: this.zoomCenter,
+			tool: this.tool,
 		};
 	}
 
-	// TODO
-	// selectTool
-	// the handling of the events, I think that's a thing for the driver
-	// of each UI library, to implement
+	public getAvailableTools() {
+		return IColorMatrix.getAvailableTools();
+	}
+
+	public pickTool(tool: ColorMatrixTool) {
+		this.tool = tool;
+	}
 }
 
-export { IColorMatrix, IFramer };
+export { IColorMatrix, IFramer, ICanvas };

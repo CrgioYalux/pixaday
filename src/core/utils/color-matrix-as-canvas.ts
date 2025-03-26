@@ -1,13 +1,13 @@
 import type {
-	IColorMatrix,
-	Point,
-} from '@/color-matrix/hooks/use-color-matrix/types';
-
-import type { Color } from '@/color-palette/hooks/use-color-palette/types';
+	Color,
+	TwoDimensionalPoint,
+	TwoDimensionalSize,
+	ColorMatrix,
+} from '../types';
 
 type ICanvas = {
 	element: HTMLCanvasElement;
-	size: number;
+	size: TwoDimensionalSize;
 };
 
 export default class {
@@ -15,19 +15,24 @@ export default class {
 		const ctx = canvas.element.getContext('2d');
 		if (!ctx) return;
 
-		const scale = window.devicePixelRatio || 1;
+		const scale = 10 || window.devicePixelRatio || 1;
+		// ^^^ use the zoom scale here instead
 
-		canvas.element.width = canvas.size * scale;
-		canvas.element.height = canvas.size * scale;
-		canvas.element.style.width = `${canvas.size}px`;
-		canvas.element.style.height = `${canvas.size}px`;
+		canvas.element.width = canvas.size.width * scale;
+		canvas.element.height = canvas.size.height * scale;
+		canvas.element.style.width = `${canvas.element.width}px`;
+		canvas.element.style.height = `${canvas.element.height}px`;
 
 		ctx.scale(scale, scale);
 	}
 
 	public static drawSquare(
 		canvas: ICanvas,
-		square: { from: Point; to: Point; color: Color }
+		square: {
+			from: TwoDimensionalPoint;
+			to: TwoDimensionalPoint;
+			color: Color;
+		}
 	): void {
 		const ctx = canvas.element.getContext('2d');
 		if (!ctx) return;
@@ -38,9 +43,10 @@ export default class {
 
 	public static drawColorMatrix(
 		canvas: ICanvas,
-		colorMatrix: IColorMatrix.State
+		colorMatrix: ColorMatrix
 	): void {
-		const cellSize = Math.floor(canvas.size / colorMatrix.length);
+		const cellSize = 10; // Math.floor(canvas.size / colorMatrix.length);
+		// ^^^ use the zoom scale here instead
 
 		colorMatrix.forEach((row) => {
 			row.forEach((cell) => {
@@ -60,38 +66,37 @@ export default class {
 
 	public static getColorMatrixCellPositionFromMouseEvent(
 		event: MouseEvent,
-		canvas: ICanvas,
-		colorMatrix: IColorMatrix.State
-	): Point {
-		const cellSize = Math.floor(canvas.size / colorMatrix.length);
+		canvas: ICanvas
+	): TwoDimensionalPoint {
+		const cellSize = 10; // Math.floor(canvas.size / colorMatrix.length);
+		// ^^^ use the zoom scale here instead
 
-		const col = Math.floor(
+		const x = Math.floor(
 			(event.clientX - canvas.element.offsetLeft) / cellSize
 		);
-		const row = Math.floor(
+		const y = Math.floor(
 			(event.clientY - canvas.element.offsetTop) / cellSize
 		);
 
-		return { x: col, y: row };
+		return { x, y };
 	}
 
 	public static getColorMatrixCellPositionFromTouchEvent(
-		event: TouchEvent,
-		canvas: ICanvas,
-		colorMatrix: IColorMatrix.State
-	): Point {
+		event: TouchEvent
+	): TwoDimensionalPoint {
 		const target = event.target as HTMLCanvasElement;
 
-		const cellSize = Math.floor(canvas.size / colorMatrix.length);
+		const cellSize = 10; // Math.floor(canvas.size / colorMatrix.length);
+		// ^^^ use the zoom scale here instead
 
-		const col = Math.floor(
+		const x = Math.floor(
 			(event.changedTouches[0].clientX - target.offsetLeft) / cellSize
 		);
-		const row = Math.floor(
+		const y = Math.floor(
 			(event.changedTouches[0].clientY - target.offsetTop) / cellSize
 		);
 
-		return { x: col, y: row };
+		return { x, y };
 	}
 
 	public static exportAsPng(
