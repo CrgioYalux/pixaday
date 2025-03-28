@@ -11,17 +11,16 @@ type ICanvas = {
 };
 
 export default class {
-	public static setupScaling(canvas: ICanvas): void {
+	public static setupScaling(canvas: ICanvas, cellSize: number = 10): void {
 		const ctx = canvas.element.getContext('2d');
 		if (!ctx) return;
 
-		const scale = 10 || window.devicePixelRatio || 1;
-		// ^^^ use the zoom scale here instead
+		const scale = window.devicePixelRatio || 1;
 
-		canvas.element.width = canvas.size.width * scale;
-		canvas.element.height = canvas.size.height * scale;
-		canvas.element.style.width = `${canvas.element.width}px`;
-		canvas.element.style.height = `${canvas.element.height}px`;
+		canvas.element.width = canvas.size.width * cellSize;
+		canvas.element.height = canvas.size.height * cellSize;
+		canvas.element.style.width = `${canvas.size.width * cellSize}px`;
+		canvas.element.style.height = `${canvas.size.height * cellSize}px`;
 
 		ctx.scale(scale, scale);
 	}
@@ -43,13 +42,11 @@ export default class {
 
 	public static drawColorMatrix(
 		canvas: ICanvas,
-		colorMatrix: ColorMatrix
+		colorMatrix: ColorMatrix,
+		cellSize: number = 10
 	): void {
-		const cellSize = 10; // Math.floor(canvas.size / colorMatrix.length);
-		// ^^^ use the zoom scale here instead
-
-		colorMatrix.forEach((row) => {
-			row.forEach((cell) => {
+		colorMatrix.forEach((col) => {
+			col.forEach((cell) => {
 				const from = {
 					x: cell.position.x * cellSize,
 					y: cell.position.y * cellSize,
@@ -66,11 +63,9 @@ export default class {
 
 	public static getColorMatrixCellPositionFromMouseEvent(
 		event: MouseEvent,
-		canvas: ICanvas
+		canvas: ICanvas,
+		cellSize: number = 10
 	): TwoDimensionalPoint {
-		const cellSize = 10; // Math.floor(canvas.size / colorMatrix.length);
-		// ^^^ use the zoom scale here instead
-
 		const x = Math.floor(
 			(event.clientX - canvas.element.offsetLeft) / cellSize
 		);
@@ -82,12 +77,10 @@ export default class {
 	}
 
 	public static getColorMatrixCellPositionFromTouchEvent(
-		event: TouchEvent
+		event: TouchEvent,
+		cellSize: number = 10
 	): TwoDimensionalPoint {
 		const target = event.target as HTMLCanvasElement;
-
-		const cellSize = 10; // Math.floor(canvas.size / colorMatrix.length);
-		// ^^^ use the zoom scale here instead
 
 		const x = Math.floor(
 			(event.changedTouches[0].clientX - target.offsetLeft) / cellSize

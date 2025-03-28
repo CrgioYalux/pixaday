@@ -5,10 +5,9 @@ import type {
 	Color,
 	SymmetryOption,
 	ColorMatrix,
-	ColorMatrixTool,
 } from './types';
 
-import { COLOR_MATRIX_TOOLS } from './consts';
+import { COLOR_MATRIX_TOOLS, SYMMETRY_OPTIONS } from './consts';
 
 import isMobile from '@/utils/is-mobile';
 
@@ -111,6 +110,10 @@ class IColorMatrix {
 	static getAvailableTools() {
 		return COLOR_MATRIX_TOOLS;
 	}
+
+	static getAvailableSymmetryOptions() {
+		return SYMMETRY_OPTIONS;
+	}
 }
 
 class IFramer {
@@ -171,24 +174,26 @@ class ICanvas {
 	private frameSize: TwoDimensionalSize = isMobile()
 		? { width: 300, height: 300 } // 300 cells
 		: { width: 500, height: 500 }; // 500 cells
-	private tool: ColorMatrixTool = 'pincel';
+
+	private zoomScale: number = 1;
+	private cellSize: number = 10;
 
 	// TODO
-	public readonly zoomScale: number = 25;
-	// this represents the size of each cell
-	// i will use a scale like zoom scale 1 = 25px cell size
-
-	private zoomCenter: TwoDimensionalPoint = {
-		x: Math.floor(this.frameSize.width / 2),
-		y: Math.floor(this.frameSize.height / 2),
-	};
+	//private zoomCenter: TwoDimensionalPoint = {
+	//	x: Math.floor(this.frameSize.width / 2),
+	//	y: Math.floor(this.frameSize.height / 2),
+	//};
 
 	constructor(
 		options?: Partial<{
 			frameSize: TwoDimensionalSize;
+			zoomScale: number;
+			cellSize: number;
 			frameBackgroundColor: Color;
 		}>
 	) {
+		if (options?.zoomScale) this.zoomScale = options.zoomScale;
+		if (options?.cellSize) this.cellSize = options.cellSize;
 		if (options?.frameSize) this.frameSize = options.frameSize;
 		if (options?.frameBackgroundColor)
 			this.frameBackgroundColor = options.frameBackgroundColor;
@@ -201,8 +206,7 @@ class ICanvas {
 			frameBackgroundColor: this.frameBackgroundColor,
 			frameSize: this.frameSize,
 			zoomScale: this.zoomScale,
-			zoomCenter: this.zoomCenter,
-			tool: this.tool,
+			cellSize: this.cellSize,
 		};
 	}
 
@@ -210,8 +214,8 @@ class ICanvas {
 		return IColorMatrix.getAvailableTools();
 	}
 
-	public pickTool(tool: ColorMatrixTool) {
-		this.tool = tool;
+	public getAvailableSymmetryOptions() {
+		return IColorMatrix.getAvailableSymmetryOptions();
 	}
 }
 

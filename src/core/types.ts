@@ -1,4 +1,4 @@
-import { COLORS, COLOR_MATRIX_TOOLS } from './consts';
+import { COLORS, COLOR_MATRIX_TOOLS, SYMMETRY_OPTIONS } from './consts';
 
 /* Starts: Utils */
 
@@ -22,13 +22,7 @@ type Color = (typeof COLORS)[number];
 
 type ColorMatrixTool = (typeof COLOR_MATRIX_TOOLS)[number];
 
-type SymmetryOption =
-	| 'vertical'
-	| 'horizontal'
-	| 'diagonal-increasing'
-	| 'diagonal-decreasing'
-	| 'custom'
-	| 'none';
+type SymmetryOption = (typeof SYMMETRY_OPTIONS)[number];
 
 /* Ends: Consts */
 
