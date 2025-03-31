@@ -5,23 +5,26 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { COLORS } from './core/consts';
+import { RgbaColorPicker } from 'react-colorful';
+
 import { ICanvas, IColorMatrix } from './core/pixaday-core';
-import {
+import type {
 	Color,
 	ColorMatrix,
 	ColorMatrixTool,
 	ID,
+	RGBA,
 	SymmetryOption,
 	TwoDimensionalPoint,
 } from './core/types';
+
 import colorMatrixAsCanvas from './core/utils/color-matrix-as-canvas';
+import rgbaToString from './core/utils/rgba-to-string';
 
 type IPixadayCoreContext = {
 	canvas: ICanvas;
 	currentFrame: IColorMatrix | null;
 	frames: { frame: ColorMatrix; id: ID }[];
-	color: Color;
 	tool: ColorMatrixTool;
 	symmetryOption: SymmetryOption;
 
@@ -30,7 +33,6 @@ type IPixadayCoreContext = {
 
 	pickTool: (tool: ColorMatrixTool) => void;
 	pickSymmetryOption: (symmetryOption: SymmetryOption) => void;
-	pickColor: (color: Color) => void;
 
 	interactWithCurrentTool: (
 		position: TwoDimensionalPoint,
@@ -47,14 +49,13 @@ export const PixadayCoreProvider = ({
 	children: React.ReactNode;
 }) => {
 	const [canvas] = useState(
-		new ICanvas({ frameSize: { width: 3, height: 3 }, cellSize: 50 })
+		new ICanvas({ frameSize: { width: 16, height: 16 }, cellSize: 20 })
 	);
 	const [frames, setFrames] = useState<{ frame: ColorMatrix; id: ID }[]>([]);
 	const [currentFrame, setCurrentFrame] = useState<IColorMatrix | null>(null);
 	const [tool, setTool] = useState<ColorMatrixTool>('pincel');
 	const [symmetryOption, setSymmetryOption] =
 		useState<SymmetryOption>('none');
-	const [color, setColor] = useState<Color>('red');
 
 	// basically define states for each class state
 
@@ -81,10 +82,6 @@ export const PixadayCoreProvider = ({
 		setSymmetryOption(symmetryOption);
 	};
 
-	const pickColor = (color: Color) => {
-		setColor(color);
-	};
-
 	const interactWithCurrentTool = (
 		position: TwoDimensionalPoint,
 		color: Color
@@ -107,12 +104,9 @@ export const PixadayCoreProvider = ({
 
 				addFrame,
 				selectFrame,
-
-				color,
 				tool,
 				symmetryOption,
 
-				pickColor,
 				pickTool,
 				pickSymmetryOption,
 
@@ -131,20 +125,20 @@ export const Canvas = () => {
 	const {
 		canvas,
 		currentFrame,
-		color,
 		tool,
 		symmetryOption,
-		frames,
 		addFrame,
 		pickTool,
 		pickSymmetryOption,
-		pickColor,
 		interactWithCurrentTool,
 	} = usePixadayCore();
 
 	const [painting, setPainting] = useState<boolean>(false);
 
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+
+	const [color, setColor] = useState<RGBA>({ r: 255, g: 0, b: 0, a: 1 });
+	const colorAsStr = rgbaToString(color);
 
 	useEffect(() => {
 		const canvasEl = canvasRef.current;
@@ -176,25 +170,8 @@ export const Canvas = () => {
 					canvas.getDefaults().cellSize
 				);
 
-			interactWithCurrentTool(position, color);
-		};
-
-		const touchDraw = (event: TouchEvent): void => {
-			const position =
-				colorMatrixAsCanvas.getColorMatrixCellPositionFromTouchEvent(
-					event,
-					canvas.getDefaults().cellSize
-				);
-
-			interactWithCurrentTool(position, color);
-
-			const html = document.getElementsByTagName('html');
-			const body = document.getElementsByTagName('body');
-			const root = document.getElementById('root') as HTMLDivElement;
-
-			html[0].classList.add('WhileTouchMovingEvent');
-			body[0].classList.add('WhileTouchMovingEvent');
-			root.classList.add('WhileTouchMovingEvent');
+			// @ts-ignore
+			interactWithCurrentTool(position, colorAsStr);
 		};
 
 		const onMouseDown = (event: MouseEvent): void => {
@@ -211,28 +188,6 @@ export const Canvas = () => {
 			setPainting(false);
 		};
 
-		const onTouchStart = (event: TouchEvent): void => {
-			setPainting(true);
-			touchDraw(event);
-		};
-
-		const onTouchMove = (event: TouchEvent): void => {
-			if (!painting) return;
-			touchDraw(event);
-		};
-
-		const onTouchDown = (): void => {
-			setPainting(false);
-
-			const html = document.getElementsByTagName('html');
-			const body = document.getElementsByTagName('body');
-			const root = document.getElementById('root') as HTMLDivElement;
-
-			html[0].classList.remove('WhileTouchMovingEvent');
-			body[0].classList.remove('WhileTouchMovingEvent');
-			root.classList.remove('WhileTouchMovingEvent');
-		};
-
 		resize();
 
 		const ctrl = new AbortController();
@@ -242,14 +197,11 @@ export const Canvas = () => {
 		canvasEl.addEventListener('mousedown', onMouseDown, { signal });
 		canvasEl.addEventListener('mousemove', onMouseMove, { signal });
 		canvasEl.addEventListener('mouseup', onMouseUp, { signal });
-		canvasEl.addEventListener('touchstart', onTouchStart, { signal });
-		canvasEl.addEventListener('touchmove', onTouchMove, { signal });
-		canvasEl.addEventListener('touchend', onTouchDown, { signal });
 
 		return () => {
 			ctrl.abort();
 		};
-	}, [canvas, currentFrame, color, tool, interactWithCurrentTool]);
+	}, [canvas, currentFrame, colorAsStr, tool, interactWithCurrentTool]);
 
 	return (
 		<>
@@ -275,17 +227,8 @@ export const Canvas = () => {
 					</button>
 				))}
 			</div>
-			<div>
-				{COLORS.map((c) => (
-					<button
-						key={c}
-						onClick={() => pickColor(c)}
-						className={color === c ? 'bg-green-500' : ''}
-					>
-						{c}
-					</button>
-				))}
-			</div>
+
+			<RgbaColorPicker color={color} onChange={setColor} />
 
 			<button
 				onClick={() => {
@@ -298,6 +241,16 @@ export const Canvas = () => {
 				ref={canvasRef}
 				className="block cursor-pointer outline outline-white"
 			/>
+			<button
+				onClick={() => {
+					if (!canvasRef.current) return;
+					colorMatrixAsCanvas.exportAsPng({
+						element: canvasRef.current,
+					});
+				}}
+			>
+				save
+			</button>
 		</>
 	);
 };

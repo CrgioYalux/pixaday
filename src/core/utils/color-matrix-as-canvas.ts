@@ -22,6 +22,8 @@ export default class {
 		canvas.element.style.width = `${canvas.size.width * cellSize}px`;
 		canvas.element.style.height = `${canvas.size.height * cellSize}px`;
 
+		ctx.globalCompositeOperation = 'source-over';
+		ctx.imageSmoothingEnabled = false;
 		ctx.scale(scale, scale);
 	}
 
@@ -36,6 +38,7 @@ export default class {
 		const ctx = canvas.element.getContext('2d');
 		if (!ctx) return;
 
+		ctx.clearRect(square.from.x, square.from.y, square.to.x, square.to.y);
 		ctx.fillStyle = square.color;
 		ctx.fillRect(square.from.x, square.from.y, square.to.x, square.to.y);
 	}
@@ -66,28 +69,25 @@ export default class {
 		canvas: ICanvas,
 		cellSize: number = 10
 	): TwoDimensionalPoint {
-		const x = Math.floor(
-			(event.clientX - canvas.element.offsetLeft) / cellSize
-		);
-		const y = Math.floor(
-			(event.clientY - canvas.element.offsetTop) / cellSize
-		);
+		const rect = canvas.element.getBoundingClientRect();
+		const mouseX = event.clientX - rect.left;
+		const mouseY = event.clientY - rect.top;
+		const x = Math.floor(mouseX / cellSize);
+		const y = Math.floor(mouseY / cellSize);
 
 		return { x, y };
 	}
 
 	public static getColorMatrixCellPositionFromTouchEvent(
 		event: TouchEvent,
+		canvas: ICanvas,
 		cellSize: number = 10
 	): TwoDimensionalPoint {
-		const target = event.target as HTMLCanvasElement;
-
-		const x = Math.floor(
-			(event.changedTouches[0].clientX - target.offsetLeft) / cellSize
-		);
-		const y = Math.floor(
-			(event.changedTouches[0].clientY - target.offsetTop) / cellSize
-		);
+		const rect = canvas.element.getBoundingClientRect();
+		const mouseX = event.changedTouches[0].clientX - rect.left;
+		const mouseY = event.changedTouches[0].clientY - rect.top;
+		const x = Math.floor(mouseX / cellSize) * cellSize;
+		const y = Math.floor(mouseY / cellSize) * cellSize;
 
 		return { x, y };
 	}

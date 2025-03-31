@@ -14,11 +14,18 @@ type TwoDimensionalSize = {
 	height: number;
 };
 
+type RGBA = {
+	r: number;
+	g: number;
+	b: number;
+	a: number;
+};
+
 /* Ends: Utils */
 
 /* Starts: Consts */
 
-type Color = (typeof COLORS)[number];
+type Color = string;
 
 type ColorMatrixTool = (typeof COLOR_MATRIX_TOOLS)[number];
 
@@ -59,6 +66,7 @@ export type {
 	ID,
 	TwoDimensionalPoint,
 	TwoDimensionalSize,
+	RGBA,
 	Color,
 	ColorMatrixTool,
 	SymmetryOption,
