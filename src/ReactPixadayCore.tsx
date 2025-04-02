@@ -93,8 +93,8 @@ export const PixadayCoreProvider = ({
 	) => {
 		if (tool === 'pincel')
 			currentFrame?.paint(position, color, symmetryOption);
-		if (tool === 'bucket') currentFrame?.flood(color);
-		if (tool === 'filler') currentFrame?.fill(position, color);
+		if (tool === 'bucket') currentFrame?.fill(position, color);
+		if (tool === 'eraser') currentFrame?.erase(position, symmetryOption);
 
 		setCurrentFrame(canvas.framer.getCurrentFrame());
 		setFrames(getFrames());
@@ -231,21 +231,21 @@ export const Canvas = () => {
 									pickTool(tool);
 								},
 							};
-						if (tool === 'new frame')
+						if (tool === 'eraser') {
 							return {
 								tool,
-								icon: PixadayFrame,
+								icon: PixadayEraser,
 								action: () => {
-									addFrame();
+									pickTool(tool);
 								},
 							};
-						// implement eraser
+						}
+
 						return {
 							tool,
-							icon: PixadayEraser,
+							icon: PixadayFrame,
 							action: () => {
-								// @ts-ignore
-								pickTool(tool);
+								addFrame();
 							},
 						};
 					})

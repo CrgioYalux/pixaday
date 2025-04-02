@@ -99,6 +99,18 @@ class IColorMatrix {
 		this.matrix = createColorMatrix({ color: this.color, size: this.size });
 	}
 
+	public erase(
+		position: TwoDimensionalPoint,
+		symmetryOption: SymmetryOption
+	) {
+		this.matrix = paintColorMatrixCell({
+			base: this.matrix,
+			position,
+			color: 'rgba(0,0,0,0)',
+			symmetryOption,
+		});
+	}
+
 	public getMatrix() {
 		return this.matrix;
 	}

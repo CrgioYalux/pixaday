@@ -1,5 +1,5 @@
 const COLORS = ['white', 'red', 'yellow', 'green'] as const;
-const COLOR_MATRIX_TOOLS = ['pincel', 'bucket', 'filler'] as const;
+const COLOR_MATRIX_TOOLS = ['pincel', 'bucket', 'eraser'] as const;
 const SYMMETRY_OPTIONS = [
 	'vertical',
 	'horizontal',
