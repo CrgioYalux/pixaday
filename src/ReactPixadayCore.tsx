@@ -54,7 +54,7 @@ export const PixadayCoreProvider = ({
 	children: React.ReactNode;
 }) => {
 	const [canvas] = useState(
-		new ICanvas({ frameSize: { width: 16, height: 16 }, cellSize: 20 })
+		new ICanvas({ frameSize: { width: 16, height: 16 }, cellSize: 100 })
 	);
 	const [frames, setFrames] = useState<{ frame: ColorMatrix; id: ID }[]>([]);
 	const [currentFrame, setCurrentFrame] = useState<IColorMatrix | null>(null);
@@ -131,10 +131,10 @@ export const Canvas = () => {
 		canvas,
 		currentFrame,
 		tool,
-		symmetryOption,
+		frames,
 		addFrame,
+		selectFrame,
 		pickTool,
-		pickSymmetryOption,
 		interactWithCurrentTool,
 	} = usePixadayCore();
 
@@ -211,7 +211,7 @@ export const Canvas = () => {
 		<div className="h-screen w-screen overflow-hidden grid p-[20px] gap-[20px] grid-cols-[max-content_1fr_200px] ">
 			<div
 				id="toolbar"
-				className="w-max flex flex-col p-0.5 gap-[10px] rounded-[10px] bg-[#D9D9D9]"
+				className="w-max flex flex-col p-0.5 gap-[10px] rounded-[10px] bg-gray-300"
 			>
 				{[...canvas.getAvailableTools(), 'new frame']
 					.map((tool) => {
@@ -263,20 +263,32 @@ export const Canvas = () => {
 			</div>
 			<div
 				id="framer"
-				className="w-full h-full grid grid-rows-[1fr_100px] gap-[10px]"
+				className="w-full h-full grid grid-rows-[1fr_100px] gap-[10px] overflow-hidden"
 			>
 				<div
 					id="canvas"
-					className="bg-gray-800 grid place-items-center"
+					className="w-full h-full bg-gray-800 grid place-items-center overflow-hidden"
 				>
 					<canvas
 						ref={canvasRef}
 						className="block cursor-pointer outline outline-white"
 					/>
 				</div>
-				<div id="frames" className="bg-[#D9D9D9] rounded-[10px]"></div>
+				<div id="frames" className="bg-gray-300 rounded-[10px]">
+					{frames.map((frame) => (
+						<div
+							key={frame.id}
+							onClick={() => {
+								selectFrame(frame.id);
+							}}
+						>
+							Frame: {frame.id}
+						</div>
+					))}
+					{/*<ColorMatrixPreview />*/}
+				</div>
 			</div>
-			<div id="options" className="h-full bg-[#D9D9D9] rounded-[10px]">
+			<div id="options" className="h-full bg-gray-300 rounded-[10px]">
 				<RgbaColorPicker color={color} onChange={setColor} />
 			</div>
 		</div>

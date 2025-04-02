@@ -211,7 +211,22 @@ class ICanvas {
 	}
 
 	public getAvailableTools() {
-		return IColorMatrix.getAvailableTools();
+		return [
+			...IColorMatrix.getAvailableTools(),
+			// TODO:
+			// from ICanvas
+			// - zoom in/out
+			// - move over the canvas
+			// from IFramer
+			// - create new frame
+			// - delete frame
+			//
+			// 202504091234847
+			// Maybe each Class should have a static method, getAvailableTools()
+			// that provides the ids of the tools that it can invoke
+			// Then just have a dispatcher, that receives the id and executes
+			// the correct tool/action
+		];
 	}
 
 	public getAvailableSymmetryOptions() {
