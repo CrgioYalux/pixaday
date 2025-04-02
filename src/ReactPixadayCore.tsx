@@ -21,6 +21,11 @@ import type {
 import colorMatrixAsCanvas from './core/utils/color-matrix-as-canvas';
 import rgbaToString from './core/utils/rgba-to-string';
 
+import PixadayBucket from './assets/Bucket.png';
+import PixadayPencil from './assets/Pencil.png';
+import PixadayFrame from './assets/Frame.png';
+import PixadayEraser from './assets/Eraser.png';
+
 type IPixadayCoreContext = {
 	canvas: ICanvas;
 	currentFrame: IColorMatrix | null;
@@ -170,7 +175,6 @@ export const Canvas = () => {
 					canvas.getDefaults().cellSize
 				);
 
-			// @ts-ignore
 			interactWithCurrentTool(position, colorAsStr);
 		};
 
@@ -204,53 +208,77 @@ export const Canvas = () => {
 	}, [canvas, currentFrame, colorAsStr, tool, interactWithCurrentTool]);
 
 	return (
-		<>
-			<div>
-				{canvas.getAvailableTools().map((t) => (
-					<button
-						key={t}
-						onClick={() => pickTool(t)}
-						className={tool === t ? 'bg-green-500' : ''}
-					>
-						{t}
-					</button>
-				))}
-			</div>
-			<div>
-				{canvas.getAvailableSymmetryOptions().map((s) => (
-					<button
-						key={s}
-						onClick={() => pickSymmetryOption(s)}
-						className={symmetryOption === s ? 'bg-green-500' : ''}
-					>
-						{s}
-					</button>
-				))}
-			</div>
-
-			<RgbaColorPicker color={color} onChange={setColor} />
-
-			<button
-				onClick={() => {
-					addFrame();
-				}}
+		<div className="h-screen w-screen overflow-hidden grid p-[20px] gap-[20px] grid-cols-[max-content_1fr_200px] ">
+			<div
+				id="toolbar"
+				className="w-max flex flex-col p-0.5 gap-[10px] rounded-[10px] bg-[#D9D9D9]"
 			>
-				+
-			</button>
-			<canvas
-				ref={canvasRef}
-				className="block cursor-pointer outline outline-white"
-			/>
-			<button
-				onClick={() => {
-					if (!canvasRef.current) return;
-					colorMatrixAsCanvas.exportAsPng({
-						element: canvasRef.current,
-					});
-				}}
+				{[...canvas.getAvailableTools(), 'new frame']
+					.map((tool) => {
+						if (tool === 'pincel')
+							return {
+								tool,
+								icon: PixadayPencil,
+								action: () => {
+									pickTool(tool);
+								},
+							};
+						if (tool === 'bucket')
+							return {
+								tool,
+								icon: PixadayBucket,
+								action: () => {
+									pickTool(tool);
+								},
+							};
+						if (tool === 'new frame')
+							return {
+								tool,
+								icon: PixadayFrame,
+								action: () => {
+									addFrame();
+								},
+							};
+						// implement eraser
+						return {
+							tool,
+							icon: PixadayEraser,
+							action: () => {
+								// @ts-ignore
+								pickTool(tool);
+							},
+						};
+					})
+					.map(({ tool, action, icon }) => {
+						return (
+							<button
+								key={tool}
+								onClick={action}
+								className="cursor-pointer"
+							>
+								<img className="w-10 h-10" src={icon} />
+							</button>
+						);
+					})}
+			</div>
+			<div
+				id="framer"
+				className="w-full h-full grid grid-rows-[1fr_100px] gap-[10px]"
 			>
-				save
-			</button>
-		</>
+				<div
+					id="canvas"
+					className="bg-gray-800 grid place-items-center"
+				>
+					<canvas
+						ref={canvasRef}
+						className="block cursor-pointer outline outline-white"
+					/>
+				</div>
+				<div id="frames" className="bg-[#D9D9D9] rounded-[10px]"></div>
+			</div>
+			<div id="options" className="h-full bg-[#D9D9D9] rounded-[10px]">
+				<RgbaColorPicker color={color} onChange={setColor} />
+			</div>
+		</div>
 	);
 };
