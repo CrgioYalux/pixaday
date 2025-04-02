@@ -1,5 +1,11 @@
-const COLORS = ['white', 'red', 'yellow', 'green'] as const;
 const COLOR_MATRIX_TOOLS = ['pincel', 'bucket', 'eraser'] as const;
+const FRAMER_TOOLS = ['add_new_frame', 'delete_frame', 'select_frame'] as const;
+const CANVAS_TOOLS = ['export'] as const;
+const ALL_TOOLS = [
+	...COLOR_MATRIX_TOOLS,
+	...FRAMER_TOOLS,
+	...CANVAS_TOOLS,
+] as const;
 const SYMMETRY_OPTIONS = [
 	'vertical',
 	'horizontal',
@@ -9,4 +15,10 @@ const SYMMETRY_OPTIONS = [
 	'none',
 ] as const;
 
-export { COLORS, COLOR_MATRIX_TOOLS, SYMMETRY_OPTIONS };
+export {
+	COLOR_MATRIX_TOOLS,
+	SYMMETRY_OPTIONS,
+	FRAMER_TOOLS,
+	CANVAS_TOOLS,
+	ALL_TOOLS,
+};

@@ -5,9 +5,15 @@ import type {
 	Color,
 	SymmetryOption,
 	ColorMatrix,
+	Tool,
 } from './types';
 
-import { COLOR_MATRIX_TOOLS, SYMMETRY_OPTIONS } from './consts';
+import {
+	COLOR_MATRIX_TOOLS,
+	SYMMETRY_OPTIONS,
+	FRAMER_TOOLS,
+	CANVAS_TOOLS,
+} from './consts';
 
 import isMobile from '@/utils/is-mobile';
 
@@ -88,6 +94,20 @@ class IColorMatrix {
 	}
 
 	public fill(position: TwoDimensionalPoint, color: Color) {
+		// 202504092175023 TODO:
+		// because fill uses the colors of the cells
+		// to define islands to know where to paint
+		// and where not, all possible rgba colors
+		// with an alpha value of 0 are treated as
+		// different in the current logic of this,
+		// whereas in reality they all have the same
+		// effect: transparency
+		// so i need to add a check in the function
+		// below: if the cell color is rgba, and the
+		// alplha value is 0, treat them all as the
+		// same; if the alpha value is not 0, then
+		// keep it as it is
+
 		this.matrix = fillColorMatrixIsle({
 			base: this.matrix,
 			position,
@@ -156,6 +176,14 @@ class IFramer {
 		this.currentFrame = initialFrame;
 	}
 
+	public deleteFrame(id: ID) {
+		const foundFrame = this.findFrame(id);
+		if (!foundFrame) return;
+
+		this.frames = this.frames.filter((frame) => frame.getId() !== id);
+		this.currentFrame = this.frames[this.frames.length - 1] ?? null;
+	}
+
 	public selectFrame(id: ID) {
 		const foundFrame = this.findFrame(id);
 		if (!foundFrame) return;
@@ -176,6 +204,10 @@ class IFramer {
 
 	private findFrame(id: ID): IColorMatrix | null {
 		return this.frames.find((frame) => frame.getId() === id) ?? null;
+	}
+
+	static getAvailableTools() {
+		return FRAMER_TOOLS;
 	}
 }
 
@@ -222,9 +254,17 @@ class ICanvas {
 		};
 	}
 
-	public getAvailableTools() {
+	private getAvailableTools() {
+		return CANVAS_TOOLS;
+	}
+
+	public getToolbarSectionItems() {
+		const notSupposedToGoInToolbarSection: Tool[] = ['select_frame'];
+
 		return [
 			...IColorMatrix.getAvailableTools(),
+			...IFramer.getAvailableTools(),
+			...this.getAvailableTools(),
 			// TODO:
 			// from ICanvas
 			// - zoom in/out
@@ -238,8 +278,10 @@ class ICanvas {
 			// that provides the ids of the tools that it can invoke
 			// Then just have a dispatcher, that receives the id and executes
 			// the correct tool/action
-		];
+		].filter((item) => !notSupposedToGoInToolbarSection.includes(item));
 	}
+
+	public getCustomizationSectionItems() {}
 
 	public getAvailableSymmetryOptions() {
 		return IColorMatrix.getAvailableSymmetryOptions();

@@ -23,8 +23,10 @@ import rgbaToString from './core/utils/rgba-to-string';
 
 import PixadayBucket from './assets/Bucket.png';
 import PixadayPencil from './assets/Pencil.png';
-import PixadayFrame from './assets/Frame.png';
 import PixadayEraser from './assets/Eraser.png';
+import PixadayNewFrame from './assets/NewFrame.png';
+import PixadayDeleteFrame from './assets/DeleteFrame.png';
+import PixadayExport from './assets/Export.png';
 
 type IPixadayCoreContext = {
 	canvas: ICanvas;
@@ -34,6 +36,7 @@ type IPixadayCoreContext = {
 	symmetryOption: SymmetryOption;
 
 	addFrame: () => void;
+	deleteCurrentFrame: () => void;
 	selectFrame: (id: ID) => void;
 
 	pickTool: (tool: ColorMatrixTool) => void;
@@ -54,7 +57,7 @@ export const PixadayCoreProvider = ({
 	children: React.ReactNode;
 }) => {
 	const [canvas] = useState(
-		new ICanvas({ frameSize: { width: 16, height: 16 }, cellSize: 100 })
+		new ICanvas({ frameSize: { width: 16, height: 16 }, cellSize: 20 })
 	);
 	const [frames, setFrames] = useState<{ frame: ColorMatrix; id: ID }[]>([]);
 	const [currentFrame, setCurrentFrame] = useState<IColorMatrix | null>(null);
@@ -70,6 +73,13 @@ export const PixadayCoreProvider = ({
 
 	const addFrame = () => {
 		canvas.framer.addFrame();
+		setCurrentFrame(canvas.framer.getCurrentFrame());
+		setFrames(getFrames());
+	};
+
+	const deleteCurrentFrame = () => {
+		if (!currentFrame) return;
+		canvas.framer.deleteFrame(currentFrame.getId());
 		setCurrentFrame(canvas.framer.getCurrentFrame());
 		setFrames(getFrames());
 	};
@@ -108,6 +118,7 @@ export const PixadayCoreProvider = ({
 				frames,
 
 				addFrame,
+				deleteCurrentFrame,
 				selectFrame,
 				tool,
 				symmetryOption,
@@ -133,6 +144,7 @@ export const Canvas = () => {
 		tool,
 		frames,
 		addFrame,
+		deleteCurrentFrame,
 		selectFrame,
 		pickTool,
 		interactWithCurrentTool,
@@ -150,7 +162,14 @@ export const Canvas = () => {
 		if (!canvasEl) return;
 
 		const resize = (): void => {
-			if (!currentFrame) return;
+			if (!currentFrame) {
+				// 202504092185904 TODO:
+				// this fires once the last frame got deleted
+				// but the canvas keeps showing (you can't interact with it)
+				// an easy solution would be to just not render the canvas
+				// element when there's no currentFrame
+				return;
+			}
 
 			colorMatrixAsCanvas.setupScaling(
 				{
@@ -213,7 +232,8 @@ export const Canvas = () => {
 				id="toolbar"
 				className="w-max flex flex-col p-0.5 gap-[10px] rounded-[10px] bg-gray-300"
 			>
-				{[...canvas.getAvailableTools(), 'new frame']
+				{canvas
+					.getToolbarSectionItems()
 					.map((tool) => {
 						if (tool === 'pincel')
 							return {
@@ -240,23 +260,54 @@ export const Canvas = () => {
 								},
 							};
 						}
+						if (tool === 'add_new_frame') {
+							return {
+								tool,
+								icon: PixadayNewFrame,
+								action: () => {
+									addFrame();
+								},
+							};
+						}
+						if (tool === 'delete_frame') {
+							return {
+								tool,
+								icon: PixadayDeleteFrame,
+								action: () => {
+									deleteCurrentFrame();
+								},
+							};
+						}
+						if (tool === 'export') {
+							return {
+								tool,
+								icon: PixadayExport,
+								action: () => {
+									const canvasEl = canvasRef.current;
+									if (!canvasEl) return;
+									colorMatrixAsCanvas.exportAsPng({
+										element: canvasEl,
+									});
+								},
+							};
+						}
 
-						return {
-							tool,
-							icon: PixadayFrame,
-							action: () => {
-								addFrame();
-							},
-						};
+						return null;
 					})
-					.map(({ tool, action, icon }) => {
+					.map((item) => {
+						if (!item) return;
+						const { tool, icon, action } = item;
 						return (
 							<button
 								key={tool}
 								onClick={action}
 								className="cursor-pointer"
 							>
-								<img className="w-10 h-10" src={icon} />
+								<img
+									className="w-12 h-12"
+									src={icon}
+									alt={tool}
+								/>
 							</button>
 						);
 					})}

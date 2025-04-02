@@ -1,4 +1,10 @@
-import { COLORS, COLOR_MATRIX_TOOLS, SYMMETRY_OPTIONS } from './consts';
+import {
+	ALL_TOOLS,
+	CANVAS_TOOLS,
+	COLOR_MATRIX_TOOLS,
+	FRAMER_TOOLS,
+	SYMMETRY_OPTIONS,
+} from './consts';
 
 /* Starts: Utils */
 
@@ -28,6 +34,12 @@ type RGBA = {
 type Color = string;
 
 type ColorMatrixTool = (typeof COLOR_MATRIX_TOOLS)[number];
+
+type FramerTool = (typeof FRAMER_TOOLS)[number];
+
+type CanvasTool = (typeof CANVAS_TOOLS)[number];
+
+type Tool = (typeof ALL_TOOLS)[number];
 
 type SymmetryOption = (typeof SYMMETRY_OPTIONS)[number];
 
@@ -69,6 +81,9 @@ export type {
 	RGBA,
 	Color,
 	ColorMatrixTool,
+	FramerTool,
+	CanvasTool,
+	Tool,
 	SymmetryOption,
 	ColorMatrixCell,
 	ColorMatrix,
