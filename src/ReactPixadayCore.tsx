@@ -162,14 +162,7 @@ export const Canvas = () => {
 		if (!canvasEl) return;
 
 		const resize = (): void => {
-			if (!currentFrame) {
-				// 202504092185904 TODO:
-				// this fires once the last frame got deleted
-				// but the canvas keeps showing (you can't interact with it)
-				// an easy solution would be to just not render the canvas
-				// element when there's no currentFrame
-				return;
-			}
+			if (!currentFrame) return;
 
 			colorMatrixAsCanvas.setupScaling(
 				{
@@ -320,10 +313,12 @@ export const Canvas = () => {
 					id="canvas"
 					className="w-full h-full bg-gray-800 grid place-items-center overflow-hidden"
 				>
-					<canvas
-						ref={canvasRef}
-						className="block cursor-pointer outline outline-white"
-					/>
+					{currentFrame && (
+						<canvas
+							ref={canvasRef}
+							className="block cursor-pointer outline outline-white"
+						/>
+					)}
 				</div>
 				<div id="frames" className="bg-gray-300 rounded-[10px]">
 					{frames.map((frame) => (
