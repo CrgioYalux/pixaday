@@ -6,6 +6,7 @@ import type {
 	SymmetryOption,
 	ColorMatrix,
 	Tool,
+	Frame,
 } from './types';
 
 import {
@@ -191,7 +192,7 @@ class IFramer {
 		this.currentFrame = foundFrame;
 	}
 
-	public getFrames() {
+	public getFrames(): Frame[] {
 		return this.frames.map((frame) => ({
 			frame: frame.getMatrix(),
 			id: frame.getId(),
@@ -199,6 +200,7 @@ class IFramer {
 	}
 
 	public getCurrentFrame() {
+		if (!this.currentFrame) return null;
 		return this.currentFrame;
 	}
 

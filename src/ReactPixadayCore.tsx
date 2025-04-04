@@ -12,6 +12,7 @@ import type {
 	Color,
 	ColorMatrix,
 	ColorMatrixTool,
+	Frame,
 	ID,
 	RGBA,
 	SymmetryOption,
@@ -27,10 +28,12 @@ import PixadayEraser from './assets/Eraser.png';
 import PixadayNewFrame from './assets/NewFrame.png';
 import PixadayDeleteFrame from './assets/DeleteFrame.png';
 import PixadayExport from './assets/Export.png';
+import FramePreview from './FramePreview';
+import Framer from './Framer';
 
 type IPixadayCoreContext = {
 	canvas: ICanvas;
-	currentFrame: IColorMatrix | null;
+	currentFrame: Frame | null;
 	frames: { frame: ColorMatrix; id: ID }[];
 	tool: ColorMatrixTool;
 	symmetryOption: SymmetryOption;
@@ -114,7 +117,12 @@ export const PixadayCoreProvider = ({
 		<PixadayCoreContext.Provider
 			value={{
 				canvas,
-				currentFrame,
+				currentFrame: !currentFrame
+					? null
+					: {
+							frame: currentFrame.getMatrix(),
+							id: currentFrame.getId(),
+						},
 				frames,
 
 				addFrame,
@@ -174,7 +182,7 @@ export const Canvas = () => {
 
 			colorMatrixAsCanvas.drawColorMatrix(
 				{ element: canvasEl, size: canvas.getDefaults().frameSize },
-				currentFrame?.getMatrix(),
+				currentFrame?.frame,
 				canvas.getDefaults().cellSize
 			);
 		};
@@ -320,19 +328,12 @@ export const Canvas = () => {
 						/>
 					)}
 				</div>
-				<div id="frames" className="bg-gray-300 rounded-[10px]">
-					{frames.map((frame) => (
-						<div
-							key={frame.id}
-							onClick={() => {
-								selectFrame(frame.id);
-							}}
-						>
-							Frame: {frame.id}
-						</div>
-					))}
-					{/*<ColorMatrixPreview />*/}
-				</div>
+				<Framer
+					frames={frames}
+					currentFrame={currentFrame}
+					selectFrame={selectFrame}
+					deps={[frames.length, currentFrame?.id]}
+				/>
 			</div>
 			<div id="options" className="h-full bg-gray-300 rounded-[10px]">
 				<RgbaColorPicker color={color} onChange={setColor} />

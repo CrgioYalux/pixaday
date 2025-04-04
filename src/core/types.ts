@@ -72,6 +72,11 @@ type ColorMatrixConstructorProps = {
 	size: number | TwoDimensionalSize;
 };
 
+type Frame = {
+	frame: ColorMatrix;
+	id: ID;
+};
+
 /* Ends: API */
 
 export type {
@@ -89,4 +94,5 @@ export type {
 	ColorMatrix,
 	ColorMatrixActions,
 	ColorMatrixConstructorProps,
+	Frame,
 };
