@@ -10,6 +10,20 @@ type ICanvas = {
 	size: TwoDimensionalSize;
 };
 
+// 202504093232208 TODO
+// https://chatgpt.com/c/67ef248e-77c0-8009-975c-2d7bbebc2d28
+// using gif.js is not an option
+// There's appartently two newer alternatives: omggif and gif-encoder-2
+// Those two allow me to only care about going from canvas to pixels,
+// to pass to the encoder. The hard alternative would be to write my own
+// encoder and I don't really know where to start with that. Could be fun tho.
+// Will research more and find a solution.
+// To be honest, there's so much more stuff I want to do with this project, that
+// stopping this much in a single feature-even as maybe important as the export as
+// gif is-might not be that worth it. In the future, I could have a backend, and
+// some service to which i could pass the images in a request and just get back
+// the video/gif, in whatever format I want
+
 export default class {
 	public static setupScaling(canvas: ICanvas, cellSize: number = 10): void {
 		const ctx = canvas.element.getContext('2d');
@@ -102,4 +116,6 @@ export default class {
 		link.download = `${filename}.png`;
 		link.click();
 	}
+
+	public static exportAsGif(): void {}
 }
