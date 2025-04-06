@@ -366,6 +366,18 @@ export const Canvas = () => {
 			</div>
 			<div id="options" className="h-full bg-gray-300 rounded-[10px]">
 				<RgbaColorPicker color={color} onChange={setColor} />
+				<div>
+					{/*
+                    TODO 202504096135123
+                    do something similar to what was done for the tools
+                    map over the options and act accordingly to each
+                */}
+					{canvas
+						.getCustomizationSectionItems()
+						[tool].map((option) => (
+							<div>{JSON.stringify(option, null, 2)}</div>
+						))}
+				</div>
 			</div>
 		</div>
 	);

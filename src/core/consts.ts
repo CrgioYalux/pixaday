@@ -19,6 +19,7 @@ const SYMMETRY_OPTIONS = [
 	'custom',
 	'none',
 ] as const;
+const ALL_TOOLS_OPTIONS = [...SYMMETRY_OPTIONS] as const;
 
 export {
 	COLOR_MATRIX_TOOLS,
@@ -26,4 +27,5 @@ export {
 	FRAMER_TOOLS,
 	CANVAS_TOOLS,
 	ALL_TOOLS,
+	ALL_TOOLS_OPTIONS,
 };

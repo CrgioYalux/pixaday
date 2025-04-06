@@ -1,5 +1,6 @@
 import {
 	ALL_TOOLS,
+	ALL_TOOLS_OPTIONS,
 	CANVAS_TOOLS,
 	COLOR_MATRIX_TOOLS,
 	FRAMER_TOOLS,
@@ -42,6 +43,8 @@ type CanvasTool = (typeof CANVAS_TOOLS)[number];
 type Tool = (typeof ALL_TOOLS)[number];
 
 type SymmetryOption = (typeof SYMMETRY_OPTIONS)[number];
+
+type ToolOption = (typeof ALL_TOOLS_OPTIONS)[number];
 
 /* Ends: Consts */
 
@@ -90,6 +93,7 @@ export type {
 	CanvasTool,
 	Tool,
 	SymmetryOption,
+	ToolOption,
 	ColorMatrixCell,
 	ColorMatrix,
 	ColorMatrixActions,

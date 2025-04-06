@@ -4,6 +4,8 @@ import type {
 	ID,
 	Color,
 	SymmetryOption,
+	ColorMatrixTool,
+	ToolOption,
 	ColorMatrix,
 	Tool,
 	Frame,
@@ -138,8 +140,16 @@ class IColorMatrix {
 		return COLOR_MATRIX_TOOLS;
 	}
 
-	static getAvailableSymmetryOptions() {
-		return SYMMETRY_OPTIONS;
+	static getAvailableToolsOptions(): Record<
+		Readonly<ColorMatrixTool>,
+		Readonly<ToolOption[]>
+	> {
+		return {
+			pincel: SYMMETRY_OPTIONS,
+			eraser: SYMMETRY_OPTIONS,
+			bucket: [],
+			eyedropper: [],
+		};
 	}
 }
 
@@ -265,9 +275,6 @@ class ICanvas {
 			// from ICanvas
 			// - zoom in/out
 			// - move over the canvas
-			// from IFramer
-			// - create new frame
-			// - delete frame
 			//
 			// 202504091234847
 			// Maybe each Class should have a static method, getAvailableTools()
@@ -277,10 +284,26 @@ class ICanvas {
 		].filter((item) => !notSupposedToGoInToolbarSection.includes(item));
 	}
 
-	public getCustomizationSectionItems() {}
+	public getCustomizationSectionItems() {
+		const all = [
+			...Object.entries(IColorMatrix.getAvailableToolsOptions()),
+		] as [Readonly<Tool>, Readonly<ToolOption[]>][];
 
-	public getAvailableSymmetryOptions() {
-		return IColorMatrix.getAvailableSymmetryOptions();
+		const obj: Record<Readonly<Tool>, Readonly<ToolOption[]>> = {
+			pincel: [],
+			bucket: [],
+			eraser: [],
+			eyedropper: [],
+			add_new_frame: [],
+			delete_frame: [],
+			select_frame: [],
+			export: [],
+		};
+		for (const pair of all) {
+			obj[pair[0]] = pair[1];
+		}
+
+		return obj;
 	}
 }
 
