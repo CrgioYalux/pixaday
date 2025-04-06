@@ -6,20 +6,20 @@ type OptionsSectionProps = {
 	onClicks: Partial<
 		Record<ToolOption, () => void> & Record<'color', (color: RGBA) => void>
 	>;
-	currentColor: RGBA;
+	color: RGBA;
 	currentTool: Tool;
 };
 
 const OptionsSection = ({
 	options,
 	onClicks,
-	currentColor,
+	color,
 	currentTool,
 }: OptionsSectionProps) => {
 	return (
 		<div id="options" className="h-full bg-gray-300 rounded-[10px]">
 			<RgbaColorPicker
-				color={currentColor}
+				color={color}
 				onChange={(color) => onClicks['color']?.(color)}
 			/>
 
