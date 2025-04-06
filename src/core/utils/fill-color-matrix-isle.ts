@@ -6,6 +6,7 @@ import type {
 } from '../types';
 
 import cloneColorMatrix from './clone-color-matrix';
+import stringToRgba from './string-to-rgba';
 
 function walk({
 	base,
@@ -26,7 +27,11 @@ function walk({
 	for (let i = 0; i < height; i++) {
 		for (let j = 0; j < width; j++) {
 			if (i === position.y && j === position.x) {
-				if (base[i][j].value === color) {
+				const cellsHaveZeroAlphaValue =
+					stringToRgba(base[i][j].value).a === 0 &&
+					stringToRgba(color).a === 0;
+
+				if (base[i][j].value === color || cellsHaveZeroAlphaValue) {
 					if (visited.find((v) => v.id === base[i][j].id)) return;
 
 					visited.push(base[i][j]);

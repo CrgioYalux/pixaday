@@ -96,20 +96,6 @@ class IColorMatrix {
 	}
 
 	public fill(position: TwoDimensionalPoint, color: Color) {
-		// 202504092175023 TODO:
-		// because fill uses the colors of the cells
-		// to define islands to know where to paint
-		// and where not, all possible rgba colors
-		// with an alpha value of 0 are treated as
-		// different in the current logic of this,
-		// whereas in reality they all have the same
-		// effect: transparency
-		// so i need to add a check in the function
-		// below: if the cell color is rgba, and the
-		// alplha value is 0, treat them all as the
-		// same; if the alpha value is not 0, then
-		// keep it as it is
-
 		this.matrix = fillColorMatrixIsle({
 			base: this.matrix,
 			position,
