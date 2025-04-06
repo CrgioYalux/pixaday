@@ -1,5 +1,5 @@
 const COLOR_MATRIX_TOOLS = [
-	'pincel',
+	'pencil',
 	'bucket',
 	'eraser',
 	'eyedropper',

@@ -145,7 +145,7 @@ class IColorMatrix {
 		Readonly<ToolOption[]>
 	> {
 		return {
-			pincel: SYMMETRY_OPTIONS,
+			pencil: SYMMETRY_OPTIONS,
 			eraser: SYMMETRY_OPTIONS,
 			bucket: [],
 			eyedropper: [],
@@ -290,7 +290,7 @@ class ICanvas {
 		] as [Readonly<Tool>, Readonly<ToolOption[]>][];
 
 		const obj: Record<Readonly<Tool>, Readonly<ToolOption[]>> = {
-			pincel: [],
+			pencil: [],
 			bucket: [],
 			eraser: [],
 			eyedropper: [],

@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import { RgbaColorPicker } from 'react-colorful';
 
-import { ICanvas, IColorMatrix } from './core/pixaday-core';
 import type {
 	Color,
 	ColorMatrix,
@@ -19,18 +18,14 @@ import type {
 	TwoDimensionalPoint,
 } from './core/types';
 
+import { ICanvas, IColorMatrix } from './core/pixaday-core';
+
 import colorMatrixAsCanvas from './core/utils/color-matrix-as-canvas';
 import rgbaToString from './core/utils/rgba-to-string';
 import stringToRgba from './core/utils/string-to-rgba';
 
-import PixadayBucket from './assets/Bucket.png';
-import PixadayPencil from './assets/Pencil.png';
-import PixadayEraser from './assets/Eraser.png';
-import PixadayNewFrame from './assets/NewFrame.png';
-import PixadayDeleteFrame from './assets/DeleteFrame.png';
-import PixadayExport from './assets/Export.png';
-import PixadayEyedropper from './assets/Eyedropper.png';
 import Framer from './Framer';
+import ToolsSection from './ToolsSection';
 
 type InteractWithCurrentToolCallback = (result: {
 	tool: 'eyedropper';
@@ -72,7 +67,7 @@ export const PixadayCoreProvider = ({
 	);
 	const [frames, setFrames] = useState<{ frame: ColorMatrix; id: ID }[]>([]);
 	const [currentFrame, setCurrentFrame] = useState<IColorMatrix | null>(null);
-	const [tool, setTool] = useState<ColorMatrixTool>('pincel');
+	const [tool, setTool] = useState<ColorMatrixTool>('pencil');
 	const [symmetryOption, setSymmetryOption] =
 		useState<SymmetryOption>('none');
 
@@ -113,7 +108,7 @@ export const PixadayCoreProvider = ({
 		color: Color,
 		cb?: (result: { tool: 'eyedropper'; value: string }) => void
 	) => {
-		if (tool === 'pincel')
+		if (tool === 'pencil')
 			currentFrame?.paint(position, color, symmetryOption);
 		if (tool === 'bucket') currentFrame?.fill(position, color);
 		if (tool === 'eraser') currentFrame?.erase(position, symmetryOption);
@@ -249,99 +244,24 @@ export const Canvas = () => {
 
 	return (
 		<div className="h-screen w-screen overflow-hidden grid p-[20px] gap-[20px] grid-cols-[max-content_1fr_200px] ">
-			<div
-				id="toolbar"
-				className="w-max flex flex-col p-0.5 gap-[10px] rounded-[10px] bg-gray-300"
-			>
-				{canvas
-					.getToolbarSectionItems()
-					.map((tool) => {
-						if (tool === 'pincel')
-							return {
-								tool,
-								icon: PixadayPencil,
-								action: () => {
-									pickTool(tool);
-								},
-							};
-						if (tool === 'bucket')
-							return {
-								tool,
-								icon: PixadayBucket,
-								action: () => {
-									pickTool(tool);
-								},
-							};
-						if (tool === 'eraser') {
-							return {
-								tool,
-								icon: PixadayEraser,
-								action: () => {
-									pickTool(tool);
-								},
-							};
-						}
-						if (tool === 'eyedropper') {
-							return {
-								tool,
-								icon: PixadayEyedropper,
-								action: () => {
-									pickTool(tool);
-								},
-							};
-						}
-						if (tool === 'add_new_frame') {
-							return {
-								tool,
-								icon: PixadayNewFrame,
-								action: () => {
-									addFrame();
-								},
-							};
-						}
-						if (tool === 'delete_frame') {
-							return {
-								tool,
-								icon: PixadayDeleteFrame,
-								action: () => {
-									deleteCurrentFrame();
-								},
-							};
-						}
-						if (tool === 'export') {
-							return {
-								tool,
-								icon: PixadayExport,
-								action: () => {
-									const canvasEl = canvasRef.current;
-									if (!canvasEl) return;
-									colorMatrixAsCanvas.exportAsPng({
-										element: canvasEl,
-									});
-								},
-							};
-						}
-
-						return null;
-					})
-					.map((item) => {
-						if (!item) return;
-						const { tool, icon, action } = item;
-						return (
-							<button
-								key={tool}
-								onClick={action}
-								className="cursor-pointer"
-							>
-								<img
-									className="w-12 h-12"
-									src={icon}
-									alt={tool}
-								/>
-							</button>
-						);
-					})}
-			</div>
+			<ToolsSection
+				tools={canvas.getToolbarSectionItems()}
+				onClicks={{
+					pencil: () => pickTool('pencil'),
+					bucket: () => pickTool('bucket'),
+					eraser: () => pickTool('eraser'),
+					eyedropper: () => pickTool('eyedropper'),
+					add_new_frame: () => addFrame(),
+					delete_frame: () => deleteCurrentFrame(),
+					export: () => {
+						const canvasEl = canvasRef.current;
+						if (!canvasEl) return;
+						colorMatrixAsCanvas.exportAsPng({
+							element: canvasEl,
+						});
+					},
+				}}
+			/>
 			<div
 				id="framer"
 				className="w-full h-full grid grid-rows-[1fr_100px] gap-[10px] overflow-hidden"
@@ -375,7 +295,9 @@ export const Canvas = () => {
 					{canvas
 						.getCustomizationSectionItems()
 						[tool].map((option) => (
-							<div>{JSON.stringify(option, null, 2)}</div>
+							<div key={option}>
+								{JSON.stringify(option, null, 2)}
+							</div>
 						))}
 				</div>
 			</div>
