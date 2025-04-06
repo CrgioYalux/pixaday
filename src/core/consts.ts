@@ -1,4 +1,9 @@
-const COLOR_MATRIX_TOOLS = ['pincel', 'bucket', 'eraser'] as const;
+const COLOR_MATRIX_TOOLS = [
+	'pincel',
+	'bucket',
+	'eraser',
+	'eyedropper',
+] as const;
 const FRAMER_TOOLS = ['add_new_frame', 'delete_frame', 'select_frame'] as const;
 const CANVAS_TOOLS = ['export'] as const;
 const ALL_TOOLS = [

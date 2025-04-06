@@ -21,6 +21,7 @@ import type {
 
 import colorMatrixAsCanvas from './core/utils/color-matrix-as-canvas';
 import rgbaToString from './core/utils/rgba-to-string';
+import stringToRgba from './core/utils/string-to-rgba';
 
 import PixadayBucket from './assets/Bucket.png';
 import PixadayPencil from './assets/Pencil.png';
@@ -28,8 +29,13 @@ import PixadayEraser from './assets/Eraser.png';
 import PixadayNewFrame from './assets/NewFrame.png';
 import PixadayDeleteFrame from './assets/DeleteFrame.png';
 import PixadayExport from './assets/Export.png';
-import FramePreview from './FramePreview';
+import PixadayEyedropper from './assets/Eyedropper.png';
 import Framer from './Framer';
+
+type InteractWithCurrentToolCallback = (result: {
+	tool: 'eyedropper';
+	value: string;
+}) => void;
 
 type IPixadayCoreContext = {
 	canvas: ICanvas;
@@ -47,9 +53,11 @@ type IPixadayCoreContext = {
 
 	interactWithCurrentTool: (
 		position: TwoDimensionalPoint,
-		color: Color
+		color: Color,
+		cb?: InteractWithCurrentToolCallback
 	) => void;
 };
+
 const PixadayCoreContext = createContext<IPixadayCoreContext>(
 	{} as IPixadayCoreContext
 );
@@ -102,12 +110,18 @@ export const PixadayCoreProvider = ({
 
 	const interactWithCurrentTool = (
 		position: TwoDimensionalPoint,
-		color: Color
+		color: Color,
+		cb?: (result: { tool: 'eyedropper'; value: string }) => void
 	) => {
 		if (tool === 'pincel')
 			currentFrame?.paint(position, color, symmetryOption);
 		if (tool === 'bucket') currentFrame?.fill(position, color);
 		if (tool === 'eraser') currentFrame?.erase(position, symmetryOption);
+		if (tool === 'eyedropper') {
+			if (!currentFrame) return;
+			const color = currentFrame.sample(position);
+			cb?.({ tool: 'eyedropper', value: color });
+		}
 
 		setCurrentFrame(canvas.framer.getCurrentFrame());
 		setFrames(getFrames());
@@ -195,7 +209,13 @@ export const Canvas = () => {
 					canvas.getDefaults().cellSize
 				);
 
-			interactWithCurrentTool(position, colorAsStr);
+			const cb: InteractWithCurrentToolCallback = (result) => {
+				if (result.tool === 'eyedropper') {
+					setColor(stringToRgba(result.value));
+				}
+			};
+
+			interactWithCurrentTool(position, colorAsStr, cb);
 		};
 
 		const onMouseDown = (event: MouseEvent): void => {
@@ -256,6 +276,15 @@ export const Canvas = () => {
 							return {
 								tool,
 								icon: PixadayEraser,
+								action: () => {
+									pickTool(tool);
+								},
+							};
+						}
+						if (tool === 'eyedropper') {
+							return {
+								tool,
+								icon: PixadayEyedropper,
 								action: () => {
 									pickTool(tool);
 								},

@@ -22,6 +22,7 @@ import cloneColorMatrix from './utils/clone-color-matrix';
 import createColorMatrix from './utils/create-color-matrix';
 import fillColorMatrixIsle from './utils/fill-color-matrix-isle';
 import paintColorMatrixCell from './utils/paint-color-matrix-cell';
+import getColorMatrixCellColor from './utils/get-color-matrix-cell-color';
 
 class IColorMatrix {
 	private id: ID = Date.now();
@@ -132,6 +133,13 @@ class IColorMatrix {
 		});
 	}
 
+	public sample(position: TwoDimensionalPoint) {
+		return getColorMatrixCellColor({
+			base: this.matrix,
+			position,
+		});
+	}
+
 	public getMatrix() {
 		return this.matrix;
 	}
@@ -216,7 +224,7 @@ class IFramer {
 class ICanvas {
 	public readonly framer: IFramer;
 
-	private frameBackgroundColor: Color = 'white';
+	private frameBackgroundColor: Color = 'rgba(255,255,255,1)';
 	private frameSize: TwoDimensionalSize = isMobile()
 		? { width: 300, height: 300 } // 300 cells
 		: { width: 500, height: 500 }; // 500 cells
