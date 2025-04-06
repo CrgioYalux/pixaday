@@ -5,7 +5,6 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { RgbaColorPicker } from 'react-colorful';
 
 import type {
 	Color,
@@ -26,6 +25,7 @@ import stringToRgba from './core/utils/string-to-rgba';
 
 import Framer from './Framer';
 import ToolsSection from './ToolsSection';
+import OptionsSection from './OptionsSection';
 
 type InteractWithCurrentToolCallback = (result: {
 	tool: 'eyedropper';
@@ -164,6 +164,7 @@ export const Canvas = () => {
 		deleteCurrentFrame,
 		selectFrame,
 		pickTool,
+		pickSymmetryOption,
 		interactWithCurrentTool,
 	} = usePixadayCore();
 
@@ -284,23 +285,20 @@ export const Canvas = () => {
 					deps={[frames.length, currentFrame?.id]}
 				/>
 			</div>
-			<div id="options" className="h-full bg-gray-300 rounded-[10px]">
-				<RgbaColorPicker color={color} onChange={setColor} />
-				<div>
-					{/*
-                    TODO 202504096135123
-                    do something similar to what was done for the tools
-                    map over the options and act accordingly to each
-                */}
-					{canvas
-						.getCustomizationSectionItems()
-						[tool].map((option) => (
-							<div key={option}>
-								{JSON.stringify(option, null, 2)}
-							</div>
-						))}
-				</div>
-			</div>
+			<OptionsSection
+				options={canvas.getOptionsSectionItems()}
+				currentTool={tool}
+				color={color}
+				onClicks={{
+					color: (color) => setColor(color),
+					vertical: () => pickSymmetryOption('vertical'),
+					horizontal: () => pickSymmetryOption('horizontal'),
+					'diagonal-increasing': () =>
+						pickSymmetryOption('diagonal-increasing'),
+					'diagonal-decreasing': () =>
+						pickSymmetryOption('diagonal-decreasing'),
+				}}
+			/>
 		</div>
 	);
 };

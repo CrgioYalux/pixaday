@@ -9,6 +9,7 @@ import type {
 	ColorMatrix,
 	Tool,
 	Frame,
+	ToolAndOptions,
 } from './types';
 
 import {
@@ -284,12 +285,12 @@ class ICanvas {
 		].filter((item) => !notSupposedToGoInToolbarSection.includes(item));
 	}
 
-	public getCustomizationSectionItems() {
+	public getOptionsSectionItems(): ToolAndOptions {
 		const all = [
 			...Object.entries(IColorMatrix.getAvailableToolsOptions()),
 		] as [Readonly<Tool>, Readonly<ToolOption[]>][];
 
-		const obj: Record<Readonly<Tool>, Readonly<ToolOption[]>> = {
+		const obj: ToolAndOptions = {
 			pencil: [],
 			bucket: [],
 			eraser: [],

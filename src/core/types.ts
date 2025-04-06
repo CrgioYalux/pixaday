@@ -46,6 +46,8 @@ type SymmetryOption = (typeof SYMMETRY_OPTIONS)[number];
 
 type ToolOption = (typeof ALL_TOOLS_OPTIONS)[number];
 
+type ToolAndOptions = Record<Readonly<Tool>, Readonly<ToolOption[]>>;
+
 /* Ends: Consts */
 
 /* Starts: API */
@@ -94,6 +96,7 @@ export type {
 	Tool,
 	SymmetryOption,
 	ToolOption,
+	ToolAndOptions,
 	ColorMatrixCell,
 	ColorMatrix,
 	ColorMatrixActions,
