@@ -15,13 +15,13 @@ import type {
 	RGBA,
 	SymmetryOption,
 	TwoDimensionalPoint,
-} from './core/types';
+} from '@/core/types';
 
-import { ICanvas, IColorMatrix } from './core/pixaday-core';
+import { ICanvas, IColorMatrix } from '@/core/pixaday-core';
 
-import colorMatrixAsCanvas from './core/utils/color-matrix-as-canvas';
-import rgbaToString from './core/utils/rgba-to-string';
-import stringToRgba from './core/utils/string-to-rgba';
+import colorMatrixAsCanvas from '@/core/utils/color-matrix-as-canvas';
+import rgbaToString from '@/core/utils/rgba-to-string';
+import stringToRgba from '@/core/utils/string-to-rgba';
 
 import Framer from './Framer';
 import ToolsSection from './ToolsSection';

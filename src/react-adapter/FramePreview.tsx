@@ -1,6 +1,6 @@
 import { DependencyList, useEffect, useRef } from 'react';
-import { ColorMatrix, ID } from './core/types';
-import colorMatrixAsCanvas from './core/utils/color-matrix-as-canvas';
+import { ColorMatrix, ID } from '@/core/types';
+import colorMatrixAsCanvas from '@/core/utils/color-matrix-as-canvas';
 
 type FramePreviewProps = {
 	id: ID;

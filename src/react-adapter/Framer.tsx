@@ -1,5 +1,5 @@
 import type { DependencyList } from 'react';
-import type { Frame, ID } from './core/types';
+import type { Frame, ID } from '@/core/types';
 
 import FramePreview from './FramePreview';
 

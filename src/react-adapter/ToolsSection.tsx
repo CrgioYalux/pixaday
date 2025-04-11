@@ -1,12 +1,12 @@
-import PixadayBucket from './assets/Bucket.png';
-import PixadayPencil from './assets/Pencil.png';
-import PixadayEraser from './assets/Eraser.png';
-import PixadayNewFrame from './assets/NewFrame.png';
-import PixadayDeleteFrame from './assets/DeleteFrame.png';
-import PixadayExport from './assets/Export.png';
-import PixadayEyedropper from './assets/Eyedropper.png';
+import PixadayBucket from '../assets/Bucket.png';
+import PixadayPencil from '../assets/Pencil.png';
+import PixadayEraser from '../assets/Eraser.png';
+import PixadayNewFrame from '../assets/NewFrame.png';
+import PixadayDeleteFrame from '../assets/DeleteFrame.png';
+import PixadayExport from '../assets/Export.png';
+import PixadayEyedropper from '../assets/Eyedropper.png';
 
-import type { Tool } from './core/types';
+import type { Tool } from '@/core/types';
 import { Fragment } from 'react/jsx-runtime';
 
 type ToolsSectionProps = {

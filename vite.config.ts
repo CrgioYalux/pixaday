@@ -13,33 +13,20 @@ export default defineConfig({
 				replacement: path.resolve(__dirname, 'src/utils'),
 			},
 			{
+				find: '@/types',
+				replacement: path.resolve(__dirname, 'src/modules/types.ts'),
+			},
+			{
 				find: '@/components',
 				replacement: path.resolve(__dirname, 'src/components'),
 			},
 			{
-				find: '@/color-palette',
-				replacement: path.resolve(
-					__dirname,
-					'src/modules/color-palette'
-				),
+				find: '@/core',
+				replacement: path.resolve(__dirname, 'src/core'),
 			},
 			{
-				find: '@/color-matrix',
-				replacement: path.resolve(
-					__dirname,
-					'src/modules/color-matrix'
-				),
-			},
-			{
-				find: '@/color-matrix-tools',
-				replacement: path.resolve(
-					__dirname,
-					'src/modules/color-matrix-tools'
-				),
-			},
-			{
-				find: '@/framing',
-				replacement: path.resolve(__dirname, 'src/modules/framing'),
+				find: '@/react-adapter',
+				replacement: path.resolve(__dirname, 'src/react-adapter'),
 			},
 		],
 	},

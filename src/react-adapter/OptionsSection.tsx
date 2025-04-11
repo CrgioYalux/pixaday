@@ -1,5 +1,5 @@
 import { RgbaColorPicker } from 'react-colorful';
-import { RGBA, Tool, ToolAndOptions, ToolOption } from './core/types';
+import { RGBA, Tool, ToolAndOptions, ToolOption } from '@/core/types';
 
 type OptionsSectionProps = {
 	options: ToolAndOptions;
