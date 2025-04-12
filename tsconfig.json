@@ -19,12 +19,11 @@
 
 		"baseUrl": "./",
 		"paths": {
-			"@/utils/*": ["src/utils/*"],
+			"@/core/*": ["src/core/*"],
+			"@/react-adapter/*": ["src/core/*"],
 			"@/components/*": ["src/components/*"],
-			"@/color-palette/*": ["src/modules/color-palette/*"],
-			"@/color-matrix/*": ["src/modules/color-matrix/*"],
-			"@/color-matrix-tools/*": ["src/modules/color-matrix-tools/*"],
-			"@/framing/*": ["src/modules/framing/*"]
+			"@/utils/*": ["src/utils/*"],
+			"@/types": ["src/modules/types.ts"]
 		}
 	},
 	"include": ["src"],
