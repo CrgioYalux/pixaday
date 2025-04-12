@@ -1,5 +1,12 @@
 import { RgbaColorPicker } from 'react-colorful';
-import { RGBA, Tool, ToolAndOptions, ToolOption } from '@/core/types';
+import {
+	RGBA,
+	SymmetryOption,
+	Tool,
+	ToolAndOptions,
+	ToolOption,
+} from '@/core/types';
+import SymmetryOptionSelector from '@/components/SymmetryOptionSelector';
 
 type OptionsSectionProps = {
 	options: ToolAndOptions;
@@ -8,6 +15,7 @@ type OptionsSectionProps = {
 	>;
 	color: RGBA;
 	currentTool: Tool;
+	symmetryOption: SymmetryOption;
 };
 
 const OptionsSection = ({
@@ -15,7 +23,10 @@ const OptionsSection = ({
 	onClicks,
 	color,
 	currentTool,
+	symmetryOption,
 }: OptionsSectionProps) => {
+	const symmetryUsingTools: Tool[] = ['pencil', 'eraser'];
+
 	return (
 		<div id="options" className="h-full bg-gray-300 rounded-[10px]">
 			<RgbaColorPicker
@@ -24,15 +35,14 @@ const OptionsSection = ({
 			/>
 
 			<div className="flex flex-col">
-				{options[currentTool].map((option) => (
-					<button
-						className={`text-black w-full border-b border-current`}
-						key={option}
-						onClick={() => onClicks[option]?.()}
-					>
-						{option}
-					</button>
-				))}
+				{symmetryUsingTools.includes(currentTool) && (
+					<SymmetryOptionSelector
+						value={symmetryOption}
+						onChange={(value) => {
+							onClicks[value]?.();
+						}}
+					/>
+				)}
 			</div>
 		</div>
 	);

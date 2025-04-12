@@ -160,6 +160,7 @@ export const Canvas = () => {
 		currentFrame,
 		tool,
 		frames,
+		symmetryOption,
 		addFrame,
 		deleteCurrentFrame,
 		selectFrame,
@@ -286,6 +287,7 @@ export const Canvas = () => {
 				/>
 			</div>
 			<OptionsSection
+				symmetryOption={symmetryOption}
 				options={canvas.getOptionsSectionItems()}
 				currentTool={tool}
 				color={color}
