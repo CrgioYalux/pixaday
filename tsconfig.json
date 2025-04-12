@@ -22,6 +22,7 @@
 			"@/core/*": ["src/core/*"],
 			"@/react-adapter/*": ["src/core/*"],
 			"@/components/*": ["src/components/*"],
+			"@/utils/*": ["src/utils/*"],
 			"@/types": ["src/modules/types.ts"]
 		}
 	},
